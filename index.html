@@ -1,534 +1,851 @@
 <!DOCTYPE html>
-<html lang="th">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ME Reference Hub</title></head>
-<body>
-<h2 class="sr-only">ME Engineering Reference Hub — สูตร, standards, และเครื่องมือคำนวณสำหรับวิศวกรเครื่องกล</h2>
-
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ME Solid Mechanics Hub</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font-sans); }
-.hub { padding: 1rem 0; }
-.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
-.tab { padding: 6px 14px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 13px; cursor: pointer; background: var(--color-background-primary); color: var(--color-text-secondary); transition: all .15s; }
-.tab.active { background: var(--color-text-primary); color: var(--color-background-primary); border-color: var(--color-text-primary); }
-.tab:hover:not(.active) { background: var(--color-background-secondary); }
-.panel { display: none; }
-.panel.active { display: block; }
-.section-title { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; color: var(--color-text-tertiary); margin: 1.25rem 0 .6rem; }
-.formula-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
-.formula-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; }
-.formula-card:hover { border-color: var(--color-border-secondary); }
-.formula-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
-.formula-eq { font-family: var(--font-mono); font-size: 13px; color: #1D9E75; background: var(--color-background-secondary); border-radius: 6px; padding: 6px 10px; margin: 6px 0; }
-.formula-vars { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
-.std-list { display: flex; flex-direction: column; gap: 8px; }
-.std-item { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px; }
-.std-badge { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; }
-.std-desc { font-size: 13px; color: var(--color-text-secondary); margin-top: 2px; line-height: 1.5; }
-.std-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
-.std-link { font-size: 12px; color: var(--color-text-info); cursor: pointer; text-decoration: none; }
-.calc-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-.calc-box { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 16px; }
-.calc-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 0.5px solid var(--color-border-tertiary); }
-.field-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-.field-label { font-size: 12px; color: var(--color-text-secondary); min-width: 90px; }
-.field-unit { font-size: 12px; color: var(--color-text-tertiary); min-width: 36px; }
-.field-input { flex: 1; padding: 5px 8px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 13px; background: var(--color-background-secondary); color: var(--color-text-primary); font-family: var(--font-mono); }
-.calc-btn { width: 100%; margin-top: 8px; padding: 7px; font-size: 13px; cursor: pointer; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-primary); font-family: var(--font-sans); transition: all .15s; }
-.calc-btn:hover { background: var(--color-text-primary); color: var(--color-background-primary); }
-.result-box { margin-top: 10px; padding: 8px 12px; border-radius: var(--border-radius-md); background: var(--color-background-secondary); border-left: 2px solid #1D9E75; font-family: var(--font-mono); font-size: 13px; color: var(--color-text-primary); display: none; }
-.table-wrap { overflow-x: auto; }
-table.ref { width: 100%; border-collapse: collapse; font-size: 13px; }
-table.ref th { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); text-align: left; padding: 6px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); white-space: nowrap; }
-table.ref td { padding: 7px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); color: var(--color-text-secondary); vertical-align: top; }
-table.ref tr:last-child td { border-bottom: none; }
-table.ref td:first-child { color: var(--color-text-primary); font-weight: 500; }
-.ref-tag { display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 4px; vertical-align: middle; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh}
+header{background:#0d1b2a;color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:16px;font-weight:600}
+.unit-toggle{display:flex;background:#1e2d40;border-radius:7px;overflow:hidden}
+.unit-toggle button{padding:5px 14px;border:none;background:transparent;color:#8a9bb0;font-size:12px;cursor:pointer;transition:all .2s}
+.unit-toggle button.active{background:#2563eb;color:#fff;font-weight:600}
+nav{background:#fff;border-bottom:1px solid #e2e8f0;display:flex;gap:0;overflow-x:auto;padding:0 16px;position:sticky;top:49px;z-index:99}
+.nav-tab{padding:11px 16px;border:none;background:transparent;color:#64748b;font-size:12.5px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s}
+.nav-tab.active{color:#2563eb;border-bottom-color:#2563eb;font-weight:600}
+.nav-tab:hover:not(.active){color:#1e293b;background:#f8fafc}
+main{max-width:1120px;margin:0 auto;padding:20px 14px}
+.panel{display:none}.panel.active{display:block}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(500px,1fr));gap:18px}
+.calc-card{background:#fff;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden}
+.calc-header{background:#f8fafc;padding:12px 16px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between}
+.calc-title{font-size:13.5px;font-weight:600;color:#0f172a}
+.std-badge{font-size:11px;padding:2px 8px;border-radius:4px;background:#dbeafe;color:#1d4ed8;font-weight:600}
+.calc-body{padding:16px}
+.field-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.field-label{font-size:12px;color:#475569;min-width:155px;flex-shrink:0}
+.field-input{flex:1;padding:6px 9px;border:1px solid #cbd5e1;border-radius:6px;font-size:12.5px;font-family:monospace;background:#fafafa;color:#0f172a}
+.field-input:focus{outline:none;border-color:#2563eb;background:#fff}
+select.field-input{cursor:pointer}
+.adv-btn{font-size:11.5px;color:#2563eb;cursor:pointer;border:none;background:none;padding:3px 0;margin-bottom:6px}
+.adv-section{display:none;border-top:1px dashed #e2e8f0;padding-top:8px;margin-top:4px}
+.adv-section.open{display:block}
+.field-unit{font-size:11.5px;color:#94a3b8;min-width:50px}
+.btn-row{display:flex;gap:8px;margin-top:8px}
+.calc-btn{flex:1;padding:8px;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:12.5px;font-weight:600;cursor:pointer;transition:background .15s}
+.calc-btn:hover{background:#1d4ed8}
+.clear-btn{padding:8px 14px;background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0;border-radius:7px;font-size:12.5px;cursor:pointer}
+.result-box{display:none;margin-top:12px;border-radius:8px;border:1px solid #bbf7d0;background:#f0fdf4;padding:11px 14px}
+.result-title{font-size:10.5px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}
+.result-row{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;border-bottom:1px solid #dcfce7;font-size:12.5px}
+.result-row:last-child{border-bottom:none}
+.result-key{color:#374151}
+.result-val{font-family:monospace;font-weight:600;color:#065f46}
+.result-warn{color:#b45309;font-weight:600}
+.eq-box{display:none;margin-top:9px;border-radius:8px;background:#f8fafc;border:1px solid #e2e8f0;padding:11px 14px}
+.eq-title{font-size:10.5px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}
+.eq-line{font-family:monospace;font-size:12px;color:#1e3a5f;background:#fff;border:1px solid #e2e8f0;border-radius:4px;padding:4px 9px;margin-bottom:4px}
+.eq-vars{font-size:11px;color:#64748b;line-height:1.7;margin-top:5px}
+.vis-box{display:none;margin-top:10px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px;text-align:center}
+canvas{display:block;margin:0 auto}
+.section-label{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin:20px 0 10px}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.formula-card{background:#fff;border:1px solid #e2e8f0;border-radius:9px;padding:13px}
+.formula-name{font-size:13px;font-weight:600;color:#0f172a;margin-bottom:5px}
+.formula-eq{font-family:monospace;font-size:12.5px;color:#1d4ed8;background:#eff6ff;border-radius:5px;padding:5px 9px;margin:5px 0}
+.formula-vars{font-size:11px;color:#64748b;line-height:1.7}
+.table-wrap{overflow-x:auto;margin-bottom:18px}
+table.ref{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border-radius:9px;overflow:hidden;border:1px solid #e2e8f0}
+table.ref th{background:#f1f5f9;font-size:11px;font-weight:600;color:#475569;text-align:left;padding:7px 11px;border-bottom:1px solid #e2e8f0;white-space:nowrap}
+table.ref td{padding:7px 11px;border-bottom:1px solid #f1f5f9;color:#374151;vertical-align:top}
+table.ref tr:last-child td{border-bottom:none}
+table.ref td:first-child{font-weight:600;color:#0f172a}
+@media(max-width:580px){.calc-grid{grid-template-columns:1fr}.field-label{min-width:120px}}
 </style>
-
-<div class="hub">
-<div class="tabs">
-  <div class="tab active" onclick="switchTab('formulas')"><i class="ti ti-math-function" aria-hidden="true"></i> สูตร & Equations</div>
-  <div class="tab" onclick="switchTab('calc')"><i class="ti ti-calculator" aria-hidden="true"></i> Calculator</div>
-  <div class="tab" onclick="switchTab('standards')"><i class="ti ti-certificate" aria-hidden="true"></i> Standards</div>
-  <div class="tab" onclick="switchTab('tables')"><i class="ti ti-table" aria-hidden="true"></i> ตาราง Properties</div>
-  <div class="tab" onclick="switchTab('links')"><i class="ti ti-link" aria-hidden="true"></i> แหล่งข้อมูล</div>
-</div>
-
-<!-- FORMULAS -->
-<div id="panel-formulas" class="panel active">
-  <div class="section-title">Mechanics of Materials</div>
-  <div class="formula-grid">
-    <div class="formula-card">
-      <div class="formula-name">Normal Stress</div>
-      <div class="formula-eq">σ = F / A</div>
-      <div class="formula-vars">σ = stress (Pa), F = force (N), A = area (m²)</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Shear Stress</div>
-      <div class="formula-eq">τ = V·Q / (I·t)</div>
-      <div class="formula-vars">V = shear force, Q = first moment, I = moment of inertia, t = width</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Bending Stress</div>
-      <div class="formula-eq">σ = M·c / I</div>
-      <div class="formula-vars">M = bending moment, c = distance from NA, I = second moment of area</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Hooke's Law</div>
-      <div class="formula-eq">σ = E·ε</div>
-      <div class="formula-vars">E = Young's modulus, ε = strain (dimensionless)</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">von Mises Criterion</div>
-      <div class="formula-eq">σ_vm = √(σ₁²-σ₁σ₂+σ₂²)</div>
-      <div class="formula-vars">σ₁, σ₂ = principal stresses; fail if σ_vm ≥ Sy</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Factor of Safety</div>
-      <div class="formula-eq">n = Sy / σ_allow</div>
-      <div class="formula-vars">Sy = yield strength, σ_allow = allowable stress</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Euler Column Buckling</div>
-      <div class="formula-eq">P_cr = π²EI / (KL)²</div>
-      <div class="formula-vars">K = end condition factor, L = length, I = min. moment of inertia</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Torsional Shear</div>
-      <div class="formula-eq">τ = T·r / J</div>
-      <div class="formula-vars">T = torque, r = radius, J = polar moment of inertia</div>
-    </div>
+</head>
+<body>
+<header>
+  <h1>⚙️ ME Solid Mechanics Calculator</h1>
+  <div class="unit-toggle">
+    <button class="active" id="btn-SI" onclick="setUnit('SI')">SI</button>
+    <button id="btn-IMP" onclick="setUnit('IMP')">Imperial</button>
   </div>
+</header>
+<nav>
+  <button class="nav-tab active" onclick="showPanel('calc')">Calculators</button>
+  <button class="nav-tab" onclick="showPanel('formulas')">Formulas</button>
+  <button class="nav-tab" onclick="showPanel('materials')">Material Data</button>
+</nav>
+<main>
 
-  <div class="section-title">Thermodynamics & Heat Transfer</div>
-  <div class="formula-grid">
-    <div class="formula-card">
-      <div class="formula-name">First Law (Closed)</div>
-      <div class="formula-eq">ΔU = Q - W</div>
-      <div class="formula-vars">U = internal energy, Q = heat in, W = work out</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Ideal Gas Law</div>
-      <div class="formula-eq">PV = nRT = mR_s·T</div>
-      <div class="formula-vars">R = 8.314 J/mol·K, R_s = specific gas constant</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Fourier's Law (Conduction)</div>
-      <div class="formula-eq">Q̇ = -kA·(dT/dx)</div>
-      <div class="formula-vars">k = thermal conductivity (W/m·K), A = area, dT/dx = gradient</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Newton's Law (Convection)</div>
-      <div class="formula-eq">Q̇ = h·A·(T_s - T_∞)</div>
-      <div class="formula-vars">h = convection coefficient (W/m²·K)</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Thermal Resistance</div>
-      <div class="formula-eq">R_cond = L/(kA), R_conv = 1/(hA)</div>
-      <div class="formula-vars">Series: R_tot = ΣR; Q̇ = ΔT/R_tot</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">LMTD (Heat Exchanger)</div>
-      <div class="formula-eq">Q̇ = U·A·LMTD</div>
-      <div class="formula-vars">LMTD = (ΔT₁-ΔT₂)/ln(ΔT₁/ΔT₂)</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Carnot Efficiency</div>
-      <div class="formula-eq">η_max = 1 - T_L/T_H</div>
-      <div class="formula-vars">T_L, T_H = absolute temperatures (K)</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Boiler Efficiency</div>
-      <div class="formula-eq">η = Q_useful / Q_input = ṁ_s·h_fg / Q_fuel</div>
-      <div class="formula-vars">h_fg = latent heat of vaporization</div>
-    </div>
-  </div>
+<!-- ========== CALCULATORS ========== -->
+<div id="panel-calc" class="panel active">
+<div class="calc-grid">
 
-  <div class="section-title">Fluid Mechanics</div>
-  <div class="formula-grid">
-    <div class="formula-card">
-      <div class="formula-name">Bernoulli Equation</div>
-      <div class="formula-eq">P + ½ρv² + ρgh = const</div>
-      <div class="formula-vars">ρ = density, v = velocity, g = 9.81 m/s², h = elevation</div>
+<!-- 1. COMBINED STRESS + MOHR -->
+<div class="calc-card">
+  <div class="calc-header"><span class="calc-title">Combined Stress + Mohr's Circle</span><span class="std-badge">von Mises / Tresca</span></div>
+  <div class="calc-body">
+    <div class="field-row"><span class="field-label">σ_x (normal x)</span><input class="field-input" id="ms-sx" type="number" placeholder="80"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
+    <div class="field-row"><span class="field-label">σ_y (normal y)</span><input class="field-input" id="ms-sy" type="number" placeholder="-20"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
+    <div class="field-row"><span class="field-label">τ_xy (shear)</span><input class="field-input" id="ms-txy" type="number" placeholder="30"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
+    <div class="field-row"><span class="field-label">Yield strength Sy</span><input class="field-input" id="ms-Sy" type="number" placeholder="250"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
+    <div class="btn-row">
+      <button class="calc-btn" onclick="calcMohr()">Calculate + Mohr's Circle</button>
+      <button class="clear-btn" onclick="clearCalc('ms','res-ms','vis-ms','eq-ms')">Clear</button>
     </div>
-    <div class="formula-card">
-      <div class="formula-name">Reynolds Number</div>
-      <div class="formula-eq">Re = ρvD/μ = vD/ν</div>
-      <div class="formula-vars">Re &lt; 2300: laminar, &gt;4000: turbulent, μ = dynamic viscosity</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Darcy-Weisbach (Pipe Loss)</div>
-      <div class="formula-eq">h_f = f·(L/D)·(v²/2g)</div>
-      <div class="formula-vars">f = Darcy friction factor (from Moody chart)</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Continuity Equation</div>
-      <div class="formula-eq">ρ₁A₁v₁ = ρ₂A₂v₂</div>
-      <div class="formula-vars">For incompressible: A₁v₁ = A₂v₂</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Nusselt Number</div>
-      <div class="formula-eq">Nu = hL/k = f(Re, Pr)</div>
-      <div class="formula-vars">Dittus-Boelter: Nu = 0.023·Re⁰·⁸·Prⁿ (turbulent pipe)</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Pump Power</div>
-      <div class="formula-eq">P = ρgQH / η_pump</div>
-      <div class="formula-vars">Q = flow rate (m³/s), H = head (m), η = efficiency</div>
-    </div>
-  </div>
-
-  <div class="section-title">Pressure Vessel (ASME Thin-wall)</div>
-  <div class="formula-grid">
-    <div class="formula-card">
-      <div class="formula-name">Hoop Stress (Cylinder)</div>
-      <div class="formula-eq">σ_h = P·r / t</div>
-      <div class="formula-vars">P = internal pressure, r = inner radius, t = wall thickness</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Longitudinal Stress</div>
-      <div class="formula-eq">σ_l = P·r / (2t)</div>
-      <div class="formula-vars">Hoop always governs: σ_h = 2·σ_l</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Min. Wall Thickness (ASME VIII)</div>
-      <div class="formula-eq">t = P·R / (S·E - 0.6P)</div>
-      <div class="formula-vars">S = allowable stress, E = joint efficiency (0.6–1.0)</div>
-    </div>
-    <div class="formula-card">
-      <div class="formula-name">Spherical Shell Stress</div>
-      <div class="formula-eq">σ = P·r / (2t)</div>
-      <div class="formula-vars">Uniform in all directions; more efficient than cylinder</div>
+    <div class="result-box" id="res-ms"><div class="result-title">Results</div></div>
+    <div class="vis-box" id="vis-ms"><canvas id="canvas-mohr" width="340" height="270"></canvas></div>
+    <div class="eq-box" id="eq-ms">
+      <div class="eq-title">Equations used</div>
+      <div class="eq-line">σ_avg = (σ_x + σ_y) / 2</div>
+      <div class="eq-line">R = √[((σ_x-σ_y)/2)² + τ_xy²]</div>
+      <div class="eq-line">σ₁,₂ = σ_avg ± R</div>
+      <div class="eq-line">τ_max = R</div>
+      <div class="eq-line">σ_vm = √(σ₁²- σ₁σ₂ + σ₂²)  [von Mises]</div>
+      <div class="eq-line">σ_Tresca = σ₁ - σ₂  (if opposite signs: |σ₁|+|σ₂|)</div>
+      <div class="eq-vars">
+        <span>θ_p = 0.5·atan(2τ_xy/(σ_x-σ_y))  → principal angle</span>
+        <span>von Mises more accurate for ductile metals</span>
+        <span>Tresca more conservative (safe-side)</span>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- CALCULATOR -->
-<div id="panel-calc" class="panel">
-  <div class="section-title">เลือกคำนวณ</div>
-  <div class="calc-section">
-
-    <div class="calc-box">
-      <div class="calc-title"><i class="ti ti-arrows-maximize" aria-hidden="true"></i> Stress & Safety Factor</div>
-      <div class="field-row"><span class="field-label">Force F</span><input class="field-input" id="c-F" type="number" placeholder="1000"><span class="field-unit">N</span></div>
-      <div class="field-row"><span class="field-label">Area A</span><input class="field-input" id="c-A" type="number" placeholder="0.001"><span class="field-unit">m²</span></div>
-      <div class="field-row"><span class="field-label">Yield Sy</span><input class="field-input" id="c-Sy" type="number" placeholder="250"><span class="field-unit">MPa</span></div>
-      <button class="calc-btn" onclick="calcStress()">คำนวณ</button>
-      <div class="result-box" id="res-stress"></div>
+<!-- 2. BEAM: SFD + BMD -->
+<div class="calc-card">
+  <div class="calc-header"><span class="calc-title">Beam: SFD, BMD & Deflection</span><span class="std-badge">Simply Supported</span></div>
+  <div class="calc-body">
+    <div class="field-row"><span class="field-label">Beam length L</span><input class="field-input" id="bm-L" type="number" placeholder="3"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
+    <div class="field-row"><span class="field-label">Load type</span>
+      <select class="field-input" id="bm-type" onchange="updateBeamType()">
+        <option value="mid">Point load at midspan</option>
+        <option value="point">Point load at position a</option>
+        <option value="udl">UDL (uniform)</option>
+        <option value="cantilever-end">Cantilever — end point load</option>
+        <option value="cantilever-udl">Cantilever — UDL</option>
+      </select>
     </div>
-
-    <div class="calc-box">
-      <div class="calc-title"><i class="ti ti-temperature" aria-hidden="true"></i> Conduction (Flat Wall)</div>
-      <div class="field-row"><span class="field-label">k</span><input class="field-input" id="c-k" type="number" placeholder="50"><span class="field-unit">W/m·K</span></div>
-      <div class="field-row"><span class="field-label">Area A</span><input class="field-input" id="c-kA" type="number" placeholder="1"><span class="field-unit">m²</span></div>
-      <div class="field-row"><span class="field-label">Thickness L</span><input class="field-input" id="c-L" type="number" placeholder="0.05"><span class="field-unit">m</span></div>
-      <div class="field-row"><span class="field-label">ΔT</span><input class="field-input" id="c-dT" type="number" placeholder="100"><span class="field-unit">K</span></div>
-      <button class="calc-btn" onclick="calcConduction()">คำนวณ</button>
-      <div class="result-box" id="res-cond"></div>
+    <div class="field-row"><span class="field-label">Load P / w</span><input class="field-input" id="bm-P" type="number" placeholder="10"><span class="field-unit su" id="bm-Pu">kN</span><span class="field-unit iu" style="display:none">kip</span></div>
+    <div id="bm-a-row" class="field-row" style="display:none"><span class="field-label">Load position a</span><input class="field-input" id="bm-a" type="number" placeholder="1"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
+    <div class="field-row"><span class="field-label">E (Young's modulus)</span><input class="field-input" id="bm-E" type="number" placeholder="200"><span class="field-unit">GPa</span></div>
+    <div class="field-row"><span class="field-label">I (moment of inertia)</span><input class="field-input" id="bm-I" type="number" placeholder="8.33e-6"><span class="field-unit su">m⁴</span><span class="field-unit iu" style="display:none">in⁴</span></div>
+    <div class="field-row"><span class="field-label">Section height h</span><input class="field-input" id="bm-h" type="number" placeholder="0.1"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
+    <div class="btn-row">
+      <button class="calc-btn" onclick="calcBeam()">Calculate + Diagrams</button>
+      <button class="clear-btn" onclick="clearCalc('bm','res-bm','vis-bm','eq-bm')">Clear</button>
     </div>
-
-    <div class="calc-box">
-      <div class="calc-title"><i class="ti ti-wave-sine" aria-hidden="true"></i> Reynolds Number</div>
-      <div class="field-row"><span class="field-label">Density ρ</span><input class="field-input" id="c-rho" type="number" placeholder="1000"><span class="field-unit">kg/m³</span></div>
-      <div class="field-row"><span class="field-label">Velocity v</span><input class="field-input" id="c-v" type="number" placeholder="2"><span class="field-unit">m/s</span></div>
-      <div class="field-row"><span class="field-label">Diameter D</span><input class="field-input" id="c-D" type="number" placeholder="0.05"><span class="field-unit">m</span></div>
-      <div class="field-row"><span class="field-label">Viscosity μ</span><input class="field-input" id="c-mu" type="number" placeholder="0.001"><span class="field-unit">Pa·s</span></div>
-      <button class="calc-btn" onclick="calcRe()">คำนวณ</button>
-      <div class="result-box" id="res-re"></div>
+    <div class="result-box" id="res-bm"><div class="result-title">Results</div></div>
+    <div class="vis-box" id="vis-bm">
+      <canvas id="canvas-sfd" width="420" height="120"></canvas>
+      <canvas id="canvas-bmd" width="420" height="120" style="margin-top:4px"></canvas>
     </div>
-
-    <div class="calc-box">
-      <div class="calc-title"><i class="ti ti-cylinder" aria-hidden="true"></i> Pressure Vessel Wall (ASME)</div>
-      <div class="field-row"><span class="field-label">Pressure P</span><input class="field-input" id="c-P" type="number" placeholder="1.5"><span class="field-unit">MPa</span></div>
-      <div class="field-row"><span class="field-label">Inner radius R</span><input class="field-input" id="c-R" type="number" placeholder="0.5"><span class="field-unit">m</span></div>
-      <div class="field-row"><span class="field-label">Allow. stress S</span><input class="field-input" id="c-S" type="number" placeholder="130"><span class="field-unit">MPa</span></div>
-      <div class="field-row"><span class="field-label">Joint eff. E</span><input class="field-input" id="c-E" type="number" placeholder="1.0"><span class="field-unit">—</span></div>
-      <button class="calc-btn" onclick="calcPV()">คำนวณ</button>
-      <div class="result-box" id="res-pv"></div>
-    </div>
-
-    <div class="calc-box">
-      <div class="calc-title"><i class="ti ti-rotate-clockwise" aria-hidden="true"></i> Shaft Torsion</div>
-      <div class="field-row"><span class="field-label">Torque T</span><input class="field-input" id="c-T" type="number" placeholder="500"><span class="field-unit">N·m</span></div>
-      <div class="field-row"><span class="field-label">Diameter d</span><input class="field-input" id="c-d" type="number" placeholder="0.05"><span class="field-unit">m</span></div>
-      <div class="field-row"><span class="field-label">Shear allow. τ</span><input class="field-input" id="c-tau" type="number" placeholder="120"><span class="field-unit">MPa</span></div>
-      <button class="calc-btn" onclick="calcTorsion()">คำนวณ</button>
-      <div class="result-box" id="res-tor"></div>
-    </div>
-
-    <div class="calc-box">
-      <div class="calc-title"><i class="ti ti-droplet" aria-hidden="true"></i> Pipe Flow (Darcy-Weisbach)</div>
-      <div class="field-row"><span class="field-label">f (friction)</span><input class="field-input" id="c-f" type="number" placeholder="0.02"><span class="field-unit">—</span></div>
-      <div class="field-row"><span class="field-label">Length L</span><input class="field-input" id="c-pL" type="number" placeholder="100"><span class="field-unit">m</span></div>
-      <div class="field-row"><span class="field-label">Diameter D</span><input class="field-input" id="c-pD" type="number" placeholder="0.1"><span class="field-unit">m</span></div>
-      <div class="field-row"><span class="field-label">Velocity v</span><input class="field-input" id="c-pv" type="number" placeholder="3"><span class="field-unit">m/s</span></div>
-      <button class="calc-btn" onclick="calcPipe()">คำนวณ</button>
-      <div class="result-box" id="res-pipe"></div>
-    </div>
-
-  </div>
-</div>
-
-<!-- STANDARDS -->
-<div id="panel-standards" class="panel">
-  <div class="section-title">Mechanical Design</div>
-  <div class="std-list">
-    <div class="std-item">
-      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">ISO 286</span>
-      <div><div class="std-name">Limits and Fits (Tolerances)</div><div class="std-desc">ระบบ tolerance สำหรับ shaft/hole — ใช้กับ H7/f6, H8/e8 ฯลฯ</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">ISO 1101</span>
-      <div><div class="std-name">GD&T — Geometric Dimensioning & Tolerancing</div><div class="std-desc">สัญลักษณ์ form, orientation, location, runout บนแบบ</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#E6F1FB;color:#185FA5;">ASME Y14.5</span>
-      <div><div class="std-name">GD&T (American Standard)</div><div class="std-desc">เทียบเท่า ISO 1101 ฝั่ง US — ใช้กันแพร่หลายในอุตสาหกรรม</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">ISO 6336</span>
-      <div><div class="std-name">Gear Strength Calculation</div><div class="std-desc">คำนวณ bending stress และ contact stress ของเฟือง spur/helical</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#FAEEDA;color:#854F0B;">DIN 743</span>
-      <div><div class="std-name">Shaft Fatigue Calculation</div><div class="std-desc">คำนวณความล้าของ shaft รวม stress concentration, surface factor</div></div>
-    </div>
-  </div>
-
-  <div class="section-title">Pressure Vessel & Boiler</div>
-  <div class="std-list">
-    <div class="std-item">
-      <span class="std-badge" style="background:#E6F1FB;color:#185FA5;">ASME VIII Div.1</span>
-      <div><div class="std-name">Pressure Vessels (General)</div><div class="std-desc">มาตรฐานออกแบบ pressure vessel ทั่วไป — ใช้มากสุดในอุตสาหกรรม</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#E6F1FB;color:#185FA5;">ASME I</span>
-      <div><div class="std-name">Power Boilers</div><div class="std-desc">ออกแบบ power boiler — drum, tube, fitting; ใช้ที่โรงงาน boiler โดยตรง</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#FCEBEB;color:#A32D2D;">ASME B31.1</span>
-      <div><div class="std-name">Power Piping</div><div class="std-desc">ระบบท่อสำหรับ power plant — wall thickness, stress, support</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#FAEEDA;color:#854F0B;">EN 13445</span>
-      <div><div class="std-name">Unfired Pressure Vessels (EU)</div><div class="std-desc">เทียบเท่า ASME VIII ฝั่งยุโรป — ใช้ถ้า export EU</div></div>
-    </div>
-  </div>
-
-  <div class="section-title">Fluid & Material</div>
-  <div class="std-list">
-    <div class="std-item">
-      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">ISO 4006</span>
-      <div><div class="std-name">Measurement of Fluid Flow</div><div class="std-desc">คำนิยามและเงื่อนไขการวัด flow rate</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#E6F1FB;color:#185FA5;">ASTM A36 / A516</span>
-      <div><div class="std-name">Structural & Pressure Vessel Steel</div><div class="std-desc">A36 = structural steel; A516 Gr.70 = pressure vessel plate material</div></div>
+    <div class="eq-box" id="eq-bm">
+      <div class="eq-title">Equations</div>
+      <div class="eq-line" id="eq-bm-line1">M_max = P·L/4  [midspan point load]</div>
+      <div class="eq-line" id="eq-bm-line2">δ_max = P·L³/(48EI)  [midspan]</div>
+      <div class="eq-line">σ_max = M_max·c / I  where c = h/2</div>
+      <div class="eq-vars"><span>SFD = shear force diagram | BMD = bending moment diagram</span></div>
     </div>
   </div>
 </div>
 
-<!-- TABLES -->
-<div id="panel-tables" class="panel">
-  <div class="section-title">Young's Modulus & Yield Strength ของวัสดุทั่วไป</div>
+<!-- 3. TORSION SHAFT -->
+<div class="calc-card">
+  <div class="calc-header"><span class="calc-title">Shaft Torsion + Design</span><span class="std-badge">Shigley / DIN 743</span></div>
+  <div class="calc-body">
+    <div class="field-row"><span class="field-label">Torque T</span><input class="field-input" id="sh-T" type="number" placeholder="500"><span class="field-unit su">N·m</span><span class="field-unit iu" style="display:none">lbf·in</span></div>
+    <div class="field-row"><span class="field-label">Outer diameter d_o</span><input class="field-input" id="sh-do" type="number" placeholder="0.05"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
+    <div class="field-row"><span class="field-label">Shear yield Ssy</span><input class="field-input" id="sh-Ssy" type="number" placeholder="145"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
+    <button class="adv-btn" onclick="toggleAdv('adv-sh')">▶ Advanced (hollow, angle of twist)</button>
+    <div class="adv-section" id="adv-sh">
+      <div class="field-row"><span class="field-label">Inner dia d_i (hollow)</span><input class="field-input" id="sh-di" type="number" placeholder="0 = solid"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
+      <div class="field-row"><span class="field-label">Shear modulus G</span><input class="field-input" id="sh-G" type="number" placeholder="79"><span class="field-unit">GPa</span></div>
+      <div class="field-row"><span class="field-label">Shaft length L</span><input class="field-input" id="sh-L" type="number" placeholder="1"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
+      <div class="field-row"><span class="field-label">Bending moment M</span><input class="field-input" id="sh-M" type="number" placeholder="0"><span class="field-unit su">N·m</span><span class="field-unit iu" style="display:none">lbf·in</span></div>
+    </div>
+    <div class="btn-row">
+      <button class="calc-btn" onclick="calcShaft()">Calculate</button>
+      <button class="clear-btn" onclick="clearCalc('sh','res-sh','vis-sh','eq-sh')">Clear</button>
+    </div>
+    <div class="result-box" id="res-sh"><div class="result-title">Results</div></div>
+    <div class="vis-box" id="vis-sh"><canvas id="canvas-shaft" width="340" height="200"></canvas></div>
+    <div class="eq-box" id="eq-sh">
+      <div class="eq-title">Equations</div>
+      <div class="eq-line">J = π(d_o⁴ - d_i⁴)/32</div>
+      <div class="eq-line">τ_max = T·(d_o/2) / J</div>
+      <div class="eq-line">φ = T·L / (G·J)  [angle of twist]</div>
+      <div class="eq-line">σ_von = √(σ_b² + 3τ²)  [combined loading]</div>
+      <div class="eq-vars"><span>Ssy ≈ 0.577·Sy (von Mises) or 0.5·Sy (Tresca)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. FATIGUE -->
+<div class="calc-card">
+  <div class="calc-header"><span class="calc-title">Fatigue — Goodman / Gerber / Soderberg</span><span class="std-badge">Shigley Ch.6</span></div>
+  <div class="calc-body">
+    <div class="field-row"><span class="field-label">Mean stress σ_m</span><input class="field-input" id="fg-sm" type="number" placeholder="100"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
+    <div class="field-row"><span class="field-label">Alternating stress σ_a</span><input class="field-input" id="fg-sa" type="number" placeholder="60"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
+    <div class="field-row"><span class="field-label">Ultimate strength Su</span><input class="field-input" id="fg-Su" type="number" placeholder="400"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
+    <div class="field-row"><span class="field-label">Yield strength Sy</span><input class="field-input" id="fg-Sy" type="number" placeholder="250"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
+    <div class="field-row"><span class="field-label">Endurance limit Se</span><input class="field-input" id="fg-Se" type="number" placeholder="200"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
+    <button class="adv-btn" onclick="toggleAdv('adv-fg')">▶ Marin factors (Se correction)</button>
+    <div class="adv-section" id="adv-fg">
+      <div class="field-row"><span class="field-label">k_a (surface)</span><input class="field-input" id="fg-ka" type="number" placeholder="0.72" value="0.72"></div>
+      <div class="field-row"><span class="field-label">k_b (size)</span><input class="field-input" id="fg-kb" type="number" placeholder="0.85" value="0.85"></div>
+      <div class="field-row"><span class="field-label">k_c (load)</span><input class="field-input" id="fg-kc" type="number" placeholder="1.0" value="1.0"></div>
+      <div class="field-row"><span class="field-label">k_d (temp)</span><input class="field-input" id="fg-kd" type="number" placeholder="1.0" value="1.0"></div>
+      <div class="field-row"><span class="field-label">k_e (reliability)</span><input class="field-input" id="fg-ke" type="number" placeholder="0.897" value="0.897"></div>
+      <div class="field-row"><span class="field-label">Kf (fatigue SCF)</span><input class="field-input" id="fg-Kf" type="number" placeholder="1.0" value="1.0"></div>
+    </div>
+    <div class="btn-row">
+      <button class="calc-btn" onclick="calcFatigue()">Calculate + Diagram</button>
+      <button class="clear-btn" onclick="clearCalc('fg','res-fg','vis-fg','eq-fg')">Clear</button>
+    </div>
+    <div class="result-box" id="res-fg"><div class="result-title">Results</div></div>
+    <div class="vis-box" id="vis-fg"><canvas id="canvas-fatigue" width="340" height="280"></canvas></div>
+    <div class="eq-box" id="eq-fg">
+      <div class="eq-title">Equations</div>
+      <div class="eq-line">Se' = 0.5·Su  (for Su ≤ 1400 MPa)  then  Se = k_a·k_b·k_c·k_d·k_e·Se'</div>
+      <div class="eq-line">Goodman:   σ_a/Se + σ_m/Su = 1/n_f</div>
+      <div class="eq-line">Gerber:    σ_a/Se + (σ_m/Su)² = 1/n_f</div>
+      <div class="eq-line">Soderberg: σ_a/Se + σ_m/Sy = 1/n_f</div>
+      <div class="eq-line">Langer (yield): σ_a + σ_m = Sy/n_y</div>
+      <div class="eq-vars"><span>Kf applied to σ_a only (alternating) per Shigley convention</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. COLUMN BUCKLING -->
+<div class="calc-card">
+  <div class="calc-header"><span class="calc-title">Column Buckling (Euler + Johnson)</span><span class="std-badge">AISC / Shigley</span></div>
+  <div class="calc-body">
+    <div class="field-row"><span class="field-label">End condition</span>
+      <select class="field-input" id="bk-end">
+        <option value="1.0">Pin–Pin  (K = 1.0)</option>
+        <option value="0.5">Fixed–Fixed  (K = 0.5)</option>
+        <option value="0.7">Fixed–Pin  (K = 0.7)</option>
+        <option value="2.0">Fixed–Free  (K = 2.0)</option>
+      </select>
+    </div>
+    <div class="field-row"><span class="field-label">Young's modulus E</span><input class="field-input" id="bk-E" type="number" placeholder="200"><span class="field-unit">GPa</span></div>
+    <div class="field-row"><span class="field-label">Length L</span><input class="field-input" id="bk-L" type="number" placeholder="2"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
+    <div class="field-row"><span class="field-label">Min. inertia I</span><input class="field-input" id="bk-I" type="number" placeholder="8.33e-6"><span class="field-unit su">m⁴</span><span class="field-unit iu" style="display:none">in⁴</span></div>
+    <div class="field-row"><span class="field-label">Cross-section area A</span><input class="field-input" id="bk-A" type="number" placeholder="0.01"><span class="field-unit su">m²</span><span class="field-unit iu" style="display:none">in²</span></div>
+    <div class="field-row"><span class="field-label">Yield strength Sy</span><input class="field-input" id="bk-Sy" type="number" placeholder="250"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
+    <div class="field-row"><span class="field-label">Applied load P</span><input class="field-input" id="bk-P" type="number" placeholder="optional"><span class="field-unit su">kN</span><span class="field-unit iu" style="display:none">kip</span></div>
+    <div class="btn-row">
+      <button class="calc-btn" onclick="calcBuckling()">Calculate + Diagram</button>
+      <button class="clear-btn" onclick="clearCalc('bk','res-bk','vis-bk','eq-bk')">Clear</button>
+    </div>
+    <div class="result-box" id="res-bk"><div class="result-title">Results</div></div>
+    <div class="vis-box" id="vis-bk"><canvas id="canvas-buckling" width="340" height="240"></canvas></div>
+    <div class="eq-box" id="eq-bk">
+      <div class="eq-title">Equations</div>
+      <div class="eq-line">P_cr = π²EI / (KL)²  [Euler]</div>
+      <div class="eq-line">λ = KL/r,  r = √(I/A)  [slenderness]</div>
+      <div class="eq-line">λ_c = π√(2E/Sy)  [transition]</div>
+      <div class="eq-line">Johnson:  σ_cr = Sy[1 - Sy(KL/r)²/(4π²E)]  if λ < λ_c</div>
+      <div class="eq-vars"><span>Euler valid for λ &gt; λ_c (long columns); Johnson for short</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. HERTZ CONTACT -->
+<div class="calc-card">
+  <div class="calc-header"><span class="calc-title">Hertz Contact Stress</span><span class="std-badge">Hertz / Shigley</span></div>
+  <div class="calc-body">
+    <div class="field-row"><span class="field-label">Contact geometry</span>
+      <select class="field-input" id="hz-type" onchange="updateHertzType()">
+        <option value="sphere-flat">Sphere on flat</option>
+        <option value="sphere-sphere">Sphere on sphere</option>
+        <option value="cyl-flat">Cylinder on flat</option>
+        <option value="cyl-cyl">Cylinder on cylinder</option>
+      </select>
+    </div>
+    <div class="field-row"><span class="field-label">Normal force F</span><input class="field-input" id="hz-F" type="number" placeholder="1000"><span class="field-unit su">N</span><span class="field-unit iu" style="display:none">lbf</span></div>
+    <div class="field-row"><span class="field-label">Radius R₁</span><input class="field-input" id="hz-R1" type="number" placeholder="0.02"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
+    <div class="field-row" id="hz-R2-row"><span class="field-label">Radius R₂</span><input class="field-input" id="hz-R2" type="number" placeholder="0 = flat"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
+    <div class="field-row"><span class="field-label">E₁ (body 1)</span><input class="field-input" id="hz-E1" type="number" placeholder="200"><span class="field-unit">GPa</span></div>
+    <div class="field-row"><span class="field-label">ν₁ (Poisson 1)</span><input class="field-input" id="hz-v1" type="number" placeholder="0.3"></div>
+    <button class="adv-btn" onclick="toggleAdv('adv-hz')">▶ Body 2 material (if different)</button>
+    <div class="adv-section" id="adv-hz">
+      <div class="field-row"><span class="field-label">E₂ (body 2)</span><input class="field-input" id="hz-E2" type="number" placeholder="same as E₁"></div>
+      <div class="field-row"><span class="field-label">ν₂ (Poisson 2)</span><input class="field-input" id="hz-v2" type="number" placeholder="same as ν₁"></div>
+      <div class="field-row" id="hz-L-row"><span class="field-label">Cylinder length L</span><input class="field-input" id="hz-L" type="number" placeholder="0.05"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
+    </div>
+    <div class="btn-row">
+      <button class="calc-btn" onclick="calcHertz()">Calculate</button>
+      <button class="clear-btn" onclick="clearCalc('hz','res-hz','','eq-hz')">Clear</button>
+    </div>
+    <div class="result-box" id="res-hz"><div class="result-title">Results</div></div>
+    <div class="eq-box" id="eq-hz">
+      <div class="eq-title">Equations</div>
+      <div class="eq-line">1/E* = (1-ν₁²)/E₁ + (1-ν₂²)/E₂</div>
+      <div class="eq-line">1/R* = 1/R₁ + 1/R₂  (R=∞ for flat)</div>
+      <div class="eq-line">[sphere] a = (3F·R*/(4E*))^(1/3)</div>
+      <div class="eq-line">[sphere] p₀ = 3F/(2πa²)  [max contact pressure]</div>
+      <div class="eq-line">[cyl] b = √(4FR*/(πLE*))  [half-width]</div>
+      <div class="eq-line">[cyl] p₀ = 2F/(πbL)</div>
+      <div class="eq-vars"><span>Max shear stress: τ_max ≈ 0.31·p₀ at z ≈ 0.48a (sphere)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. PRESS FIT / INTERFERENCE FIT -->
+<div class="calc-card">
+  <div class="calc-header"><span class="calc-title">Press Fit / Interference Fit</span><span class="std-badge">Shigley / Lamé</span></div>
+  <div class="calc-body">
+    <div class="field-row"><span class="field-label">Interference δ</span><input class="field-input" id="pf-d" type="number" placeholder="0.05"><span class="field-unit su">mm</span><span class="field-unit iu" style="display:none">mil</span></div>
+    <div class="field-row"><span class="field-label">Nominal radius r</span><input class="field-input" id="pf-r" type="number" placeholder="0.025"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
+    <div class="field-row"><span class="field-label">Hub outer radius r_o</span><input class="field-input" id="pf-ro" type="number" placeholder="0.05"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
+    <div class="field-row"><span class="field-label">E_hub</span><input class="field-input" id="pf-Eh" type="number" placeholder="200"><span class="field-unit">GPa</span></div>
+    <div class="field-row"><span class="field-label">ν_hub</span><input class="field-input" id="pf-vh" type="number" placeholder="0.3"></div>
+    <button class="adv-btn" onclick="toggleAdv('adv-pf')">▶ Shaft material (if different)</button>
+    <div class="adv-section" id="adv-pf">
+      <div class="field-row"><span class="field-label">Shaft inner radius r_i</span><input class="field-input" id="pf-ri" type="number" placeholder="0 = solid"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
+      <div class="field-row"><span class="field-label">E_shaft</span><input class="field-input" id="pf-Es" type="number" placeholder="same as hub"></div>
+      <div class="field-row"><span class="field-label">ν_shaft</span><input class="field-input" id="pf-vs" type="number" placeholder="same as hub"></div>
+      <div class="field-row"><span class="field-label">Contact length L</span><input class="field-input" id="pf-Lc" type="number" placeholder="0.05"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
+      <div class="field-row"><span class="field-label">Friction coeff. μ</span><input class="field-input" id="pf-mu" type="number" placeholder="0.12"></div>
+    </div>
+    <div class="btn-row">
+      <button class="calc-btn" onclick="calcPressFit()">Calculate</button>
+      <button class="clear-btn" onclick="clearCalc('pf','res-pf','','eq-pf')">Clear</button>
+    </div>
+    <div class="result-box" id="res-pf"><div class="result-title">Results</div></div>
+    <div class="eq-box" id="eq-pf">
+      <div class="eq-title">Equations (Lamé thick-wall)</div>
+      <div class="eq-line">p = δ / [r·(C_o/E_hub + C_i/E_shaft)]</div>
+      <div class="eq-line">C_o = (r_o²+r²)/(r_o²-r²) + ν_hub</div>
+      <div class="eq-line">C_i = (r²+r_i²)/(r²-r_i²) - ν_shaft  (solid: C_i = 1-ν)</div>
+      <div class="eq-line">T_max = μ·p·2πr²·L  [torque capacity]</div>
+      <div class="eq-vars">
+        <span>σ_r at interface = -p (compressive)</span>
+        <span>σ_θ_hub = p(r_o²+r²)/(r_o²-r²)  [hoop, hub inner]</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end calc-grid -->
+</div><!-- end panel-calc -->
+
+<!-- ========== FORMULAS ========== -->
+<div id="panel-formulas" class="panel">
+  <div class="section-label">Stress Analysis</div>
+  <div class="formula-grid">
+    <div class="formula-card"><div class="formula-name">Axial Stress</div><div class="formula-eq">σ = F/A</div><div class="formula-vars">F=force (N), A=area (m²)</div></div>
+    <div class="formula-card"><div class="formula-name">Bending Stress</div><div class="formula-eq">σ = M·c/I</div><div class="formula-vars">M=moment, c=distance from NA, I=2nd moment</div></div>
+    <div class="formula-card"><div class="formula-name">Transverse Shear</div><div class="formula-eq">τ = VQ/(It)</div><div class="formula-vars">V=shear, Q=first moment, t=width at point</div></div>
+    <div class="formula-card"><div class="formula-name">Torsion Shear</div><div class="formula-eq">τ = Tr/J</div><div class="formula-vars">J=π d⁴/32 (solid); angle φ=TL/GJ</div></div>
+    <div class="formula-card"><div class="formula-name">Principal Stresses</div><div class="formula-eq">σ₁,₂ = σ_avg ± √(((σx-σy)/2)²+τ²)</div><div class="formula-vars">σ_avg=(σx+σy)/2; R=√(...)</div></div>
+    <div class="formula-card"><div class="formula-name">von Mises</div><div class="formula-eq">σ_vm = √(σ₁²-σ₁σ₂+σ₂²)</div><div class="formula-vars">Yield when σ_vm = Sy; n=Sy/σ_vm</div></div>
+    <div class="formula-card"><div class="formula-name">Tresca</div><div class="formula-eq">τ_max = (σ₁-σ₂)/2 ≤ Sy/2</div><div class="formula-vars">More conservative than von Mises</div></div>
+    <div class="formula-card"><div class="formula-name">Stress Concentration</div><div class="formula-eq">σ_max = Kt·σ_nom</div><div class="formula-vars">Kt from Peterson's charts; Kf=1+q(Kt-1)</div></div>
+  </div>
+
+  <div class="section-label">Beam Formulas (Simply Supported)</div>
+  <div class="formula-grid">
+    <div class="formula-card"><div class="formula-name">Midspan Point Load</div><div class="formula-eq">M_max=PL/4,  δ_max=PL³/48EI</div><div class="formula-vars">At center; reactions = P/2 each</div></div>
+    <div class="formula-card"><div class="formula-name">Point Load at 'a'</div><div class="formula-eq">M_max=Pab/L,  δ_max=Pb(L²-b²)^(3/2)/(9√3 EIL)</div><div class="formula-vars">b=L-a; max δ not at center if a≠L/2</div></div>
+    <div class="formula-card"><div class="formula-name">UDL</div><div class="formula-eq">M_max=wL²/8,  δ_max=5wL⁴/384EI</div><div class="formula-vars">w = load per unit length (N/m)</div></div>
+    <div class="formula-card"><div class="formula-name">Cantilever — End Load</div><div class="formula-eq">M_max=PL,  δ_max=PL³/3EI</div><div class="formula-vars">Max at fixed end; slope at free end=PL²/2EI</div></div>
+    <div class="formula-card"><div class="formula-name">Cantilever — UDL</div><div class="formula-eq">M_max=wL²/2,  δ_max=wL⁴/8EI</div><div class="formula-vars">Max moment/deflection at fixed end</div></div>
+  </div>
+
+  <div class="section-label">Fatigue</div>
+  <div class="formula-grid">
+    <div class="formula-card"><div class="formula-name">Modified Goodman</div><div class="formula-eq">σ_a/Se + σ_m/Su = 1/nf</div><div class="formula-vars">Conservative for ductile metals</div></div>
+    <div class="formula-card"><div class="formula-name">Gerber</div><div class="formula-eq">σ_a/Se + (σ_m/Su)² = 1/nf</div><div class="formula-vars">Less conservative; fits test data better</div></div>
+    <div class="formula-card"><div class="formula-name">Soderberg</div><div class="formula-eq">σ_a/Se + σ_m/Sy = 1/nf</div><div class="formula-vars">Most conservative; uses Sy not Su</div></div>
+    <div class="formula-card"><div class="formula-name">Marin Se factors</div><div class="formula-eq">Se = ka·kb·kc·kd·ke·Se'</div><div class="formula-vars">Se'≈0.5Su; ka=surface, kb=size, kc=load, kd=temp, ke=reliability</div></div>
+  </div>
+</div>
+
+<!-- ========== MATERIALS ========== -->
+<div id="panel-materials" class="panel">
+  <div class="section-label">Mechanical Properties</div>
   <div class="table-wrap">
     <table class="ref">
-      <tr><th>Material</th><th>E (GPa)</th><th>Sy (MPa)</th><th>Su (MPa)</th><th>ρ (kg/m³)</th></tr>
-      <tr><td>Mild Steel (A36)</td><td>200</td><td>250</td><td>400</td><td>7850</td></tr>
-      <tr><td>Stainless 304</td><td>193</td><td>215</td><td>505</td><td>8000</td></tr>
-      <tr><td>Aluminum 6061-T6</td><td>69</td><td>276</td><td>310</td><td>2700</td></tr>
-      <tr><td>Titanium Ti-6Al-4V</td><td>114</td><td>880</td><td>950</td><td>4430</td></tr>
-      <tr><td>Cast Iron (Gray)</td><td>100–170</td><td>—</td><td>180</td><td>7200</td></tr>
-      <tr><td>Carbon Fiber (CFRP)</td><td>70–200</td><td>—</td><td>600–1200</td><td>1600</td></tr>
-      <tr><td>Copper</td><td>117</td><td>70</td><td>220</td><td>8960</td></tr>
+      <tr><th>Material</th><th>E (GPa)</th><th>G (GPa)</th><th>Sy (MPa)</th><th>Su (MPa)</th><th>ρ (kg/m³)</th><th>ν</th></tr>
+      <tr><td>AISI 1020 (HR)</td><td>207</td><td>80</td><td>210</td><td>380</td><td>7850</td><td>0.29</td></tr>
+      <tr><td>AISI 1045 (HR)</td><td>207</td><td>80</td><td>310</td><td>570</td><td>7850</td><td>0.29</td></tr>
+      <tr><td>AISI 4140 Q&T (600°C)</td><td>207</td><td>80</td><td>655</td><td>800</td><td>7850</td><td>0.29</td></tr>
+      <tr><td>AISI 304 SS</td><td>193</td><td>77</td><td>215</td><td>505</td><td>8000</td><td>0.29</td></tr>
+      <tr><td>A36 Structural Steel</td><td>200</td><td>79</td><td>250</td><td>400</td><td>7850</td><td>0.30</td></tr>
+      <tr><td>A516 Gr.70 (PV)</td><td>200</td><td>79</td><td>260</td><td>485</td><td>7850</td><td>0.30</td></tr>
+      <tr><td>Al 6061-T6</td><td>69</td><td>26</td><td>276</td><td>310</td><td>2700</td><td>0.33</td></tr>
+      <tr><td>Al 7075-T6</td><td>72</td><td>27</td><td>503</td><td>572</td><td>2810</td><td>0.33</td></tr>
+      <tr><td>Ti-6Al-4V</td><td>114</td><td>44</td><td>880</td><td>950</td><td>4430</td><td>0.34</td></tr>
+      <tr><td>Gray Cast Iron</td><td>110</td><td>41</td><td>—</td><td>180</td><td>7200</td><td>0.26</td></tr>
+      <tr><td>Copper (annealed)</td><td>117</td><td>44</td><td>70</td><td>220</td><td>8960</td><td>0.34</td></tr>
     </table>
   </div>
 
-  <div class="section-title" style="margin-top:1.5rem;">Thermal Conductivity k ที่ 25°C</div>
+  <div class="section-label">Section Properties (I = bh³/12 axis)</div>
   <div class="table-wrap">
     <table class="ref">
-      <tr><th>Material</th><th>k (W/m·K)</th><th>หมายเหตุ</th></tr>
-      <tr><td>Carbon Steel</td><td>50</td><td>ลดลงเมื่อ T สูง</td></tr>
-      <tr><td>Stainless Steel 304</td><td>16</td><td>insulator กว่า CS มาก</td></tr>
-      <tr><td>Aluminum 6061</td><td>167</td><td>ดีมากสำหรับ heat sink</td></tr>
-      <tr><td>Copper</td><td>401</td><td>สูงสุดในโลหะทั่วไป</td></tr>
-      <tr><td>Air (25°C)</td><td>0.026</td><td>ใช้เป็น baseline</td></tr>
-      <tr><td>Water (25°C)</td><td>0.61</td><td>เปลี่ยนตาม T</td></tr>
-      <tr><td>Glass wool</td><td>0.04</td><td>insulation ทั่วไป</td></tr>
+      <tr><th>Section</th><th>Area A</th><th>I_xx</th><th>c (to outer)</th><th>J (polar)</th></tr>
+      <tr><td>Solid circle (d)</td><td>πd²/4</td><td>πd⁴/64</td><td>d/2</td><td>πd⁴/32</td></tr>
+      <tr><td>Hollow circle (d_o, d_i)</td><td>π(d_o²-d_i²)/4</td><td>π(d_o⁴-d_i⁴)/64</td><td>d_o/2</td><td>π(d_o⁴-d_i⁴)/32</td></tr>
+      <tr><td>Rectangle (b×h)</td><td>bh</td><td>bh³/12</td><td>h/2</td><td>≈ bh(b²+h²)/12</td></tr>
+      <tr><td>I-section (approx)</td><td>2bt_f+hw·t_w</td><td>≈bh³/12 - (b-t_w)h_w³/12</td><td>h/2</td><td>—</td></tr>
     </table>
   </div>
 
-  <div class="section-title" style="margin-top:1.5rem;">Water Properties (Saturation) — สำหรับ Boiler</div>
+  <div class="section-label">Endurance Limit Estimate & Marin Factors</div>
   <div class="table-wrap">
     <table class="ref">
-      <tr><th>T (°C)</th><th>P_sat (MPa)</th><th>h_f (kJ/kg)</th><th>h_fg (kJ/kg)</th><th>h_g (kJ/kg)</th></tr>
-      <tr><td>100</td><td>0.1013</td><td>419.1</td><td>2257</td><td>2676</td></tr>
-      <tr><td>150</td><td>0.4758</td><td>632.2</td><td>2114</td><td>2746</td></tr>
-      <tr><td>200</td><td>1.5538</td><td>852.4</td><td>1941</td><td>2793</td></tr>
-      <tr><td>250</td><td>3.9762</td><td>1085</td><td>1716</td><td>2801</td></tr>
-      <tr><td>300</td><td>8.5879</td><td>1345</td><td>1404</td><td>2749</td></tr>
-      <tr><td>374.1 (critical)</td><td>22.09</td><td>2099</td><td>0</td><td>2099</td></tr>
-    </table>
-  </div>
-
-  <div class="section-title" style="margin-top:1.5rem;">Moody Chart — f โดยประมาณ (ε/D → 0, smooth pipe)</div>
-  <div class="table-wrap">
-    <table class="ref">
-      <tr><th>Re</th><th>f (Blasius)</th><th>Flow regime</th></tr>
-      <tr><td>1000</td><td>0.064</td><td>Laminar: f = 64/Re</td></tr>
-      <tr><td>2300</td><td>0.028</td><td>Transition zone</td></tr>
-      <tr><td>10,000</td><td>0.031</td><td>Turbulent (smooth)</td></tr>
-      <tr><td>100,000</td><td>0.018</td><td>Turbulent (smooth)</td></tr>
-      <tr><td>1,000,000</td><td>0.012</td><td>Turbulent (smooth)</td></tr>
+      <tr><th>Property</th><th>Steel (Su ≤ 1400 MPa)</th><th>Note</th></tr>
+      <tr><td>Se' (rotating beam)</td><td>0.5 · Su</td><td>Baseline; apply Marin factors</td></tr>
+      <tr><td>k_a (ground)</td><td>1.58 · Su^(-0.085)</td><td>Machined: 4.51·Su^(-0.265)</td></tr>
+      <tr><td>k_b (d 2.79–51 mm)</td><td>1.24 · d^(-0.107)</td><td>SI: d in mm</td></tr>
+      <tr><td>k_c (bending)</td><td>1.0</td><td>Axial: 0.85 | Torsion: 0.59</td></tr>
+      <tr><td>k_e (90% reliability)</td><td>0.897</td><td>99%: 0.814 | 99.9%: 0.753</td></tr>
     </table>
   </div>
 </div>
 
-<!-- LINKS -->
-<div id="panel-links" class="panel">
-  <div class="section-title">เครื่องมือคำนวณออนไลน์</div>
-  <div class="std-list">
-    <div class="std-item">
-      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">FREE</span>
-      <div><div class="std-name"><a class="std-link" href="https://www.engineeringtoolbox.com" target="_blank">engineeringtoolbox.com</a></div><div class="std-desc">รวม calculator, properties ของ fluid, steam table, Moody chart แบบ interactive</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">FREE</span>
-      <div><div class="std-name"><a class="std-link" href="https://www.omnicalculator.com/physics" target="_blank">omnicalculator.com/physics</a></div><div class="std-desc">Calculator หลากหลาย เช่น stress, beam deflection, fluid หลายร้อยตัว</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">FREE</span>
-      <div><div class="std-name"><a class="std-link" href="https://www.efunda.com" target="_blank">efunda.com</a></div><div class="std-desc">Formulas, material data, beam/column calculators, process engineering</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">FREE</span>
-      <div><div class="std-name"><a class="std-link" href="https://www.thermexcel.com/english/tables/vap_eau.htm" target="_blank">thermexcel.com</a></div><div class="std-desc">Steam tables แบบ detailed — ใช้งานง่าย cover ได้ทุก phase</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#FAEEDA;color:#854F0B;">FREE*</span>
-      <div><div class="std-name"><a class="std-link" href="https://www.mdcalc.com" target="_blank">NIST WebBook</a> → <a class="std-link" href="https://webbook.nist.gov/chemistry/fluid/" target="_blank">webbook.nist.gov</a></div><div class="std-desc">ข้อมูล thermodynamic properties ของ fluid จาก NIST — source ระดับ reference</div></div>
-    </div>
-  </div>
-
-  <div class="section-title" style="margin-top:1rem;">Standards — Free Access</div>
-  <div class="std-list">
-    <div class="std-item">
-      <span class="std-badge" style="background:#E6F1FB;color:#185FA5;">ASME</span>
-      <div><div class="std-name"><a class="std-link" href="https://www.asme.org/codes-standards" target="_blank">asme.org/codes-standards</a></div><div class="std-desc">ซื้อหรือ access ผ่านห้องสมุดมหาวิทยาลัย — ขอ KMUTT library ได้</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">ISO</span>
-      <div><div class="std-name"><a class="std-link" href="https://www.iso.org/standards.html" target="_blank">iso.org</a></div><div class="std-desc">บาง ISO standard preview ได้ฟรี / ขอผ่านสถาบัน</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">FREE</span>
-      <div><div class="std-name"><a class="std-link" href="https://www.osha.gov/boiler" target="_blank">OSHA Boiler Safety</a></div><div class="std-desc">ข้อกำหนด safety boiler จาก OSHA — ฟรี อ่านเพิ่มเติมสำหรับงานโรงงาน</div></div>
-    </div>
-  </div>
-
-  <div class="section-title" style="margin-top:1rem;">ตำรา & Textbook (แนะนำ)</div>
-  <div class="std-list">
-    <div class="std-item">
-      <span class="std-badge" style="background:#F1EFE8;color:#5F5E5A;">Mechanics</span>
-      <div><div class="std-name">Shigley's Mechanical Engineering Design</div><div class="std-desc">ตำราหลักระดับ industry — ครอบคลุม fatigue, gear, shaft, fastener</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#FCEBEB;color:#A32D2D;">Thermal</span>
-      <div><div class="std-name">Incropera's Fundamentals of Heat and Mass Transfer</div><div class="std-desc">ครอบคลุม conduction, convection, radiation, HX design</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#E6F1FB;color:#185FA5;">Fluid</span>
-      <div><div class="std-name">Munson's Fundamentals of Fluid Mechanics</div><div class="std-desc">พื้นฐาน fluid + pipe flow + turbomachinery เข้าใจง่าย</div></div>
-    </div>
-    <div class="std-item">
-      <span class="std-badge" style="background:#FAEEDA;color:#854F0B;">Thermo</span>
-      <div><div class="std-name">Cengel & Boles — Thermodynamics: An Engineering Approach</div><div class="std-desc">ครอบ Rankine cycle, steam properties, boiler analysis</div></div>
-    </div>
-  </div>
-</div>
-</div>
-
+</main>
 <script>
-function switchTab(name) {
-  document.querySelectorAll('.tab').forEach((t,i) => t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  const tabs = ['formulas','calc','standards','tables','links'];
-  document.querySelectorAll('.tab')[tabs.indexOf(name)].classList.add('active');
-  document.getElementById('panel-'+name).classList.add('active');
+var UM='SI';
+function setUnit(u){
+  UM=u;
+  document.getElementById('btn-SI').classList.toggle('active',u==='SI');
+  document.getElementById('btn-IMP').classList.toggle('active',u==='IMP');
+  document.querySelectorAll('.su').forEach(function(e){e.style.display=u==='SI'?'':'none'});
+  document.querySelectorAll('.iu').forEach(function(e){e.style.display=u==='IMP'?'':'none'});
+}
+function showPanel(n){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active')});
+  document.getElementById('panel-'+n).classList.add('active');
+  var t=['calc','formulas','materials'];
+  document.querySelectorAll('.nav-tab')[t.indexOf(n)].classList.add('active');
+}
+function toggleAdv(id){
+  var el=document.getElementById(id);
+  var open=el.classList.toggle('open');
+  var btn=el.previousElementSibling;
+  btn.textContent=(open?'▼ ':'▶ ')+btn.textContent.slice(2);
+}
+function v(id){return parseFloat(document.getElementById(id).value)||0;}
+function fmt(n,d){return (!isFinite(n)||isNaN(n))?'—':n.toFixed(d===undefined?3:d);}
+function toN(val){return UM==='IMP'?val*4.44822:val;}
+function toM(val){return UM==='IMP'?val*0.0254:val;}
+function toMPa(val){return UM==='IMP'?val*6.89476:val;}
+function fromMPa(val){return UM==='IMP'?val/6.89476:val;}
+function su(){return UM==='IMP'?'ksi':'MPa';}
+
+function showResult(id,rows){
+  var el=document.getElementById(id); el.style.display='block';
+  var h='<div class="result-title">Results</div>';
+  rows.forEach(function(r){
+    var warn=r[2]?(' <span class="result-warn">'+r[2]+'</span>'):'';
+    h+='<div class="result-row"><span class="result-key">'+r[0]+'</span><span class="result-val">'+r[1]+warn+'</span></div>';
+  });
+  el.innerHTML=h;
+  var eqId=id.replace('res-','eq-');
+  var eq=document.getElementById(eqId); if(eq) eq.style.display='block';
+  var visId=id.replace('res-','vis-');
+  var vis=document.getElementById(visId); if(vis) vis.style.display='block';
 }
 
-function show(id, html) {
-  const el = document.getElementById(id);
-  el.style.display = 'block';
-  el.innerHTML = html;
+function clearCalc(prefix,rid,vid,eid){
+  var r=document.getElementById(rid); if(r){r.style.display='none';}
+  var vis=document.getElementById(vid); if(vis){vis.style.display='none';}
+  var eq=document.getElementById(eid); if(eq){eq.style.display='none';}
 }
 
-function calcStress() {
-  const F = parseFloat(document.getElementById('c-F').value);
-  const A = parseFloat(document.getElementById('c-A').value);
-  const Sy = parseFloat(document.getElementById('c-Sy').value);
-  if (isNaN(F)||isNaN(A)||A<=0) return show('res-stress','⚠ ใส่ค่าให้ครบ');
-  const sig = F/A/1e6;
-  const n = isNaN(Sy)||Sy<=0 ? '—' : (Sy/sig).toFixed(2);
-  show('res-stress', `σ = ${sig.toFixed(3)} MPa | n = ${n}`);
+/* ---- MOHR'S CIRCLE ---- */
+function calcMohr(){
+  var sx=toMPa(v('ms-sx')), sy=toMPa(v('ms-sy')), txy=toMPa(v('ms-txy')), Sy=toMPa(v('ms-Sy'));
+  var avg=(sx+sy)/2;
+  var R=Math.sqrt(Math.pow((sx-sy)/2,2)+txy*txy);
+  var s1=avg+R, s2=avg-R;
+  var tmax=R;
+  var svm=Math.sqrt(s1*s1-s1*s2+s2*s2);
+  var sTresca=Math.abs(s1-s2);
+  var tp=0.5*Math.atan2(2*txy,sx-sy)*180/Math.PI;
+  var nvm=Sy>0?Sy/svm:NaN, nTr=Sy>0?Sy/sTresca:NaN;
+  var rows=[
+    ['σ₁ (max principal)',fmt(fromMPa(s1),2)+' '+su()],
+    ['σ₂ (min principal)',fmt(fromMPa(s2),2)+' '+su()],
+    ['τ_max',fmt(fromMPa(tmax),2)+' '+su()],
+    ['σ_von Mises',fmt(fromMPa(svm),2)+' '+su(), nvm<1.5?'⚠ Low FoS':''],
+    ['σ_Tresca',fmt(fromMPa(sTresca),2)+' '+su()],
+    ['θ_p (principal angle)',fmt(tp,1)+'°'],
+    ['n (von Mises)',fmt(nvm,2),nvm<1?'FAIL':''],
+    ['n (Tresca)',fmt(nTr,2)]
+  ];
+  showResult('res-ms',rows);
+  drawMohr(avg,R,s1,s2,tmax);
 }
 
-function calcConduction() {
-  const k = parseFloat(document.getElementById('c-k').value);
-  const A = parseFloat(document.getElementById('c-kA').value);
-  const L = parseFloat(document.getElementById('c-L').value);
-  const dT = parseFloat(document.getElementById('c-dT').value);
-  if ([k,A,L,dT].some(isNaN)||L<=0) return show('res-cond','⚠ ใส่ค่าให้ครบ');
-  const Q = k*A*dT/L;
-  const R = L/(k*A);
-  show('res-cond', `Q̇ = ${Q.toFixed(2)} W | R = ${R.toFixed(5)} K/W`);
+function drawMohr(avg,R,s1,s2,tmax){
+  var c=document.getElementById('canvas-mohr');
+  var ctx=c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height);
+  var cx=c.width/2-10, cy=c.height/2+10;
+  var scale=Math.min((c.width-60)/(2*(R+Math.abs(avg)+10)),90/R)||1;
+  if(scale*R<20) scale=20/R;
+  ctx.save();
+  ctx.strokeStyle='#cbd5e1'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(20,cy); ctx.lineTo(c.width-10,cy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx,10); ctx.lineTo(cx,c.height-10); ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx+avg*scale, cy, R*scale, 0, 2*Math.PI);
+  ctx.strokeStyle='#2563eb'; ctx.lineWidth=2; ctx.stroke();
+  ctx.fillStyle='#ef4444';
+  [[avg+R,0],[avg-R,0],[avg,R],[avg,-R]].forEach(function(p){
+    ctx.beginPath(); ctx.arc(cx+p[0]*scale, cy-p[1]*scale, 4, 0, 2*Math.PI); ctx.fill();
+  });
+  ctx.fillStyle='#1e293b'; ctx.font='11px monospace';
+  ctx.fillText('σ₁='+s1.toFixed(1), cx+s1*scale+4, cy-6);
+  ctx.fillText('σ₂='+s2.toFixed(1), cx+s2*scale-40, cy-6);
+  ctx.fillText('τ_max='+tmax.toFixed(1), cx+avg*scale+4, cy-R*scale-4);
+  ctx.fillText('σ', c.width-16, cy-4); ctx.fillText('τ', cx+4, 14);
+  ctx.restore();
 }
 
-function calcRe() {
-  const rho = parseFloat(document.getElementById('c-rho').value);
-  const v = parseFloat(document.getElementById('c-v').value);
-  const D = parseFloat(document.getElementById('c-D').value);
-  const mu = parseFloat(document.getElementById('c-mu').value);
-  if ([rho,v,D,mu].some(isNaN)||mu<=0) return show('res-re','⚠ ใส่ค่าให้ครบ');
-  const Re = rho*v*D/mu;
-  const regime = Re<2300?'Laminar':Re<4000?'Transition':'Turbulent';
-  show('res-re', `Re = ${Math.round(Re).toLocaleString()} → ${regime}`);
+/* ---- BEAM ---- */
+function updateBeamType(){
+  var t=document.getElementById('bm-type').value;
+  document.getElementById('bm-a-row').style.display=t==='point'?'flex':'none';
+  document.getElementById('bm-Pu').textContent=t.indexOf('udl')>=0?'kN/m':'kN';
+}
+function calcBeam(){
+  var L=toM(v('bm-L')), P=v('bm-P')*1000, a=toM(v('bm-a'));
+  var E=v('bm-E')*1e9, I=v('bm-I'), h=toM(v('bm-h'));
+  var type=document.getElementById('bm-type').value;
+  var Mmax=0,dmax=0,Ra=0,Rb=0;
+  var sfVals=[],bmVals=[];
+  var N=50;
+  if(type==='mid'){
+    Ra=Rb=P/2; Mmax=P*L/4; dmax=P*L*L*L/(48*E*I);
+    for(var i=0;i<=N;i++){var x=i*L/N; sfVals.push(x<L/2?Ra:-Rb); bmVals.push(x<=L/2?Ra*x:Ra*x-P*(x-L/2));}
+    document.getElementById('eq-bm-line1').textContent='M_max = PL/4  [midspan point load]';
+    document.getElementById('eq-bm-line2').textContent='δ_max = PL³/(48EI)';
+  } else if(type==='point'){
+    if(a<=0||a>=L) a=L/2;
+    var b=L-a; Ra=P*b/L; Rb=P*a/L; Mmax=P*a*b/L;
+    var xd=Math.sqrt((L*L-b*b)/3); dmax=P*b*(L*L-b*b)*Math.sqrt(3)/(9*Math.sqrt(3)*E*I*L);
+    for(var i=0;i<=N;i++){var x=i*L/N; sfVals.push(x<a?Ra:Ra-P); bmVals.push(x<=a?Ra*x:Ra*x-P*(x-a));}
+    document.getElementById('eq-bm-line1').textContent='M_max = Pab/L  [eccentric point load]';
+    document.getElementById('eq-bm-line2').textContent='δ_max = Pb(L²-b²)^1.5 / (9√3·EIL)';
+  } else if(type==='udl'){
+    var w=P/1000; P=w*L;
+    Ra=Rb=w*L/2; Mmax=w*L*L/8; dmax=5*w*L*L*L*L/(384*E*I);
+    for(var i=0;i<=N;i++){var x=i*L/N; sfVals.push(Ra-w*x); bmVals.push(Ra*x-w*x*x/2);}
+    document.getElementById('eq-bm-line1').textContent='M_max = wL²/8  [UDL]';
+    document.getElementById('eq-bm-line2').textContent='δ_max = 5wL⁴/(384EI)';
+  } else if(type==='cantilever-end'){
+    Ra=P; Mmax=P*L; dmax=P*L*L*L/(3*E*I);
+    for(var i=0;i<=N;i++){var x=i*L/N; sfVals.push(-P); bmVals.push(-P*(L-x));}
+    document.getElementById('eq-bm-line1').textContent='M_max = PL  [cantilever end load]';
+    document.getElementById('eq-bm-line2').textContent='δ_max = PL³/(3EI)';
+  } else {
+    var w=P/1000; P=w*L; Ra=w*L; Mmax=w*L*L/2; dmax=w*L*L*L*L/(8*E*I);
+    for(var i=0;i<=N;i++){var x=i*L/N; sfVals.push(-w*(L-x)); bmVals.push(-w*(L-x)*(L-x)/2);}
+    document.getElementById('eq-bm-line1').textContent='M_max = wL²/2  [cantilever UDL]';
+    document.getElementById('eq-bm-line2').textContent='δ_max = wL⁴/(8EI)';
+  }
+  var sig=h>0?Mmax*(h/2)/I/1e6:NaN;
+  var rows=[
+    ['M_max',fmt(Mmax/1000,2)+' kN·m'],
+    ['δ_max',fmt(dmax*1000,3)+' mm'],
+    ['R_A',fmt(Ra/1000,2)+' kN'],
+    ['R_B',Rb?fmt(Rb/1000,2)+' kN':'—'],
+    ['σ_max (bending)',h>0?fmt(sig,2)+' MPa':'ใส่ h เพื่อคำนวณ']
+  ];
+  showResult('res-bm',rows);
+  drawBeamDiagrams(sfVals,bmVals,L,Mmax);
 }
 
-function calcPV() {
-  const P = parseFloat(document.getElementById('c-P').value);
-  const R = parseFloat(document.getElementById('c-R').value);
-  const S = parseFloat(document.getElementById('c-S').value);
-  const E = parseFloat(document.getElementById('c-E').value);
-  if ([P,R,S,E].some(isNaN)||S<=0||E<=0) return show('res-pv','⚠ ใส่ค่าให้ครบ');
-  const t = (P*R)/(S*E - 0.6*P);
-  const sig_h = P*R/t;
-  show('res-pv', `t_min = ${(t*1000).toFixed(2)} mm | σ_h = ${sig_h.toFixed(1)} MPa`);
+function drawBeamDiagrams(sf,bm,L,Mmax){
+  function drawDiagram(canvasId,vals,label,color){
+    var c=document.getElementById(canvasId);
+    var ctx=c.getContext('2d');
+    ctx.clearRect(0,0,c.width,c.height);
+    var W=c.width-60, H=c.height-30, ox=30, oy=c.height/2;
+    var maxV=Math.max.apply(null,vals.map(Math.abs))||1;
+    ctx.strokeStyle='#cbd5e1'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(ox,oy); ctx.lineTo(ox+W,oy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(ox,10); ctx.lineTo(ox,c.height-10); ctx.stroke();
+    ctx.fillStyle=color+'33';
+    ctx.beginPath(); ctx.moveTo(ox,oy);
+    vals.forEach(function(v,i){ctx.lineTo(ox+i*W/(vals.length-1), oy-v/maxV*(H/2-5));});
+    ctx.lineTo(ox+W,oy); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle=color; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(ox,oy);
+    vals.forEach(function(v,i){ctx.lineTo(ox+i*W/(vals.length-1), oy-v/maxV*(H/2-5));});
+    ctx.stroke();
+    ctx.fillStyle='#475569'; ctx.font='11px sans-serif';
+    ctx.fillText(label,2,14);
+    ctx.fillText(fmt(Math.max.apply(null,vals),1),ox+W-40,14);
+    ctx.fillText(fmt(Math.min.apply(null,vals),1),ox+W-40,c.height-4);
+  }
+  drawDiagram('canvas-sfd',sf,'SFD (kN)','#f59e0b');
+  drawDiagram('canvas-bmd',bm.map(function(v){return v/1000;}),'BMD (kN·m)','#2563eb');
 }
 
-function calcTorsion() {
-  const T = parseFloat(document.getElementById('c-T').value);
-  const d = parseFloat(document.getElementById('c-d').value);
-  const tau_allow = parseFloat(document.getElementById('c-tau').value);
-  if ([T,d].some(isNaN)||d<=0) return show('res-tor','⚠ ใส่ค่าให้ครบ');
-  const J = Math.PI*Math.pow(d,4)/32;
-  const r = d/2;
-  const tau = T*r/J/1e6;
-  const n = isNaN(tau_allow)||tau_allow<=0 ? '—' : (tau_allow/tau).toFixed(2);
-  show('res-tor', `τ_max = ${tau.toFixed(3)} MPa | n = ${n}`);
+/* ---- SHAFT ---- */
+function calcShaft(){
+  var T=v('sh-T'), do_=toM(v('sh-do')), di=toM(v('sh-di'));
+  var Ssy=toMPa(v('sh-Ssy')), G=v('sh-G')*1e9, L=toM(v('sh-L')), M=v('sh-M');
+  if(UM==='IMP'){T*=0.112985;}
+  if(do_<=0) return;
+  var J=Math.PI*(Math.pow(do_,4)-Math.pow(di,4))/32;
+  var I=Math.PI*(Math.pow(do_,4)-Math.pow(di,4))/64;
+  var tau=T*(do_/2)/J/1e6;
+  var sig_b=M>0&&I>0?M*(do_/2)/I/1e6:0;
+  var svm=Math.sqrt(sig_b*sig_b+3*tau*tau);
+  var n=Ssy>0?Ssy/svm:NaN;
+  var phi=G>0&&L>0?T*L/(G*J)*180/Math.PI:NaN;
+  var rows=[
+    ['J',fmt(J,3e-8>J?9:6)+' m⁴'],
+    ['τ_max',fmt(fromMPa(tau),2)+' '+su()],
+    ['σ_bending',sig_b>0?fmt(fromMPa(sig_b),2)+' '+su():'not entered'],
+    ['σ_von Mises',fmt(fromMPa(svm),2)+' '+su()],
+    ['Safety factor n',fmt(n,2),n<1.5?'⚠':''],
+    ['Angle of twist φ',isNaN(phi)?'enter G, L':fmt(phi,4)+'°']
+  ];
+  showResult('res-sh',rows);
+  drawShaft(do_,di,tau,sig_b);
 }
 
-function calcPipe() {
-  const f = parseFloat(document.getElementById('c-f').value);
-  const L = parseFloat(document.getElementById('c-pL').value);
-  const D = parseFloat(document.getElementById('c-pD').value);
-  const v = parseFloat(document.getElementById('c-pv').value);
-  if ([f,L,D,v].some(isNaN)||D<=0) return show('res-pipe','⚠ ใส่ค่าให้ครบ');
-  const hf = f*(L/D)*(v*v)/(2*9.81);
-  const dP = 1000*9.81*hf;
-  show('res-pipe', `h_f = ${hf.toFixed(3)} m | ΔP = ${(dP/1000).toFixed(2)} kPa`);
+function drawShaft(do_,di,tau,sig_b){
+  var c=document.getElementById('canvas-shaft');
+  var ctx=c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height);
+  var cx=c.width/2, cy=c.height/2;
+  var r=Math.min(70,c.width/4);
+  var ri=di>0?r*(di/do_):0;
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,2*Math.PI);
+  ctx.fillStyle='#bfdbfe'; ctx.fill();
+  ctx.strokeStyle='#2563eb'; ctx.lineWidth=2; ctx.stroke();
+  if(ri>2){
+    ctx.beginPath(); ctx.arc(cx,cy,ri,0,2*Math.PI);
+    ctx.fillStyle='#f0f2f5'; ctx.fill();
+    ctx.strokeStyle='#94a3b8'; ctx.lineWidth=1.5; ctx.stroke();
+  }
+  ctx.fillStyle='#1e3a5f'; ctx.font='bold 12px monospace';
+  ctx.textAlign='center';
+  ctx.fillText('d_o = '+(do_*1000).toFixed(1)+' mm', cx, cy+r+20);
+  if(ri>2) ctx.fillText('d_i = '+(di*1000).toFixed(1)+' mm', cx, cy+r+35);
+  ctx.fillText('τ = '+tau.toFixed(1)+' MPa', cx, cy+5);
+  if(sig_b>0) ctx.fillText('σ_b = '+sig_b.toFixed(1)+' MPa', cx, cy+20);
+  var arrows=[[cx+r+8,cy],[cx-r-8,cy],[cx,cy-r-8],[cx,cy+r+8]];
+  ctx.strokeStyle='#f59e0b'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.arc(cx,cy,r+12,0,1.2*Math.PI);
+  ctx.stroke();
+  ctx.textAlign='left';
+}
+
+/* ---- FATIGUE ---- */
+function calcFatigue(){
+  var sm=toMPa(v('fg-sm')), sa=toMPa(v('fg-sa'));
+  var Su=toMPa(v('fg-Su')), Sy=toMPa(v('fg-Sy')), Se_in=toMPa(v('fg-Se'));
+  var ka=v('fg-ka')||1, kb=v('fg-kb')||1, kc=v('fg-kc')||1, kd=v('fg-kd')||1, ke=v('fg-ke')||1;
+  var Kf=v('fg-Kf')||1;
+  var Se_prime=Se_in>0?Se_in:0.5*Su;
+  var Se=ka*kb*kc*kd*ke*Se_prime;
+  sa=sa*Kf;
+  var nGood=1/(sa/Se+sm/Su);
+  var nGerb=NaN;
+  var A=sa/Se, B=sm/Su;
+  nGerb=(-A+Math.sqrt(A*A+4*B*B*(1-0)))/(2*B*B);
+  nGerb=1/((sa/Se)+Math.pow(sm/Su,2));
+  // proper Gerber n: solve (sa·n/Se)+(sm·n/Su)²=1 → quadratic
+  var gA=Math.pow(sm/Su,2), gB=sa/Se;
+  var disc=1;
+  nGerb=(1/(2*gA))*(-gB+Math.sqrt(gB*gB+4*gA));
+  var nSod=1/(sa/Se+sm/Sy);
+  var nLanger=Sy>0?(Sy/(sa+sm)):NaN;
+  var rows=[
+    ['Se (corrected)',fmt(fromMPa(Se),1)+' '+su()],
+    ['n_Goodman',fmt(nGood,2),nGood<1.5?'⚠':''],
+    ['n_Gerber',fmt(nGerb,2)],
+    ['n_Soderberg',fmt(nSod,2)],
+    ['n_Langer (yield)',fmt(nLanger,2)]
+  ];
+  showResult('res-fg',rows);
+  drawFatigue(sm,sa,Su,Sy,Se);
+}
+
+function drawFatigue(sm,sa,Su,Sy,Se){
+  var c=document.getElementById('canvas-fatigue');
+  var ctx=c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height);
+  var ox=40, oy=c.height-35, W=c.width-50, H=c.height-50;
+  var xsc=W/Su, ysc=H/Se;
+  var sc=Math.min(xsc,ysc)*0.9;
+  function px(s){return ox+s*sc;}
+  function py(s){return oy-s*sc;}
+  ctx.strokeStyle='#e2e8f0'; ctx.lineWidth=1;
+  [0,50,100,150,200].forEach(function(v){
+    if(v<=Su){ctx.beginPath();ctx.moveTo(px(v),oy);ctx.lineTo(px(v),10);ctx.stroke();}
+    if(v<=Se){ctx.beginPath();ctx.moveTo(ox,py(v));ctx.lineTo(c.width-5,py(v));ctx.stroke();}
+  });
+  ctx.strokeStyle='#94a3b8'; ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(c.width-5,oy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(ox,10);ctx.stroke();
+  // Goodman line
+  ctx.strokeStyle='#2563eb'; ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(px(0),py(Se));ctx.lineTo(px(Su),py(0));ctx.stroke();
+  // Gerber curve
+  ctx.strokeStyle='#16a34a'; ctx.lineWidth=2;
+  ctx.beginPath();
+  for(var i=0;i<=50;i++){var smv=i*Su/50; ctx.lineTo(px(smv),py(Se*(1-Math.pow(smv/Su,2))));}
+  ctx.stroke();
+  // Soderberg
+  ctx.strokeStyle='#f59e0b'; ctx.lineWidth=1.5; ctx.setLineDash([4,3]);
+  ctx.beginPath();ctx.moveTo(px(0),py(Se));ctx.lineTo(px(Sy),py(0));ctx.stroke();
+  ctx.setLineDash([]);
+  // Langer
+  ctx.strokeStyle='#ef4444'; ctx.lineWidth=1.5; ctx.setLineDash([3,3]);
+  ctx.beginPath();ctx.moveTo(px(0),py(Sy));ctx.lineTo(px(Sy),py(0));ctx.stroke();
+  ctx.setLineDash([]);
+  // point
+  ctx.fillStyle='#dc2626'; ctx.beginPath();ctx.arc(px(sm),py(sa),5,0,2*Math.PI);ctx.fill();
+  // labels
+  ctx.fillStyle='#1e293b'; ctx.font='10px sans-serif';
+  ctx.fillText('σ_m →',c.width-40,oy+12);
+  ctx.fillText('σ_a',ox-20,16);
+  ctx.fillStyle='#2563eb'; ctx.fillText('Goodman',px(Su/2)-20,py(Se/2)-6);
+  ctx.fillStyle='#16a34a'; ctx.fillText('Gerber',px(Su*0.7)-10,py(Se*0.3));
+  ctx.fillStyle='#1e293b'; ctx.font='9px monospace';
+  ctx.fillText('Se='+Se.toFixed(0),ox+2,py(Se)-3);
+  ctx.fillText('Su='+Su.toFixed(0),px(Su)+2,oy-4);
+  ctx.fillText('●('+sm.toFixed(0)+','+sa.toFixed(0)+')',px(sm)+6,py(sa)-4);
+}
+
+/* ---- BUCKLING ---- */
+function calcBuckling(){
+  var E=v('bk-E')*1e9, L=toM(v('bk-L')), I=v('bk-I');
+  var A=v('bk-A'), Sy=toMPa(v('bk-Sy'))*1e6, Papp=v('bk-P')*1000;
+  var K=parseFloat(document.getElementById('bk-end').value);
+  if(L<=0||I<=0) return;
+  var Pcr=Math.PI*Math.PI*E*I/Math.pow(K*L,2);
+  var r=A>0?Math.sqrt(I/A):NaN;
+  var lambda=A>0?K*L/r:NaN;
+  var lambda_c=Sy>0?Math.PI*Math.sqrt(2*E/Sy):NaN;
+  var regime=isNaN(lambda)||isNaN(lambda_c)?'—':(lambda>lambda_c?'Euler (long)':'Johnson (short/intermediate)');
+  var Pcr_J=NaN;
+  if(!isNaN(lambda)&&!isNaN(lambda_c)&&lambda<lambda_c&&A>0){
+    Pcr_J=(Sy-Math.pow(Sy,2)*Math.pow(lambda,2)/(4*Math.PI*Math.PI*E))*A;
+  }
+  var n=Papp>0?Pcr/Papp:NaN;
+  var rows=[
+    ['P_cr (Euler)',fmt(Pcr/1000,2)+' kN'],
+    ['P_cr (Johnson)',isNaN(Pcr_J)?'n/a (Euler governs)':fmt(Pcr_J/1000,2)+' kN'],
+    ['Slenderness KL/r',isNaN(lambda)?'enter A':fmt(lambda,1)],
+    ['λ_c (transition)',isNaN(lambda_c)?'enter Sy':fmt(lambda_c,1)],
+    ['Column regime',regime],
+    ['Safety factor n',isNaN(n)?'enter P':fmt(n,2),n<2?'⚠ Check':'']
+  ];
+  showResult('res-bk',rows);
+  drawBuckling(K,L,lambda,lambda_c);
+}
+
+function drawBuckling(K,L,lambda,lambda_c){
+  var c=document.getElementById('canvas-buckling');
+  var ctx=c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height);
+  var cx=c.width/2, bot=c.height-30, h=bot-20, w=30;
+  // draw column shape
+  ctx.strokeStyle='#2563eb'; ctx.lineWidth=3;
+  if(K>=2){// cantilever
+    ctx.beginPath(); ctx.moveTo(cx-w/2,bot); ctx.bezierCurveTo(cx+w,bot,cx+w,bot-h/2,cx,bot-h); ctx.stroke();
+    ctx.fillStyle='#1e293b'; ctx.fillRect(cx-40,bot,80,8);
+  } else {
+    ctx.beginPath();
+    var def=K*10;
+    for(var i=0;i<=20;i++){var y=i*h/20; ctx.lineTo(cx+def*Math.sin(Math.PI*i/20),bot-y);}
+    ctx.stroke();
+    ctx.fillStyle='#1e293b'; ctx.fillRect(cx-20,bot,40,6);
+    if(K<0.6) ctx.fillRect(cx-20,20,40,6);
+  }
+  ctx.fillStyle='#1e293b'; ctx.font='11px monospace'; ctx.textAlign='center';
+  ctx.fillText('K = '+K, cx, c.height-5);
+  ctx.fillText('KL = '+(K*L).toFixed(2)+' m', cx, c.height-18);
+  if(!isNaN(lambda)){
+    var clr=(!isNaN(lambda_c)&&lambda>lambda_c)?'#2563eb':'#f59e0b';
+    ctx.fillStyle=clr;
+    ctx.fillText('λ = '+lambda.toFixed(1), cx, c.height-31);
+  }
+  ctx.textAlign='left';
+}
+
+/* ---- HERTZ ---- */
+function updateHertzType(){
+  var t=document.getElementById('hz-type').value;
+  var showL=t.indexOf('cyl')>=0;
+  document.getElementById('hz-L-row').style.display=showL?'flex':'none';
+}
+function calcHertz(){
+  var F=toN(v('hz-F')), R1=toM(v('hz-R1')), R2=toM(v('hz-R2'));
+  var E1=v('hz-E1')*1e9, v1=v('hz-v1')||0.3;
+  var E2=v('hz-E2')>0?v('hz-E2')*1e9:E1, v2=v('hz-v2')>0?v('hz-v2'):v1;
+  var L=toM(v('hz-L'))||0.05;
+  var type=document.getElementById('hz-type').value;
+  var Estar=1/((1-v1*v1)/E1+(1-v2*v2)/E2);
+  var Rstar=R2>0?1/(1/R1+1/R2):R1;
+  var rows=[];
+  if(type.indexOf('sphere')>=0){
+    var a=Math.pow(3*F*Rstar/(4*Estar),1/3);
+    var p0=3*F/(2*Math.PI*a*a);
+    var delta=a*a/Rstar;
+    rows=[
+      ['E* (reduced modulus)',fmt(Estar/1e9,2)+' GPa'],
+      ['R* (effective radius)',fmt(Rstar*1000,3)+' mm'],
+      ['Contact radius a',fmt(a*1e6,2)+' μm'],
+      ['Max contact pressure p₀',fmt(p0/1e6,1)+' MPa'],
+      ['Approach δ',fmt(delta*1e9,2)+' nm'],
+      ['τ_max ≈ 0.31·p₀',fmt(0.31*p0/1e6,1)+' MPa (at z≈0.48a)']
+    ];
+  } else {
+    var b=Math.sqrt(4*F*Rstar/(Math.PI*L*Estar));
+    var p0=2*F/(Math.PI*b*L);
+    rows=[
+      ['E*',fmt(Estar/1e9,2)+' GPa'],
+      ['R*',fmt(Rstar*1000,3)+' mm'],
+      ['Half-width b',fmt(b*1e6,2)+' μm'],
+      ['Max pressure p₀',fmt(p0/1e6,1)+' MPa'],
+      ['τ_max ≈ 0.30·p₀',fmt(0.30*p0/1e6,1)+' MPa']
+    ];
+  }
+  showResult('res-hz',rows);
+}
+
+/* ---- PRESS FIT ---- */
+function calcPressFit(){
+  var delta=v('pf-d')/1000; // mm to m
+  var r=toM(v('pf-r')), ro=toM(v('pf-ro')), ri=toM(v('pf-ri'));
+  var Eh=v('pf-Eh')*1e9, vh=v('pf-vh')||0.3;
+  var Es=v('pf-Es')>0?v('pf-Es')*1e9:Eh, vs=v('pf-vs')>0?v('pf-vs'):vh;
+  var Lc=toM(v('pf-Lc'))||0.05, mu=v('pf-mu')||0.12;
+  if(UM==='IMP'){delta*=0.0254;}
+  if(r<=0||ro<=r) return;
+  var Co=(ro*ro+r*r)/(ro*ro-r*r)+vh;
+  var Ci=ri>0?(r*r+ri*ri)/(r*r-ri*ri)-vs:(1-vs);
+  var p=delta/(r*(Co/Eh+Ci/Es));
+  var sig_hub_i=p*(ro*ro+r*r)/(ro*ro-r*r);
+  var sig_shaft_o=ri>0?-p*(r*r+ri*ri)/(r*r-ri*ri):-p;
+  var T_cap=mu*p*2*Math.PI*r*r*Lc;
+  var rows=[
+    ['Interface pressure p',fmt(p/1e6,2)+' MPa'],
+    ['σ_θ hub (inner)',fmt(sig_hub_i/1e6,2)+' MPa'],
+    ['σ_r shaft (outer)',fmt(sig_shaft_o/1e6,2)+' MPa'],
+    ['Torque capacity T',fmt(T_cap,2)+' N·m'],
+    ['Axial force capacity',fmt(mu*p*2*Math.PI*r*Lc/1000,2)+' kN']
+  ];
+  showResult('res-pf',rows);
 }
 </script>
-  </body>
+</body>
 </html>
