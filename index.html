@@ -6,967 +6,973 @@
 <title>ME Engineering Hub</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh}
-
-/* ── HEADER ── */
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#1a1a2e}
 header{background:#0d1b2a;color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:200}
-header h1{font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
-.breadcrumb{font-size:12px;color:#8a9bb0;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.breadcrumb span{cursor:pointer;transition:color .15s}.breadcrumb span:hover{color:#93c5fd}
-.breadcrumb span.active{color:#fff;font-weight:600}
-.sep{color:#334155}
-.unit-toggle{display:flex;background:#1e2d40;border-radius:6px;overflow:hidden}
-.unit-toggle button{padding:4px 12px;border:none;background:transparent;color:#8a9bb0;font-size:12px;cursor:pointer}
-.unit-toggle button.active{background:#2563eb;color:#fff;font-weight:600}
-
-/* ── VIEWS ── */
+header h1{font-size:15px;font-weight:600}
+.bc{font-size:12px;color:#8a9bb0;display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:3px}
+.bc span{cursor:pointer}.bc span:hover{color:#93c5fd}.bc span.act{color:#fff;font-weight:600}
+.bc .sep{color:#334155;cursor:default}
+.ut{display:flex;background:#1e2d40;border-radius:6px;overflow:hidden}
+.ut button{padding:4px 12px;border:none;background:transparent;color:#8a9bb0;font-size:12px;cursor:pointer}
+.ut button.act{background:#2563eb;color:#fff;font-weight:600}
 .view{display:none}.view.active{display:block}
-main{max-width:1100px;margin:0 auto;padding:20px 14px}
+main{max-width:1100px;margin:0 auto;padding:18px 14px}
 
-/* ── HOME GRID ── */
-.home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:8px}
-.cat-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:22px 18px;cursor:pointer;transition:all .2s;text-align:center}
-.cat-card:hover{border-color:#2563eb;transform:translateY(-2px);box-shadow:0 4px 16px #2563eb18}
-.cat-icon{font-size:32px;margin-bottom:10px}
-.cat-name{font-size:14px;font-weight:700;color:#0f172a;margin-bottom:4px}
-.cat-desc{font-size:12px;color:#64748b;line-height:1.5}
-.cat-count{font-size:11px;color:#2563eb;font-weight:600;margin-top:8px}
+/* HOME */
+.hgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:10px}
+.cc{background:#fff;border:1px solid #e2e8f0;border-radius:13px;padding:20px 16px;cursor:pointer;transition:all .2s;text-align:center}
+.cc:hover{border-color:#2563eb;transform:translateY(-2px);box-shadow:0 4px 14px #2563eb18}
+.cc.disabled{opacity:.45;cursor:default;pointer-events:none}
+.ci{font-size:30px;margin-bottom:8px}.cn{font-size:13.5px;font-weight:700;color:#0f172a;margin-bottom:3px}
+.cd{font-size:11.5px;color:#64748b;line-height:1.4}.ck{font-size:11px;color:#2563eb;font-weight:600;margin-top:7px}
 
-/* ── TOPIC GRID ── */
-.topic-header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
-.topic-icon{font-size:26px}
-.topic-title{font-size:17px;font-weight:700;color:#0f172a}
-.topic-subtitle{font-size:12px;color:#64748b;margin-top:2px}
-.topic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
-.topic-card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:16px 14px;cursor:pointer;transition:all .15s}
-.topic-card:hover{border-color:#2563eb;background:#f0f7ff}
-.topic-card-icon{font-size:22px;margin-bottom:8px}
-.topic-card-name{font-size:13px;font-weight:600;color:#0f172a}
-.topic-card-desc{font-size:11px;color:#64748b;margin-top:3px;line-height:1.4}
-.badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;background:#dbeafe;color:#1d4ed8;font-weight:600;margin-top:6px}
+/* TOPIC */
+.th{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.ti{font-size:24px}.tt{font-size:16px;font-weight:700;color:#0f172a}.ts{font-size:12px;color:#64748b;margin-top:1px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:11px}
+.tc{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:15px 13px;cursor:pointer;transition:all .15s}
+.tc:hover{border-color:#2563eb;background:#f0f7ff}
+.tc-icon{font-size:20px;margin-bottom:7px}.tc-name{font-size:12.5px;font-weight:600;color:#0f172a}
+.tc-desc{font-size:11px;color:#64748b;margin-top:2px;line-height:1.35}
+.tg{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;background:#dbeafe;color:#1d4ed8;font-weight:600;margin-top:5px}
 
-/* ── CALC LAYOUT ── */
-.calc-header-bar{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-.back-btn{padding:5px 12px;border:1px solid #e2e8f0;border-radius:7px;background:#fff;font-size:12px;cursor:pointer;color:#475569}
-.back-btn:hover{background:#f1f5f9}
-.calc-section-title{font-size:15px;font-weight:700;color:#0f172a}
-.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(480px,1fr));gap:16px}
+/* CALC */
+.chbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.bbtn{padding:5px 12px;border:1px solid #e2e8f0;border-radius:7px;background:#fff;font-size:12px;cursor:pointer;color:#475569}
+.bbtn:hover{background:#f1f5f9}
+.cst{font-size:15px;font-weight:700;color:#0f172a}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(480px,1fr));gap:15px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden}
+.chead{background:#f8fafc;padding:10px 15px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between}
+.cht{font-size:13px;font-weight:600;color:#0f172a}
+.sb{font-size:10px;padding:2px 7px;border-radius:4px;background:#dbeafe;color:#1d4ed8;font-weight:600}
+.cbody{padding:14px}
+.fr{display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.fl{font-size:12px;color:#475569;min-width:148px;flex-shrink:0}
+.fi{flex:1;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px;font-size:12.5px;font-family:monospace;background:#fafafa;color:#0f172a}
+.fi:focus{outline:none;border-color:#2563eb;background:#fff}
+select.fi{cursor:pointer}
+.fu{font-size:11px;color:#94a3b8;min-width:45px}
+.ab{font-size:11px;color:#2563eb;border:none;background:none;cursor:pointer;padding:2px 0;margin-bottom:4px}
+.as{display:none;border-top:1px dashed #e2e8f0;padding-top:7px;margin-top:3px}
+.as.open{display:block}
+.brow{display:flex;gap:8px;margin-top:8px}
+.cbtn{flex:1;padding:8px;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:12.5px;font-weight:600;cursor:pointer}
+.cbtn:hover{background:#1d4ed8}
+.xbtn{padding:8px 11px;background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0;border-radius:7px;font-size:12px;cursor:pointer}
 
-/* ── CALC CARD ── */
-.calc-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden}
-.calc-card-head{background:#f8fafc;padding:11px 15px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between}
-.calc-card-title{font-size:13px;font-weight:600;color:#0f172a}
-.std-badge{font-size:10px;padding:2px 7px;border-radius:4px;background:#dbeafe;color:#1d4ed8;font-weight:600}
-.calc-body{padding:15px}
-.field-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
-.field-label{font-size:12px;color:#475569;min-width:148px;flex-shrink:0}
-.field-input{flex:1;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px;font-size:12.5px;font-family:monospace;background:#fafafa;color:#0f172a}
-.field-input:focus{outline:none;border-color:#2563eb;background:#fff}
-select.field-input{cursor:pointer}
-.field-unit{font-size:11px;color:#94a3b8;min-width:48px}
-.adv-btn{font-size:11px;color:#2563eb;border:none;background:none;cursor:pointer;padding:2px 0;margin-bottom:5px}
-.adv-sec{display:none;border-top:1px dashed #e2e8f0;padding-top:8px;margin-top:4px}
-.adv-sec.open{display:block}
-.btn-row{display:flex;gap:8px;margin-top:8px}
-.calc-btn{flex:1;padding:8px;background:#2563eb;color:#fff;border:none;border-radius:7px;font-size:12.5px;font-weight:600;cursor:pointer}
-.calc-btn:hover{background:#1d4ed8}
-.clr-btn{padding:8px 12px;background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0;border-radius:7px;font-size:12px;cursor:pointer}
-.res{display:none;margin-top:11px;border-radius:8px;border:1px solid #bbf7d0;background:#f0fdf4;padding:10px 13px}
-.res-title{font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-.res-row{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;border-bottom:1px solid #dcfce7;font-size:12.5px}
-.res-row:last-child{border-bottom:none}
-.res-key{color:#374151}.res-val{font-family:monospace;font-weight:600;color:#065f46}
-.res-warn{color:#b45309;font-weight:700}
-.eq-box{display:none;margin-top:8px;border-radius:7px;background:#f8fafc;border:1px solid #e2e8f0;padding:10px 13px}
-.eq-title{font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-.eq-line{font-family:monospace;font-size:11.5px;color:#1e3a5f;background:#fff;border:1px solid #e2e8f0;border-radius:4px;padding:3px 8px;margin-bottom:3px}
-.eq-vars{font-size:11px;color:#64748b;line-height:1.7;margin-top:4px}
-.vis-box{display:none;margin-top:9px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px;text-align:center}
+/* RESULTS */
+.res{display:none;margin-top:10px;border-radius:8px;border:1px solid #bbf7d0;background:#f0fdf4;padding:10px 13px}
+.rt{font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.rr{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;border-bottom:1px solid #dcfce7;font-size:12.5px}
+.rr:last-child{border-bottom:none}
+.rk{color:#374151}.rv{font-family:monospace;font-weight:600;color:#065f46}
+.rw{color:#b45309;font-weight:700;font-size:11px;margin-left:5px}
 
-/* ── FORMULA REF ── */
-.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:10px}
-.fcrd{background:#fff;border:1px solid #e2e8f0;border-radius:9px;padding:12px}
-.fcrd-name{font-size:12.5px;font-weight:600;color:#0f172a;margin-bottom:4px}
-.fcrd-eq{font-family:monospace;font-size:12px;color:#1d4ed8;background:#eff6ff;border-radius:4px;padding:4px 8px;margin:4px 0}
-.fcrd-vars{font-size:11px;color:#64748b;line-height:1.6}
-.sec-label{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin:18px 0 8px}
+/* FORMULA DISPLAY */
+.eq-box{display:none;margin-top:8px;border-radius:8px;background:#fafafa;border:1px solid #e2e8f0;padding:11px 14px}
+.eq-title{font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.eq-formula{font-family:'Courier New',monospace;font-size:13px;color:#0f172a;line-height:2;padding:6px 10px;background:#fff;border:1px solid #e2e8f0;border-radius:5px;margin-bottom:5px;white-space:pre}
+.eq-sub{font-size:10.5px;color:#64748b;line-height:1.6;margin-top:5px}
+/* Math styling */
+.mf{display:flex;align-items:center;gap:8px;padding:6px 10px;background:#fff;border:1px solid #e2e8f0;border-radius:5px;margin-bottom:5px;flex-wrap:wrap}
+.mf .lhs{font-family:monospace;font-size:13px;color:#1d4ed8;font-weight:600;min-width:110px}
+.mf .eq{color:#64748b;font-size:13px}
+.mf .rhs{font-family:monospace;font-size:12.5px;color:#0f172a;flex:1}
+.mf .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px;font-size:11px}
+.mf .frac .num{border-bottom:1px solid #0f172a;padding:0 2px;text-align:center}
+.mf .frac .den{padding:0 2px;text-align:center}
 
-@media(max-width:560px){.calc-grid{grid-template-columns:1fr}.field-label{min-width:110px}}
+/* VIS */
+.vbox{display:none;margin-top:9px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px;text-align:center}
+canvas{display:block;margin:0 auto;max-width:100%}
+
+.sl{font-size:10.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin:16px 0 8px}
+@media(max-width:560px){.cgrid{grid-template-columns:1fr}.fl{min-width:110px}}
 </style>
 </head>
 <body>
 <header>
   <div>
     <h1>⚙️ ME Engineering Hub</h1>
-    <div class="breadcrumb" id="breadcrumb">
-      <span onclick="goHome()" class="active">Home</span>
-    </div>
+    <div class="bc" id="bc"><span class="act">Home</span></div>
   </div>
-  <div class="unit-toggle">
-    <button class="active" id="btn-SI" onclick="setUnit('SI')">SI</button>
-    <button id="btn-IMP" onclick="setUnit('IMP')">Imperial</button>
+  <div class="ut">
+    <button class="act" id="bSI" onclick="setUnit('SI')">SI</button>
+    <button id="bIMP" onclick="setUnit('IMP')">Imperial</button>
   </div>
 </header>
 <main>
 
-<!-- ══════════════ HOME ══════════════ -->
+<!-- HOME -->
 <div id="view-home" class="view active">
-  <div class="sec-label">Select a domain</div>
-  <div class="home-grid">
-    <div class="cat-card" onclick="goCategory('solid')">
-      <div class="cat-icon">🔩</div>
-      <div class="cat-name">Solid Mechanics</div>
-      <div class="cat-desc">Stress, strain, beam, torsion, fatigue, buckling, contact</div>
-      <div class="cat-count">6 topics</div>
+  <div class="sl">Select Domain</div>
+  <div class="hgrid">
+    <div class="cc" onclick="goCat('solid')">
+      <div class="ci">🔩</div><div class="cn">Solid Mechanics</div>
+      <div class="cd">Stress, beam, torsion, fatigue, buckling, contact</div>
+      <div class="ck">6 topics →</div>
     </div>
-    <div class="cat-card" onclick="goCategory('machine')">
-      <div class="cat-icon">⚙️</div>
-      <div class="cat-name">Machine Design</div>
-      <div class="cat-desc">Shaft, bearing, belt, pulley, gear, clutch, spring</div>
-      <div class="cat-count">7 topics</div>
+    <div class="cc" onclick="goCat('machine')">
+      <div class="ci">⚙️</div><div class="cn">Machine Design</div>
+      <div class="cd">Shaft, bearing, belt, pulley, gear, spring, press fit</div>
+      <div class="ck">7 topics →</div>
     </div>
-    <div class="cat-card" style="opacity:.5;cursor:default">
-      <div class="cat-icon">🌡️</div>
-      <div class="cat-name">Thermal / Heat Transfer</div>
-      <div class="cat-desc">Conduction, convection, HX, boiler</div>
-      <div class="cat-count">Coming soon</div>
+    <div class="cc disabled">
+      <div class="ci">🌡️</div><div class="cn">Thermal / Heat Transfer</div>
+      <div class="cd">Conduction, convection, HX, boiler</div>
+      <div class="ck">Coming soon</div>
     </div>
-    <div class="cat-card" style="opacity:.5;cursor:default">
-      <div class="cat-icon">💧</div>
-      <div class="cat-name">Fluid Mechanics</div>
-      <div class="cat-desc">Pipe flow, Re, pump, Bernoulli</div>
-      <div class="cat-count">Coming soon</div>
+    <div class="cc disabled">
+      <div class="ci">💧</div><div class="cn">Fluid Mechanics</div>
+      <div class="cd">Pipe flow, Re, pump, Bernoulli</div>
+      <div class="ck">Coming soon</div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════ SOLID CATEGORY ══════════════ -->
+<!-- SOLID -->
 <div id="view-solid" class="view">
-  <div class="topic-header">
-    <div class="topic-icon">🔩</div>
-    <div><div class="topic-title">Solid Mechanics</div><div class="topic-subtitle">Select a topic</div></div>
-  </div>
-  <div class="topic-grid">
-    <div class="topic-card" onclick="goTopic('solid','stress')">
-      <div class="topic-card-icon">📐</div>
-      <div class="topic-card-name">Stress Analysis</div>
-      <div class="topic-card-desc">Axial, bending, shear, combined, Mohr's circle, von Mises</div>
-      <span class="badge">Mohr's Circle</span>
-    </div>
-    <div class="topic-card" onclick="goTopic('solid','beam')">
-      <div class="topic-card-icon">━</div>
-      <div class="topic-card-name">Beam</div>
-      <div class="topic-card-desc">Simply supported, cantilever — SFD, BMD, deflection</div>
-      <span class="badge">SFD + BMD</span>
-    </div>
-    <div class="topic-card" onclick="goTopic('solid','torsion')">
-      <div class="topic-card-icon">🌀</div>
-      <div class="topic-card-name">Torsion</div>
-      <div class="topic-card-desc">Solid/hollow shaft, angle of twist, combined torsion+bending</div>
-      <span class="badge">Visualization</span>
-    </div>
-    <div class="topic-card" onclick="goTopic('solid','fatigue')">
-      <div class="topic-card-icon">📉</div>
-      <div class="topic-card-name">Fatigue</div>
-      <div class="topic-card-desc">Goodman, Gerber, Soderberg, Marin factors, S-N</div>
-      <span class="badge">Goodman Diagram</span>
-    </div>
-    <div class="topic-card" onclick="goTopic('solid','buckling')">
-      <div class="topic-card-icon">📏</div>
-      <div class="topic-card-name">Column Buckling</div>
-      <div class="topic-card-desc">Euler, Johnson, slenderness ratio, end conditions</div>
-      <span class="badge">Euler + Johnson</span>
-    </div>
-    <div class="topic-card" onclick="goTopic('solid','contact')">
-      <div class="topic-card-icon">🔵</div>
-      <div class="topic-card-name">Contact & Press Fit</div>
-      <div class="topic-card-desc">Hertz contact stress, interference fit, Lamé equations</div>
-      <span class="badge">Hertz</span>
-    </div>
+  <div class="th"><div class="ti">🔩</div><div><div class="tt">Solid Mechanics</div><div class="ts">Select a topic</div></div></div>
+  <div class="tgrid">
+    <div class="tc" onclick="goTopic('solid','stress')"><div class="tc-icon">📐</div><div class="tc-name">Stress Analysis</div><div class="tc-desc">Axial, bending, combined, Mohr's circle, von Mises, Tresca</div><span class="tg">Mohr's Circle</span></div>
+    <div class="tc" onclick="goTopic('solid','beam')"><div class="tc-icon">━</div><div class="tc-name">Beam</div><div class="tc-desc">SS / Cantilever — SFD, BMD, deflection, bending stress</div><span class="tg">SFD + BMD</span></div>
+    <div class="tc" onclick="goTopic('solid','torsion')"><div class="tc-icon">🌀</div><div class="tc-name">Torsion</div><div class="tc-desc">Solid/hollow shaft, angle of twist, combined loading</div><span class="tg">Visualization</span></div>
+    <div class="tc" onclick="goTopic('solid','fatigue')"><div class="tc-icon">📉</div><div class="tc-name">Fatigue</div><div class="tc-desc">Goodman, Gerber, Soderberg, Marin factors</div><span class="tg">Goodman Diagram</span></div>
+    <div class="tc" onclick="goTopic('solid','buckling')"><div class="tc-icon">📏</div><div class="tc-name">Column Buckling</div><div class="tc-desc">Euler, Johnson, slenderness ratio, end conditions</div><span class="tg">Euler + Johnson</span></div>
+    <div class="tc" onclick="goTopic('solid','contact')"><div class="tc-icon">🔵</div><div class="tc-name">Hertz Contact</div><div class="tc-desc">Sphere/cylinder contact pressure, contact radius</div><span class="tg">Hertz</span></div>
   </div>
 </div>
 
-<!-- ══════════════ MACHINE CATEGORY ══════════════ -->
+<!-- MACHINE -->
 <div id="view-machine" class="view">
-  <div class="topic-header">
-    <div class="topic-icon">⚙️</div>
-    <div><div class="topic-title">Machine Design</div><div class="topic-subtitle">Select a topic</div></div>
-  </div>
-  <div class="topic-grid">
-    <div class="topic-card" onclick="goTopic('machine','shaft')">
-      <div class="topic-card-icon">🔧</div>
-      <div class="topic-card-name">Shaft Design</div>
-      <div class="topic-card-desc">ASME-Elliptic, DE-Goodman, keyway, diameter sizing</div>
-      <span class="badge">ASME / Shigley</span>
-    </div>
-    <div class="topic-card" onclick="goTopic('machine','bearing')">
-      <div class="topic-card-icon">⭕</div>
-      <div class="topic-card-name">Bearing Selection</div>
-      <div class="topic-card-desc">Basic dynamic load, L10 life, static load, equivalent load</div>
-      <span class="badge">ISO 281</span>
-    </div>
-    <div class="topic-card" onclick="goTopic('machine','belt')">
-      <div class="topic-card-icon">♾️</div>
-      <div class="topic-card-name">Belt & Chain</div>
-      <div class="topic-card-desc">V-belt, flat belt tensions, power capacity, center distance</div>
-      <span class="badge">Flat / V-belt</span>
-    </div>
-    <div class="topic-card" onclick="goTopic('machine','pulley')">
-      <div class="topic-card-icon">🎡</div>
-      <div class="topic-card-name">Pulley & Speed Ratio</div>
-      <div class="topic-card-desc">Speed ratio, torque, belt length, compound systems</div>
-      <span class="badge">Kinematics</span>
-    </div>
-    <div class="topic-card" onclick="goTopic('machine','gear')">
-      <div class="topic-card-icon">🔩</div>
-      <div class="topic-card-name">Gear</div>
-      <div class="topic-card-desc">Spur gear geometry, Lewis bending, AGMA contact stress</div>
-      <span class="badge">AGMA / ISO 6336</span>
-    </div>
-    <div class="topic-card" onclick="goTopic('machine','spring')">
-      <div class="topic-card-icon">🌿</div>
-      <div class="topic-card-name">Spring</div>
-      <div class="topic-card-desc">Helical compression/tension, Wahl factor, fatigue, energy</div>
-      <span class="badge">Wahl / Shigley</span>
-    </div>
-    <div class="topic-card" onclick="goTopic('machine','pressfit')">
-      <div class="topic-card-icon">🔗</div>
-      <div class="topic-card-name">Press Fit / Interference</div>
-      <div class="topic-card-desc">Hub-shaft interface pressure, torque capacity, stress</div>
-      <span class="badge">Lamé</span>
-    </div>
+  <div class="th"><div class="ti">⚙️</div><div><div class="tt">Machine Design</div><div class="ts">Select a topic</div></div></div>
+  <div class="tgrid">
+    <div class="tc" onclick="goTopic('machine','shaft')"><div class="tc-icon">🔧</div><div class="tc-name">Shaft Design</div><div class="tc-desc">DE-Goodman, ASME-Elliptic, minimum diameter sizing</div><span class="tg">Shigley</span></div>
+    <div class="tc" onclick="goTopic('machine','bearing')"><div class="tc-icon">⭕</div><div class="tc-name">Bearing</div><div class="tc-desc">L10 life, dynamic/static load, equivalent load P</div><span class="tg">ISO 281</span></div>
+    <div class="tc" onclick="goTopic('machine','belt')"><div class="tc-icon">♾️</div><div class="tc-name">Belt & Chain</div><div class="tc-desc">Flat/V-belt tensions, wrap angle, power, belt length</div><span class="tg">Flat / V-belt</span></div>
+    <div class="tc" onclick="goTopic('machine','pulley')"><div class="tc-icon">🎡</div><div class="tc-name">Pulley System</div><div class="tc-desc">Speed ratio, torque, compound systems, belt length</div><span class="tg">Kinematics</span></div>
+    <div class="tc" onclick="goTopic('machine','gear')"><div class="tc-icon">🔩</div><div class="tc-name">Spur Gear</div><div class="tc-desc">Geometry, tangential force, Lewis bending stress</div><span class="tg">AGMA / Lewis</span></div>
+    <div class="tc" onclick="goTopic('machine','spring')"><div class="tc-icon">🌿</div><div class="tc-name">Helical Spring</div><div class="tc-desc">Stiffness, Wahl factor, shear stress, deflection</div><span class="tg">Wahl</span></div>
+    <div class="tc" onclick="goTopic('machine','pressfit')"><div class="tc-icon">🔗</div><div class="tc-name">Press Fit</div><div class="tc-desc">Interference pressure, hoop stress, torque capacity</div><span class="tg">Lamé</span></div>
   </div>
 </div>
 
-<!-- ══════════════ CALC VIEWS ══════════════ -->
+<!-- CALC VIEW -->
 <div id="view-calc" class="view">
-  <div class="calc-header-bar">
-    <button class="back-btn" id="back-btn" onclick="goBack()">← Back</button>
-    <div class="calc-section-title" id="calc-title">Calculator</div>
+  <div class="chbar">
+    <button class="bbtn" onclick="goBack()">← Back</button>
+    <div class="cst" id="calc-title">Calculator</div>
   </div>
   <div id="calc-content"></div>
 </div>
 
 </main>
 <script>
-/* ── STATE ── */
+/* ── STATE & NAV ── */
 var state={cat:null,topic:null};
 var UM='SI';
+var catNames={solid:'Solid Mechanics',machine:'Machine Design'};
+var topicNames={stress:'Stress Analysis',beam:'Beam',torsion:'Torsion',fatigue:'Fatigue',buckling:'Column Buckling',contact:'Hertz Contact',shaft:'Shaft Design',bearing:'Bearing',belt:'Belt & Chain',pulley:'Pulley System',gear:'Spur Gear',spring:'Helical Spring',pressfit:'Press Fit'};
 
 function setUnit(u){
   UM=u;
-  document.getElementById('btn-SI').classList.toggle('active',u==='SI');
-  document.getElementById('btn-IMP').classList.toggle('active',u==='IMP');
+  document.getElementById('bSI').classList.toggle('act',u==='SI');
+  document.getElementById('bIMP').classList.toggle('act',u==='IMP');
   document.querySelectorAll('.su').forEach(function(e){e.style.display=u==='SI'?'':'none'});
   document.querySelectorAll('.iu').forEach(function(e){e.style.display=u==='IMP'?'':'none'});
 }
-function showView(id){document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active')});document.getElementById('view-'+id).classList.add('active');}
-function setBreadcrumb(parts){
-  var bc=document.getElementById('breadcrumb');
-  var html='<span onclick="goHome()">Home</span>';
+function showV(id){document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active')});document.getElementById('view-'+id).classList.add('active');}
+function setBc(parts){
+  var h='<span onclick="goHome()">Home</span>';
   parts.forEach(function(p,i){
-    html+='<span class="sep">›</span>';
-    if(i<parts.length-1) html+='<span onclick="goCategory(\''+p.id+'\')">'+p.name+'</span>';
-    else html+='<span class="active">'+p.name+'</span>';
+    h+='<span class="sep">›</span>';
+    if(i<parts.length-1) h+='<span onclick="goCat(\''+p.id+'\')">'+p.name+'</span>';
+    else h+='<span class="act">'+p.name+'</span>';
   });
-  bc.innerHTML=html;
+  document.getElementById('bc').innerHTML=h;
 }
-function goHome(){state={cat:null,topic:null};showView('home');document.getElementById('breadcrumb').innerHTML='<span class="active">Home</span>';}
-function goCategory(cat){
-  state.cat=cat; state.topic=null;
-  showView(cat);
-  var names={solid:'Solid Mechanics',machine:'Machine Design'};
-  setBreadcrumb([{id:cat,name:names[cat]}]);
-}
-function goBack(){
-  if(state.topic) goCategory(state.cat);
-  else goHome();
-}
+function goHome(){state={cat:null,topic:null};showV('home');document.getElementById('bc').innerHTML='<span class="act">Home</span>';}
+function goCat(cat){state.cat=cat;state.topic=null;showV(cat);setBc([{id:cat,name:catNames[cat]}]);}
+function goBack(){state.topic?goCat(state.cat):goHome();}
 function goTopic(cat,topic){
-  state.cat=cat; state.topic=topic;
-  var catNames={solid:'Solid Mechanics',machine:'Machine Design'};
-  var topicNames={stress:'Stress Analysis',beam:'Beam',torsion:'Torsion',fatigue:'Fatigue',buckling:'Column Buckling',contact:'Contact & Press Fit',shaft:'Shaft Design',bearing:'Bearing Selection',belt:'Belt & Chain',pulley:'Pulley & Speed Ratio',gear:'Gear',spring:'Spring',pressfit:'Press Fit'};
-  setBreadcrumb([{id:cat,name:catNames[cat]},{id:topic,name:topicNames[topic]}]);
+  state.cat=cat;state.topic=topic;
+  setBc([{id:cat,name:catNames[cat]},{id:topic,name:topicNames[topic]}]);
   document.getElementById('calc-title').textContent=topicNames[topic];
-  document.getElementById('calc-content').innerHTML=getCalcHTML(cat,topic);
-  showView('calc');
+  document.getElementById('calc-content').innerHTML=getHTML(cat,topic);
+  showV('calc');
   setUnit(UM);
 }
 
-/* ── UNIT HELPERS ── */
+/* ── HELPERS ── */
 function toN(v){return UM==='IMP'?v*4.44822:v;}
 function toM(v){return UM==='IMP'?v*0.0254:v;}
 function toMPa(v){return UM==='IMP'?v*6.89476:v;}
 function toNm(v){return UM==='IMP'?v*0.112985:v;}
 function fromMPa(v){return UM==='IMP'?v/6.89476:v;}
 function su(){return UM==='IMP'?'ksi':'MPa';}
-function lu(){return UM==='IMP'?'in':'m';}
-function V(id){return parseFloat(document.getElementById(id).value)||0;}
+
+/* CRITICAL FIX: read value OR placeholder as fallback */
+function V(id){
+  var el=document.getElementById(id);
+  if(!el) return 0;
+  var val=parseFloat(el.value);
+  if(isNaN(val)){val=parseFloat(el.placeholder);}
+  return isFinite(val)?val:0;
+}
+function Vs(id){var el=document.getElementById(id);return el?el.value:'';}
 function fmt(n,d){return(!isFinite(n)||isNaN(n))?'—':n.toFixed(d===undefined?3:d);}
+function toggleAdv(id){
+  var el=document.getElementById(id);var open=el.classList.toggle('open');
+  var btn=el.previousElementSibling;btn.textContent=(open?'▼ ':'▶ ')+btn.textContent.slice(2);
+}
 
 function showRes(rid,rows){
-  var el=document.getElementById(rid); if(!el) return;
+  var el=document.getElementById(rid);if(!el)return;
   el.style.display='block';
-  var h='<div class="res-title">Results</div>';
-  rows.forEach(function(r){h+='<div class="res-row"><span class="res-key">'+r[0]+'</span><span class="res-val">'+r[1]+(r[2]?' <span class="res-warn">'+r[2]+'</span>':'')+'</span></div>';});
+  var h='<div class="rt">Results</div>';
+  rows.forEach(function(r){h+='<div class="rr"><span class="rk">'+r[0]+'</span><span class="rv">'+r[1]+(r[2]?'<span class="rw">'+r[2]+'</span>':'')+'</span></div>';});
   el.innerHTML=h;
-  var eq=document.getElementById(rid.replace('res-','eq-')); if(eq) eq.style.display='block';
-  var vis=document.getElementById(rid.replace('res-','vis-')); if(vis) vis.style.display='block';
+  var eq=document.getElementById(rid.replace('res-','eq-'));if(eq)eq.style.display='block';
+  var vis=document.getElementById(rid.replace('res-','vis-'));if(vis){vis.style.display='block';setTimeout(function(){drawVis(rid);},60);}
 }
 function clearRes(rid){
-  var el=document.getElementById(rid); if(el) el.style.display='none';
-  var eq=document.getElementById(rid.replace('res-','eq-')); if(eq) eq.style.display='none';
-  var vis=document.getElementById(rid.replace('res-','vis-')); if(vis) vis.style.display='none';
-}
-function toggleAdv(id){
-  var el=document.getElementById(id); var open=el.classList.toggle('open');
-  var btn=el.previousElementSibling;
-  btn.textContent=(open?'▼ ':'▶ ')+btn.textContent.slice(2);
+  var el=document.getElementById(rid);if(el)el.style.display='none';
+  var eq=document.getElementById(rid.replace('res-','eq-'));if(eq)eq.style.display='none';
+  var vis=document.getElementById(rid.replace('res-','vis-'));if(vis)vis.style.display='none';
 }
 
-/* ══════════════════════════════════════
-   HTML TEMPLATES
-══════════════════════════════════════ */
-function getCalcHTML(cat,topic){
-  var map={
-    'solid/stress': htmlStress,
-    'solid/beam': htmlBeam,
-    'solid/torsion': htmlTorsion,
-    'solid/fatigue': htmlFatigue,
-    'solid/buckling': htmlBuckling,
-    'solid/contact': htmlContact,
-    'machine/shaft': htmlShaft,
-    'machine/bearing': htmlBearing,
-    'machine/belt': htmlBelt,
-    'machine/pulley': htmlPulley,
-    'machine/gear': htmlGear,
-    'machine/spring': htmlSpring,
-    'machine/pressfit': htmlPressFit,
-  };
-  var fn=map[cat+'/'+topic];
-  return fn?fn():'<p style="color:#64748b;padding:20px">Coming soon</p>';
+/* ── FORMULA HELPER: render math lines ── */
+function mf(lhs,rhs){return '<div class="mf"><span class="lhs">'+lhs+'</span><span class="eq">=</span><span class="rhs">'+rhs+'</span></div>';}
+function msub(text){return '<div class="eq-sub">'+text+'</div>';}
+
+/* ══ HTML TEMPLATES ══ */
+function getHTML(cat,topic){
+  var map={'solid/stress':tplStress,'solid/beam':tplBeam,'solid/torsion':tplTorsion,'solid/fatigue':tplFatigue,'solid/buckling':tplBuckling,'solid/contact':tplContact,'machine/shaft':tplShaft,'machine/bearing':tplBearing,'machine/belt':tplBelt,'machine/pulley':tplPulley,'machine/gear':tplGear,'machine/spring':tplSpring,'machine/pressfit':tplPressFit};
+  var fn=map[cat+'/'+topic];return fn?fn():'<p style="color:#64748b;padding:20px">Coming soon</p>';
 }
+
+function inp(id,ph,unit_si,unit_imp,useVal){
+  var vattr=useVal?(' value="'+ph+'"'):'';
+  var u_si=unit_si?('<span class="fu su">'+unit_si+'</span>'):'';
+  var u_imp=unit_imp?('<span class="fu iu" style="display:none">'+unit_imp+'</span>'):'';
+  return '<input class="fi" id="'+id+'" type="number" placeholder="'+ph+'"'+vattr+'>'+u_si+u_imp;
+}
+function row(label,id,ph,unit_si,unit_imp){
+  return '<div class="fr"><span class="fl">'+label+'</span>'+inp(id,ph,unit_si,unit_imp,true)+'</div>';
+}
+function selrow(label,id,opts){
+  var o=opts.map(function(x){return '<option value="'+x[0]+'">'+x[1]+'</option>';}).join('');
+  return '<div class="fr"><span class="fl">'+label+'</span><select class="fi" id="'+id+'">'+o+'</select></div>';
+}
+function btns(calcFn,rid){return '<div class="brow"><button class="cbtn" onclick="'+calcFn+'()">Calculate</button><button class="xbtn" onclick="clearRes(\''+rid+'\')">Clear</button></div>';}
+function resbox(id){return '<div class="res" id="'+id+'"></div>';}
+function visbox(id,canvases){return '<div class="vbox" id="vis-'+id+'">'+canvases+'</div>';}
 
 /* ── STRESS ── */
-function htmlStress(){return `<div class="calc-grid">
-<div class="calc-card"><div class="calc-card-head"><span class="calc-card-title">2D Stress State + Mohr's Circle</span><span class="std-badge">von Mises / Tresca</span></div>
-<div class="calc-body">
-<div class="field-row"><span class="field-label">σ_x</span><input class="field-input" id="ms-sx" type="number" placeholder="80"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
-<div class="field-row"><span class="field-label">σ_y</span><input class="field-input" id="ms-sy" type="number" placeholder="-20"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
-<div class="field-row"><span class="field-label">τ_xy</span><input class="field-input" id="ms-txy" type="number" placeholder="30"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
-<div class="field-row"><span class="field-label">Yield strength Sy</span><input class="field-input" id="ms-Sy" type="number" placeholder="250"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
-<div class="btn-row"><button class="calc-btn" onclick="calcMohr()">Calculate + Mohr's Circle</button><button class="clr-btn" onclick="clearRes('res-ms')">Clear</button></div>
-<div class="res" id="res-ms"></div>
-<div class="vis-box" id="vis-ms"><canvas id="canvas-mohr" width="320" height="260"></canvas></div>
-<div class="eq-box" id="eq-ms"><div class="eq-title">Equations</div>
-<div class="eq-line">σ_avg = (σ_x + σ_y)/2</div>
-<div class="eq-line">R = √[((σ_x-σ_y)/2)² + τ_xy²]</div>
-<div class="eq-line">σ₁,₂ = σ_avg ± R  |  τ_max = R</div>
-<div class="eq-line">σ_vm = √(σ₁²-σ₁σ₂+σ₂²)  [von Mises]</div>
-<div class="eq-line">θ_p = 0.5·atan(2τ_xy/(σ_x-σ_y))</div>
-<div class="eq-vars"><span>von Mises: better for ductile metals | Tresca: conservative</span></div></div>
-</div></div></div>`;}
+function tplStress(){return '<div class="cgrid"><div class="card"><div class="chead"><span class="cht">2D Stress → Mohr\'s Circle</span><span class="sb">von Mises / Tresca</span></div><div class="cbody">'+
+row('σ_x (normal-x)','ms-sx','80','MPa','ksi')+
+row('σ_y (normal-y)','ms-sy','-20','MPa','ksi')+
+row('τ_xy (shear)','ms-txy','30','MPa','ksi')+
+row('Yield strength Sy','ms-Sy','250','MPa','ksi')+
+btns('calcStress','res-ms')+resbox('res-ms')+
+visbox('ms','<canvas id="cv-mohr" width="320" height="260"></canvas>')+
+'<div class="eq-box" id="eq-res-ms"><div class="eq-title">Equations Used</div>'+
+mf('σ_avg','(σ_x + σ_y) / 2')+
+mf('R','√[ ((σ_x−σ_y)/2)² + τ_xy² ]')+
+mf('σ₁, σ₂','σ_avg ± R')+
+mf('τ_max','R')+
+mf('σ_von Mises','√( σ₁² − σ₁σ₂ + σ₂² )')+
+mf('θ_p','½ · arctan( 2τ_xy / (σ_x−σ_y) )')+
+mf('n (von Mises)','Sy / σ_vm')+
+msub('von Mises: ductile metals | Tresca: σ₁−σ₂ ≤ Sy → more conservative')+
+'</div></div></div></div>';}
 
 /* ── BEAM ── */
-function htmlBeam(){return `<div class="calc-grid">
-<div class="calc-card"><div class="calc-card-head"><span class="calc-card-title">Beam: SFD, BMD & Deflection</span><span class="std-badge">Simply Supported / Cantilever</span></div>
-<div class="calc-body">
-<div class="field-row"><span class="field-label">Load type</span><select class="field-input" id="bm-type" onchange="updateBeamType()">
-<option value="mid">Point load — midspan (SS)</option>
-<option value="point">Point load at 'a' (SS)</option>
-<option value="udl">UDL — full span (SS)</option>
-<option value="cant-end">End point load (Cantilever)</option>
-<option value="cant-udl">UDL (Cantilever)</option>
-</select></div>
-<div class="field-row"><span class="field-label">Beam length L</span><input class="field-input" id="bm-L" type="number" placeholder="3"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
-<div class="field-row"><span class="field-label">Load P (or w)</span><input class="field-input" id="bm-P" type="number" placeholder="10"><span class="field-unit su" id="bm-Pu">kN</span><span class="field-unit iu" style="display:none">kip</span></div>
-<div id="bm-a-row" class="field-row" style="display:none"><span class="field-label">Load position a</span><input class="field-input" id="bm-a" type="number" placeholder="1"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
-<div class="field-row"><span class="field-label">E (Young's modulus)</span><input class="field-input" id="bm-E" type="number" placeholder="200"><span class="field-unit">GPa</span></div>
-<div class="field-row"><span class="field-label">I (2nd moment)</span><input class="field-input" id="bm-I" type="number" placeholder="8.33e-6"><span class="field-unit su">m⁴</span><span class="field-unit iu" style="display:none">in⁴</span></div>
-<div class="field-row"><span class="field-label">Section height h</span><input class="field-input" id="bm-h" type="number" placeholder="0.1"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
-<div class="btn-row"><button class="calc-btn" onclick="calcBeam()">Calculate + Diagrams</button><button class="clr-btn" onclick="clearRes('res-bm')">Clear</button></div>
-<div class="res" id="res-bm"></div>
-<div class="vis-box" id="vis-bm">
-<canvas id="canvas-sfd" width="420" height="110"></canvas>
-<canvas id="canvas-bmd" width="420" height="110" style="margin-top:4px"></canvas>
-</div>
-<div class="eq-box" id="eq-bm"><div class="eq-title">Equations</div>
-<div class="eq-line" id="eq-bm1">M_max = PL/4  [midspan]</div>
-<div class="eq-line" id="eq-bm2">δ_max = PL³/(48EI)</div>
-<div class="eq-line">σ_max = M_max·(h/2)/I</div>
-</div></div></div>`;}
+function tplBeam(){return '<div class="cgrid"><div class="card"><div class="chead"><span class="cht">Beam: SFD, BMD & Deflection</span><span class="sb">SS / Cantilever</span></div><div class="cbody">'+
+selrow('Load type','bm-type',[['mid','Point load — midspan (SS)'],['point','Point load at position a (SS)'],['udl','UDL — full span (SS)'],['cant-end','End point load (Cantilever)'],['cant-udl','UDL (Cantilever)']])+
+row('Beam length L','bm-L','3','m','in')+
+row('Load P (or w for UDL)','bm-P','10','kN','kip')+
+'<div class="fr" id="bm-a-row" style="display:none"><span class="fl">Load position a</span>'+inp('bm-a','1','m','in',true)+'</div>'+
+row('Young\'s modulus E','bm-E','200','GPa','')+
+row('Moment of inertia I','bm-I','8.33e-6','m⁴','in⁴')+
+row('Section height h','bm-h','0.1','m','in')+
+'<script>document.getElementById("bm-type").onchange=updateBmType;<\/script>'+
+btns('calcBeam','res-bm')+resbox('res-bm')+
+visbox('bm','<canvas id="cv-sfd" width="420" height="105"></canvas><canvas id="cv-bmd" width="420" height="105" style="margin-top:4px"></canvas>')+
+'<div class="eq-box" id="eq-res-bm"><div class="eq-title">Equations Used</div>'+
+'<div id="eq-bm-lines">'+
+mf('M_max','PL/4  [midspan SS]')+
+mf('δ_max','PL³ / (48EI)')+
+'</div>'+
+mf('σ_max','M_max · (h/2) / I')+
+msub('R_A = R_B = P/2 (symmetric) | SFD shows shear, BMD shows moment')+
+'</div></div></div></div>';}
 
 /* ── TORSION ── */
-function htmlTorsion(){return `<div class="calc-grid">
-<div class="calc-card"><div class="calc-card-head"><span class="calc-card-title">Torsion — Solid / Hollow Shaft</span><span class="std-badge">Shigley</span></div>
-<div class="calc-body">
-<div class="field-row"><span class="field-label">Torque T</span><input class="field-input" id="tor-T" type="number" placeholder="500"><span class="field-unit su">N·m</span><span class="field-unit iu" style="display:none">lbf·in</span></div>
-<div class="field-row"><span class="field-label">Outer diameter d_o</span><input class="field-input" id="tor-do" type="number" placeholder="0.05"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
-<div class="field-row"><span class="field-label">Shear yield Ssy</span><input class="field-input" id="tor-Ssy" type="number" placeholder="145"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
-<button class="adv-btn" onclick="toggleAdv('adv-tor')">▶ Hollow shaft / angle of twist</button>
-<div class="adv-sec" id="adv-tor">
-<div class="field-row"><span class="field-label">Inner dia d_i (0=solid)</span><input class="field-input" id="tor-di" type="number" placeholder="0"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
-<div class="field-row"><span class="field-label">Shear modulus G</span><input class="field-input" id="tor-G" type="number" placeholder="79"><span class="field-unit">GPa</span></div>
-<div class="field-row"><span class="field-label">Length L</span><input class="field-input" id="tor-L" type="number" placeholder="1"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
-<div class="field-row"><span class="field-label">Bending moment M</span><input class="field-input" id="tor-M" type="number" placeholder="0"><span class="field-unit su">N·m</span><span class="field-unit iu" style="display:none">lbf·in</span></div>
-</div>
-<div class="btn-row"><button class="calc-btn" onclick="calcTorsion()">Calculate</button><button class="clr-btn" onclick="clearRes('res-tor')">Clear</button></div>
-<div class="res" id="res-tor"></div>
-<div class="eq-box" id="eq-tor"><div class="eq-title">Equations</div>
-<div class="eq-line">J = π(d_o⁴-d_i⁴)/32</div>
-<div class="eq-line">τ_max = T·(d_o/2)/J</div>
-<div class="eq-line">φ = TL/(GJ)  [angle of twist]</div>
-<div class="eq-line">σ_vm = √(σ_b² + 3τ²)  [combined]</div>
-<div class="eq-vars"><span>Ssy ≈ 0.577·Sy (von Mises) | 0.5·Sy (Tresca)</span></div>
-</div></div></div>`;}
+function tplTorsion(){return '<div class="cgrid"><div class="card"><div class="chead"><span class="cht">Torsion — Solid / Hollow Shaft</span><span class="sb">Shigley</span></div><div class="cbody">'+
+row('Torque T','tor-T','500','N·m','lbf·in')+
+row('Outer diameter d_o','tor-do','0.05','m','in')+
+row('Shear yield Ssy','tor-Ssy','145','MPa','ksi')+
+'<button class="ab" onclick="toggleAdv(\'adv-tor\')">▶ Hollow shaft / angle of twist</button>'+
+'<div class="as" id="adv-tor">'+
+row('Inner dia d_i (0=solid)','tor-di','0','m','in')+
+row('Shear modulus G','tor-G','79','GPa','')+
+row('Shaft length L','tor-L','1','m','in')+
+row('Bending moment M','tor-M','0','N·m','lbf·in')+
+'</div>'+
+btns('calcTorsion','res-tor')+resbox('res-tor')+
+'<div class="eq-box" id="eq-res-tor"><div class="eq-title">Equations Used</div>'+
+mf('J','π(d_o⁴ − d_i⁴) / 32')+
+mf('τ_max','T · (d_o/2) / J')+
+mf('φ','T · L / (G · J)  [angle of twist, rad]')+
+mf('σ_vm (combined)','√( σ_b² + 3τ² )')+
+mf('n','Ssy / τ_max')+
+msub('Ssy ≈ 0.577·Sy (von Mises) | 0.5·Sy (Tresca)')+
+'</div></div></div></div>';}
 
 /* ── FATIGUE ── */
-function htmlFatigue(){return `<div class="calc-grid">
-<div class="calc-card"><div class="calc-card-head"><span class="calc-card-title">Fatigue — Goodman / Gerber / Soderberg</span><span class="std-badge">Shigley Ch.6</span></div>
-<div class="calc-body">
-<div class="field-row"><span class="field-label">Mean stress σ_m</span><input class="field-input" id="fg-sm" type="number" placeholder="100"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
-<div class="field-row"><span class="field-label">Alternating σ_a</span><input class="field-input" id="fg-sa" type="number" placeholder="60"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
-<div class="field-row"><span class="field-label">Ultimate Su</span><input class="field-input" id="fg-Su" type="number" placeholder="400"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
-<div class="field-row"><span class="field-label">Yield Sy</span><input class="field-input" id="fg-Sy" type="number" placeholder="250"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
-<div class="field-row"><span class="field-label">Endurance Se (or 0=auto)</span><input class="field-input" id="fg-Se" type="number" placeholder="0"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
-<button class="adv-btn" onclick="toggleAdv('adv-fg')">▶ Marin factors</button>
-<div class="adv-sec" id="adv-fg">
-<div class="field-row"><span class="field-label">k_a surface</span><input class="field-input" id="fg-ka" type="number" placeholder="0.72"></div>
-<div class="field-row"><span class="field-label">k_b size</span><input class="field-input" id="fg-kb" type="number" placeholder="0.85"></div>
-<div class="field-row"><span class="field-label">k_c load</span><input class="field-input" id="fg-kc" type="number" placeholder="1.0"></div>
-<div class="field-row"><span class="field-label">k_e reliability</span><input class="field-input" id="fg-ke" type="number" placeholder="0.897"></div>
-<div class="field-row"><span class="field-label">Kf (fatigue SCF)</span><input class="field-input" id="fg-Kf" type="number" placeholder="1.0"></div>
-</div>
-<div class="btn-row"><button class="calc-btn" onclick="calcFatigue()">Calculate + Diagram</button><button class="clr-btn" onclick="clearRes('res-fg')">Clear</button></div>
-<div class="res" id="res-fg"></div>
-<div class="vis-box" id="vis-fg"><canvas id="canvas-fg" width="320" height="270"></canvas></div>
-<div class="eq-box" id="eq-fg"><div class="eq-title">Equations</div>
-<div class="eq-line">Goodman:   σ_a/Se + σ_m/Su = 1/n_f</div>
-<div class="eq-line">Gerber:    σ_a/Se + (σ_m/Su)² = 1/n_f</div>
-<div class="eq-line">Soderberg: σ_a/Se + σ_m/Sy = 1/n_f</div>
-<div class="eq-line">Se = ka·kb·kc·ke · (0.5·Su)</div>
-</div></div></div>`;}
+function tplFatigue(){return '<div class="cgrid"><div class="card"><div class="chead"><span class="cht">Fatigue: Goodman / Gerber / Soderberg</span><span class="sb">Shigley Ch.6</span></div><div class="cbody">'+
+row('Mean stress σ_m','fg-sm','100','MPa','ksi')+
+row('Alternating stress σ_a','fg-sa','60','MPa','ksi')+
+row('Ultimate strength Su','fg-Su','400','MPa','ksi')+
+row('Yield strength Sy','fg-Sy','250','MPa','ksi')+
+row('Endurance Se (0=auto)','fg-Se','0','MPa','ksi')+
+'<button class="ab" onclick="toggleAdv(\'adv-fg\')">▶ Marin factors (Se correction)</button>'+
+'<div class="as" id="adv-fg">'+
+row('k_a (surface)','fg-ka','0.72','')+
+row('k_b (size)','fg-kb','0.85','')+
+row('k_c (load)','fg-kc','1.0','')+
+row('k_e (reliability)','fg-ke','0.897','')+
+row('Kf (fatigue SCF)','fg-Kf','1.0','')+
+'</div>'+
+btns('calcFatigue','res-fg')+resbox('res-fg')+
+visbox('fg','<canvas id="cv-fg" width="320" height="270"></canvas>')+
+'<div class="eq-box" id="eq-res-fg"><div class="eq-title">Equations Used</div>'+
+mf("Se'",'0.5 · Su  (rotating beam baseline)')+
+mf('Se','k_a · k_b · k_c · k_e · Se\'')+
+mf('Goodman','σ_a/Se + σ_m/Su = 1/n_f')+
+mf('Gerber','σ_a/Se + (σ_m/Su)² = 1/n_f')+
+mf('Soderberg','σ_a/Se + σ_m/Sy = 1/n_f')+
+mf('Langer (yield)','σ_a + σ_m = Sy/n_y')+
+msub('Kf applies to σ_a only | Goodman: conservative for ductile metals')+
+'</div></div></div></div>';}
 
 /* ── BUCKLING ── */
-function htmlBuckling(){return `<div class="calc-grid">
-<div class="calc-card"><div class="calc-card-head"><span class="calc-card-title">Column Buckling — Euler + Johnson</span><span class="std-badge">AISC / Shigley</span></div>
-<div class="calc-body">
-<div class="field-row"><span class="field-label">End condition</span><select class="field-input" id="bk-end">
-<option value="1.0">Pin–Pin (K=1.0)</option><option value="0.5">Fixed–Fixed (K=0.5)</option>
-<option value="0.7">Fixed–Pin (K=0.7)</option><option value="2.0">Fixed–Free (K=2.0)</option>
-</select></div>
-<div class="field-row"><span class="field-label">E (Young's)</span><input class="field-input" id="bk-E" type="number" placeholder="200"><span class="field-unit">GPa</span></div>
-<div class="field-row"><span class="field-label">Length L</span><input class="field-input" id="bk-L" type="number" placeholder="2"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
-<div class="field-row"><span class="field-label">Min. inertia I</span><input class="field-input" id="bk-I" type="number" placeholder="8.33e-6"><span class="field-unit su">m⁴</span><span class="field-unit iu" style="display:none">in⁴</span></div>
-<div class="field-row"><span class="field-label">Area A</span><input class="field-input" id="bk-A" type="number" placeholder="0.01"><span class="field-unit su">m²</span><span class="field-unit iu" style="display:none">in²</span></div>
-<div class="field-row"><span class="field-label">Yield Sy</span><input class="field-input" id="bk-Sy" type="number" placeholder="250"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
-<div class="field-row"><span class="field-label">Applied load P</span><input class="field-input" id="bk-P" type="number" placeholder="optional"><span class="field-unit su">kN</span><span class="field-unit iu" style="display:none">kip</span></div>
-<div class="btn-row"><button class="calc-btn" onclick="calcBuckling()">Calculate</button><button class="clr-btn" onclick="clearRes('res-bk')">Clear</button></div>
-<div class="res" id="res-bk"></div>
-<div class="eq-box" id="eq-bk"><div class="eq-title">Equations</div>
-<div class="eq-line">P_cr = π²EI/(KL)²  [Euler]</div>
-<div class="eq-line">λ = KL/r,  r=√(I/A),  λ_c=π√(2E/Sy)</div>
-<div class="eq-line">Johnson: σ_cr = Sy[1 - Sy·λ²/(4π²E)]  if λ&lt;λ_c</div>
-</div></div></div>`;}
+function tplBuckling(){return '<div class="cgrid"><div class="card"><div class="chead"><span class="cht">Column Buckling — Euler + Johnson</span><span class="sb">AISC / Shigley</span></div><div class="cbody">'+
+selrow('End condition','bk-end',[['1.0','Pin–Pin  (K = 1.0)'],['0.5','Fixed–Fixed  (K = 0.5)'],['0.7','Fixed–Pin  (K = 0.7)'],['2.0','Fixed–Free  (K = 2.0)']])+
+row('Young\'s modulus E','bk-E','200','GPa','')+
+row('Length L','bk-L','2','m','in')+
+row('Min. inertia I','bk-I','8.33e-6','m⁴','in⁴')+
+row('Cross-section area A','bk-A','0.01','m²','in²')+
+row('Yield strength Sy','bk-Sy','250','MPa','ksi')+
+row('Applied load P (opt.)','bk-P','0','kN','kip')+
+btns('calcBuckling','res-bk')+resbox('res-bk')+
+'<div class="eq-box" id="eq-res-bk"><div class="eq-title">Equations Used</div>'+
+mf('P_cr (Euler)','π² · E · I / (K·L)²')+
+mf('λ','K·L / r,   r = √(I/A)')+
+mf('λ_c','π · √(2E / Sy)  [transition slenderness]')+
+mf('P_cr (Johnson)','[Sy − Sy²·λ²/(4π²E)] · A   if λ < λ_c')+
+mf('n','P_cr / P_applied')+
+msub('Euler valid for λ > λ_c (long columns) | Johnson for short/intermediate')+
+'</div></div></div></div>';}
 
 /* ── CONTACT ── */
-function htmlContact(){return `<div class="calc-grid">
-<div class="calc-card"><div class="calc-card-head"><span class="calc-card-title">Hertz Contact Stress</span><span class="std-badge">Hertz</span></div>
-<div class="calc-body">
-<div class="field-row"><span class="field-label">Contact type</span><select class="field-input" id="hz-type">
-<option value="sph-flat">Sphere on flat</option><option value="sph-sph">Sphere on sphere</option>
-<option value="cyl-flat">Cylinder on flat</option><option value="cyl-cyl">Cylinder on cylinder</option>
-</select></div>
-<div class="field-row"><span class="field-label">Force F</span><input class="field-input" id="hz-F" type="number" placeholder="1000"><span class="field-unit su">N</span><span class="field-unit iu" style="display:none">lbf</span></div>
-<div class="field-row"><span class="field-label">R₁</span><input class="field-input" id="hz-R1" type="number" placeholder="0.02"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
-<div class="field-row"><span class="field-label">R₂ (0=flat)</span><input class="field-input" id="hz-R2" type="number" placeholder="0"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
-<div class="field-row"><span class="field-label">E₁</span><input class="field-input" id="hz-E1" type="number" placeholder="200"><span class="field-unit">GPa</span></div>
-<div class="field-row"><span class="field-label">ν₁</span><input class="field-input" id="hz-v1" type="number" placeholder="0.3"></div>
-<button class="adv-btn" onclick="toggleAdv('adv-hz')">▶ Body 2 material / cylinder length</button>
-<div class="adv-sec" id="adv-hz">
-<div class="field-row"><span class="field-label">E₂ (blank=same)</span><input class="field-input" id="hz-E2" type="number" placeholder=""></div>
-<div class="field-row"><span class="field-label">ν₂ (blank=same)</span><input class="field-input" id="hz-v2" type="number" placeholder=""></div>
-<div class="field-row"><span class="field-label">Cylinder length L</span><input class="field-input" id="hz-L" type="number" placeholder="0.05"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
-</div>
-<div class="btn-row"><button class="calc-btn" onclick="calcHertz()">Calculate</button><button class="clr-btn" onclick="clearRes('res-hz')">Clear</button></div>
-<div class="res" id="res-hz"></div>
-<div class="eq-box" id="eq-hz"><div class="eq-title">Equations</div>
-<div class="eq-line">1/E* = (1-ν₁²)/E₁ + (1-ν₂²)/E₂</div>
-<div class="eq-line">1/R* = 1/R₁ + 1/R₂  (R=∞ flat)</div>
-<div class="eq-line">[sphere] a=(3FR*/4E*)^(1/3), p₀=3F/(2πa²)</div>
-<div class="eq-line">[cyl] b=√(4FR*/πLE*), p₀=2F/(πbL)</div>
-<div class="eq-vars"><span>τ_max ≈ 0.31·p₀ at z≈0.48a (sphere)</span></div>
-</div></div></div>`;}
+function tplContact(){return '<div class="cgrid"><div class="card"><div class="chead"><span class="cht">Hertz Contact Stress</span><span class="sb">Hertz Theory</span></div><div class="cbody">'+
+selrow('Contact geometry','hz-type',[['sph-flat','Sphere on flat'],['sph-sph','Sphere on sphere'],['cyl-flat','Cylinder on flat'],['cyl-cyl','Cylinder on cylinder']])+
+row('Normal force F','hz-F','1000','N','lbf')+
+row('Radius R₁','hz-R1','0.02','m','in')+
+row('Radius R₂ (0 = flat)','hz-R2','0','m','in')+
+row('E₁ (Young\'s body 1)','hz-E1','200','GPa','')+
+row('ν₁ (Poisson body 1)','hz-v1','0.3','')+
+'<button class="ab" onclick="toggleAdv(\'adv-hz\')">▶ Body 2 material / cylinder length</button>'+
+'<div class="as" id="adv-hz">'+
+row('E₂ (blank = same as E₁)','hz-E2','0','GPa','')+
+row('ν₂ (blank = same)','hz-v2','0','')+
+row('Cylinder length L','hz-L','0.05','m','in')+
+'</div>'+
+btns('calcHertz','res-hz')+resbox('res-hz')+
+'<div class="eq-box" id="eq-res-hz"><div class="eq-title">Equations Used</div>'+
+mf('1/E*','(1−ν₁²)/E₁ + (1−ν₂²)/E₂')+
+mf('1/R*','1/R₁ + 1/R₂   (R = ∞ for flat)')+
+mf('a  [sphere]','( 3·F·R* / (4·E*) )^(1/3)')+
+mf('p₀ [sphere]','3F / (2πa²)')+
+mf('b  [cylinder]','√( 4·F·R* / (π·L·E*) )')+
+mf('p₀ [cylinder]','2F / (π·b·L)')+
+msub('τ_max ≈ 0.31·p₀ at depth z ≈ 0.48a (sphere contact)')+
+'</div></div></div></div>';}
 
-/* ── SHAFT (Machine Design) ── */
-function htmlShaft(){return `<div class="calc-grid">
-<div class="calc-card"><div class="calc-card-head"><span class="calc-card-title">Shaft Design (DE-Goodman)</span><span class="std-badge">ASME-Elliptic / Shigley</span></div>
-<div class="calc-body">
-<div class="field-row"><span class="field-label">Mean torque T_m</span><input class="field-input" id="sd-Tm" type="number" placeholder="200"><span class="field-unit su">N·m</span><span class="field-unit iu" style="display:none">lbf·in</span></div>
-<div class="field-row"><span class="field-label">Alt. torque T_a</span><input class="field-input" id="sd-Ta" type="number" placeholder="0"><span class="field-unit su">N·m</span><span class="field-unit iu" style="display:none">lbf·in</span></div>
-<div class="field-row"><span class="field-label">Mean moment M_m</span><input class="field-input" id="sd-Mm" type="number" placeholder="0"><span class="field-unit su">N·m</span><span class="field-unit iu" style="display:none">lbf·in</span></div>
-<div class="field-row"><span class="field-label">Alt. moment M_a</span><input class="field-input" id="sd-Ma" type="number" placeholder="150"><span class="field-unit su">N·m</span><span class="field-unit iu" style="display:none">lbf·in</span></div>
-<div class="field-row"><span class="field-label">Se (endurance)</span><input class="field-input" id="sd-Se" type="number" placeholder="200"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
-<div class="field-row"><span class="field-label">Su (ultimate)</span><input class="field-input" id="sd-Su" type="number" placeholder="400"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
-<div class="field-row"><span class="field-label">Sy (yield)</span><input class="field-input" id="sd-Sy" type="number" placeholder="250"><span class="field-unit su">MPa</span><span class="field-unit iu" style="display:none">ksi</span></div>
-<button class="adv-btn" onclick="toggleAdv('adv-sd')">▶ Stress concentration factors</button>
-<div class="adv-sec" id="adv-sd">
-<div class="field-row"><span class="field-label">Kf (bending)</span><input class="field-input" id="sd-Kf" type="number" placeholder="1.5"></div>
-<div class="field-row"><span class="field-label">Kfs (torsion)</span><input class="field-input" id="sd-Kfs" type="number" placeholder="1.3"></div>
-</div>
-<div class="btn-row"><button class="calc-btn" onclick="calcShaftDesign()">Size the Shaft</button><button class="clr-btn" onclick="clearRes('res-sd')">Clear</button></div>
-<div class="res" id="res-sd"></div>
-<div class="eq-box" id="eq-sd"><div class="eq-title">DE-Goodman criterion</div>
-<div class="eq-line">A = √(4(Kf·Ma)² + 3(Kfs·Ta)²)</div>
-<div class="eq-line">B = √(4(Kf·Mm)² + 3(Kfs·Tm)²)</div>
-<div class="eq-line">d³ = (16n/π)(A/Se + B/Su)</div>
-<div class="eq-vars"><span>Solve for d given n=1 → minimum diameter for infinite life</span></div>
-</div></div></div>`;}
+/* ── SHAFT DESIGN ── */
+function tplShaft(){return '<div class="cgrid"><div class="card"><div class="chead"><span class="cht">Shaft Design — DE-Goodman Criterion</span><span class="sb">Shigley Ch.7</span></div><div class="cbody">'+
+row('Mean torque T_m','sd-Tm','200','N·m','lbf·in')+
+row('Alternating torque T_a','sd-Ta','0','N·m','lbf·in')+
+row('Mean moment M_m','sd-Mm','0','N·m','lbf·in')+
+row('Alternating moment M_a','sd-Ma','150','N·m','lbf·in')+
+row('Endurance limit Se','sd-Se','200','MPa','ksi')+
+row('Ultimate strength Su','sd-Su','400','MPa','ksi')+
+row('Yield strength Sy','sd-Sy','250','MPa','ksi')+
+'<button class="ab" onclick="toggleAdv(\'adv-sd\')">▶ Stress concentration factors</button>'+
+'<div class="as" id="adv-sd">'+
+row('Kf (bending fatigue)','sd-Kf','1.5','')+
+row('Kfs (torsion fatigue)','sd-Kfs','1.3','')+
+'</div>'+
+btns('calcShaft','res-sd')+resbox('res-sd')+
+'<div class="eq-box" id="eq-res-sd"><div class="eq-title">DE-Goodman Equations</div>'+
+mf('A','√[ 4(Kf·M_a)² + 3(Kfs·T_a)² ]')+
+mf('B','√[ 4(Kf·M_m)² + 3(Kfs·T_m)² ]')+
+mf('d³','(16n/π) · (A/Se + B/Su)')+
+mf('d_yield','[ (16n/π) · (A+B)/Sy ]^(1/3)')+
+msub('Set n=1 → minimum diameter for infinite fatigue life')+
+'</div></div></div></div>';}
 
 /* ── BEARING ── */
-function htmlBearing(){return `<div class="calc-grid">
-<div class="calc-card"><div class="calc-card-head"><span class="calc-card-title">Rolling Bearing — L10 Life</span><span class="std-badge">ISO 281</span></div>
-<div class="calc-body">
-<div class="field-row"><span class="field-label">Basic dynamic C</span><input class="field-input" id="br-C" type="number" placeholder="25600"><span class="field-unit">N</span></div>
-<div class="field-row"><span class="field-label">Equivalent load P</span><input class="field-input" id="br-P" type="number" placeholder="8000"><span class="field-unit">N</span></div>
-<div class="field-row"><span class="field-label">Speed n</span><input class="field-input" id="br-n" type="number" placeholder="1500"><span class="field-unit">rpm</span></div>
-<div class="field-row"><span class="field-label">Bearing type</span><select class="field-input" id="br-type">
-<option value="3">Ball bearing (p=3)</option><option value="3.333">Roller bearing (p=10/3)</option>
-</select></div>
-<button class="adv-btn" onclick="toggleAdv('adv-br')">▶ Equivalent load calculation</button>
-<div class="adv-sec" id="adv-br">
-<div class="field-row"><span class="field-label">Radial force Fr</span><input class="field-input" id="br-Fr" type="number" placeholder="7000"><span class="field-unit">N</span></div>
-<div class="field-row"><span class="field-label">Axial force Fa</span><input class="field-input" id="br-Fa" type="number" placeholder="2000"><span class="field-unit">N</span></div>
-<div class="field-row"><span class="field-label">X factor</span><input class="field-input" id="br-X" type="number" placeholder="0.56"></div>
-<div class="field-row"><span class="field-label">Y factor</span><input class="field-input" id="br-Y" type="number" placeholder="1.5"></div>
-</div>
-<div class="btn-row"><button class="calc-btn" onclick="calcBearing()">Calculate L10 Life</button><button class="clr-btn" onclick="clearRes('res-br')">Clear</button></div>
-<div class="res" id="res-br"></div>
-<div class="eq-box" id="eq-br"><div class="eq-title">Equations (ISO 281)</div>
-<div class="eq-line">L10 = (C/P)^p  [millions of revolutions]</div>
-<div class="eq-line">L10h = L10×10⁶ / (60×n)  [hours]</div>
-<div class="eq-line">P = X·Fr + Y·Fa  [equivalent load]</div>
-<div class="eq-vars"><span>p=3 ball | p=10/3 roller | C from bearing catalog</span></div>
-</div></div></div>`;}
+function tplBearing(){return '<div class="cgrid"><div class="card"><div class="chead"><span class="cht">Rolling Bearing — L10 Life</span><span class="sb">ISO 281</span></div><div class="cbody">'+
+row('Basic dynamic load C','br-C','25600','N','')+
+row('Equivalent load P','br-P','8000','N','')+
+row('Speed n','br-n','1500','rpm','')+
+selrow('Bearing type','br-type',[['3','Ball bearing  (p = 3)'],['3.333','Roller bearing  (p = 10/3)']])+
+'<button class="ab" onclick="toggleAdv(\'adv-br\')">▶ Compute equivalent load P = XFr + YFa</button>'+
+'<div class="as" id="adv-br">'+
+row('Radial force Fr','br-Fr','7000','N','')+
+row('Axial force Fa','br-Fa','2000','N','')+
+row('Factor X','br-X','0.56','')+
+row('Factor Y','br-Y','1.5','')+
+'</div>'+
+btns('calcBearing','res-br')+resbox('res-br')+
+'<div class="eq-box" id="eq-res-br"><div class="eq-title">Equations Used</div>'+
+mf('P (equiv.)','X·Fr + Y·Fa')+
+mf('L₁₀ [rev]','(C/P)^p  × 10⁶  revolutions')+
+mf('L₁₀ₕ','L₁₀ × 10⁶ / (60 · n)  [hours]')+
+msub('p = 3 (ball) | p = 10/3 (roller) | C from bearing catalog')+
+'</div></div></div></div>';}
 
 /* ── BELT ── */
-function htmlBelt(){return `<div class="calc-grid">
-<div class="calc-card"><div class="calc-card-head"><span class="calc-card-title">Flat / V-Belt — Tensions & Power</span><span class="std-badge">Shigley / Faires</span></div>
-<div class="calc-body">
-<div class="field-row"><span class="field-label">Belt type</span><select class="field-input" id="bt-type">
-<option value="flat">Flat belt</option><option value="v">V-belt (groove angle 34°)</option>
-</select></div>
-<div class="field-row"><span class="field-label">Driver pulley d₁</span><input class="field-input" id="bt-d1" type="number" placeholder="0.2"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
-<div class="field-row"><span class="field-label">Driven pulley d₂</span><input class="field-input" id="bt-d2" type="number" placeholder="0.4"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
-<div class="field-row"><span class="field-label">Driver speed n₁</span><input class="field-input" id="bt-n1" type="number" placeholder="1450"><span class="field-unit">rpm</span></div>
-<div class="field-row"><span class="field-label">Center distance C</span><input class="field-input" id="bt-C" type="number" placeholder="1"><span class="field-unit su">m</span><span class="field-unit iu" style="display:none">in</span></div>
-<div class="field-row"><span class="field-label">Friction coeff. μ</span><input class="field-input" id="bt-mu" type="number" placeholder="0.35"></div>
-<div class="field-row"><span class="field-label">Tight-side tension F₁</span><input class="field-input" id="bt-F1" type="number" placeholder="500"><span class="field-unit">N</span></div>
-<div class="btn-row"><button class="calc-btn" onclick="calcBelt()">Calculate</button><button class="clr-btn" onclick="clearRes('res-bt')">Clear</button></div>
-<div class="res" id="res-bt"></div>
-<div class="eq-box" id="eq-bt"><div class="eq-title">Equations</div>
-<div class="eq-line">v = π·d₁·n₁/60  [belt speed]</div>
-<div class="eq-line">θ = π - 2·sin⁻¹((d₂-d₁)/(2C))  [wrap angle, small pulley]</div>
-<div class="eq-line">F₁/F₂ = e^(μθ)  [flat]  or  e^(μθ/sinβ)  [V-belt, β=17°]</div>
-<div class="eq-line">P = (F₁-F₂)·v</div>
-</div></div></div>`;}
+function tplBelt(){return '<div class="cgrid"><div class="card"><div class="chead"><span class="cht">Flat / V-Belt Tensions & Power</span><span class="sb">Shigley / Faires</span></div><div class="cbody">'+
+selrow('Belt type','bt-type',[['flat','Flat belt'],['v','V-belt (groove β = 17°)']])+
+row('Driver pulley dia d₁','bt-d1','0.2','m','in')+
+row('Driven pulley dia d₂','bt-d2','0.4','m','in')+
+row('Driver speed n₁','bt-n1','1450','rpm','')+
+row('Center distance C','bt-C','1','m','in')+
+row('Friction coeff. μ','bt-mu','0.35','')+
+row('Tight-side tension F₁','bt-F1','500','N','lbf')+
+btns('calcBelt','res-bt')+resbox('res-bt')+
+'<div class="eq-box" id="eq-res-bt"><div class="eq-title">Equations Used</div>'+
+mf('v','π · d₁ · n₁ / 60  [belt speed, m/s]')+
+mf('θ','π − 2·sin⁻¹( (d₂−d₁)/(2C) )  [wrap angle, rad]')+
+mf('F₁/F₂','e^(μθ)  [flat]   or   e^(μθ/sinβ)  [V-belt]')+
+mf('P','(F₁ − F₂) · v  [kW]')+
+mf('L_belt','2C + π(d₁+d₂)/2 + (d₂−d₁)²/(4C)')+
+msub('β = 17° half-groove angle for standard V-belt')+
+'</div></div></div></div>';}
 
 /* ── PULLEY ── */
-function htmlPulley(){return `<div class="calc-grid">
-<div class="calc-card"><div class="calc-card-head"><span class="calc-card-title">Pulley System — Speed & Torque</span><span class="std-badge">Kinematics</span></div>
-<div class="calc-body">
-<div class="field-row"><span class="field-label">System type</span><select class="field-input" id="pl-type">
-<option value="simple">Simple 2-pulley</option><option value="compound">Compound (3-pulley)</option>
-</select></div>
-<div class="field-row"><span class="field-label">Driver dia d₁</span><input class="field-input" id="pl-d1" type="number" placeholder="100"><span class="field-unit">mm</span></div>
-<div class="field-row"><span class="field-label">Driven dia d₂</span><input class="field-input" id="pl-d2" type="number" placeholder="200"><span class="field-unit">mm</span></div>
-<div class="field-row"><span class="field-label">Input speed n₁</span><input class="field-input" id="pl-n1" type="number" placeholder="1450"><span class="field-unit">rpm</span></div>
-<div class="field-row"><span class="field-label">Input power P</span><input class="field-input" id="pl-P" type="number" placeholder="5"><span class="field-unit">kW</span></div>
-<div class="field-row"><span class="field-label">Efficiency η</span><input class="field-input" id="pl-eta" type="number" placeholder="0.95"></div>
-<button class="adv-btn" onclick="toggleAdv('adv-pl')">▶ Compound: 3rd pulley</button>
-<div class="adv-sec" id="adv-pl">
-<div class="field-row"><span class="field-label">Intermediate dia d₃</span><input class="field-input" id="pl-d3" type="number" placeholder="150"><span class="field-unit">mm</span></div>
-<div class="field-row"><span class="field-label">Output dia d₄</span><input class="field-input" id="pl-d4" type="number" placeholder="300"><span class="field-unit">mm</span></div>
-</div>
-<div class="btn-row"><button class="calc-btn" onclick="calcPulley()">Calculate</button><button class="clr-btn" onclick="clearRes('res-pl')">Clear</button></div>
-<div class="res" id="res-pl"></div>
-<div class="eq-box" id="eq-pl"><div class="eq-title">Equations</div>
-<div class="eq-line">VR = d₂/d₁ (velocity ratio)</div>
-<div class="eq-line">n₂ = n₁ × d₁/d₂</div>
-<div class="eq-line">T = P·η / (2π·n/60)</div>
-<div class="eq-line">L = 2C + π(d₁+d₂)/2 + (d₂-d₁)²/(4C)  [belt length]</div>
-</div></div></div>`;}
+function tplPulley(){return '<div class="cgrid"><div class="card"><div class="chead"><span class="cht">Pulley System — Speed, Torque & Belt</span><span class="sb">Kinematics</span></div><div class="cbody">'+
+row('Driver dia d₁','pl-d1','100','mm','')+
+row('Driven dia d₂','pl-d2','200','mm','')+
+row('Input speed n₁','pl-n1','1450','rpm','')+
+row('Input power P','pl-P','5','kW','')+
+row('Center distance C','pl-C','500','mm','')+
+row('Efficiency η','pl-eta','0.95','')+
+'<button class="ab" onclick="toggleAdv(\'adv-pl\')">▶ Compound system (2 stages)</button>'+
+'<div class="as" id="adv-pl">'+
+row('Intermediate dia d₃','pl-d3','150','mm','')+
+row('Output dia d₄','pl-d4','300','mm','')+
+'</div>'+
+btns('calcPulley','res-pl')+resbox('res-pl')+
+'<div class="eq-box" id="eq-res-pl"><div class="eq-title">Equations Used</div>'+
+mf('VR','d₂ / d₁  [velocity ratio]')+
+mf('n₂','n₁ × d₁ / d₂')+
+mf('T₁','P / (2π · n₁/60)')+
+mf('T₂','P · η / (2π · n₂/60)')+
+mf('L_belt','2C + π(d₁+d₂)/2 + (d₂−d₁)²/(4C)')+
+msub('Compound: VR_total = (d₂/d₁)×(d₄/d₃)')+
+'</div></div></div></div>';}
 
 /* ── GEAR ── */
-function htmlGear(){return `<div class="calc-grid">
-<div class="calc-card"><div class="calc-card-head"><span class="calc-card-title">Spur Gear — Geometry & Lewis Stress</span><span class="std-badge">AGMA / ISO 6336</span></div>
-<div class="calc-body">
-<div class="field-row"><span class="field-label">Module m</span><input class="field-input" id="gr-m" type="number" placeholder="3"><span class="field-unit">mm</span></div>
-<div class="field-row"><span class="field-label">Teeth pinion N₁</span><input class="field-input" id="gr-N1" type="number" placeholder="20"></div>
-<div class="field-row"><span class="field-label">Teeth gear N₂</span><input class="field-input" id="gr-N2" type="number" placeholder="40"></div>
-<div class="field-row"><span class="field-label">Pressure angle φ</span><select class="field-input" id="gr-phi"><option value="20">20°</option><option value="14.5">14.5°</option><option value="25">25°</option></select></div>
-<div class="field-row"><span class="field-label">Input torque T₁</span><input class="field-input" id="gr-T" type="number" placeholder="100"><span class="field-unit su">N·m</span><span class="field-unit iu" style="display:none">lbf·in</span></div>
-<button class="adv-btn" onclick="toggleAdv('adv-gr')">▶ Lewis stress (need face width, Y)</button>
-<div class="adv-sec" id="adv-gr">
-<div class="field-row"><span class="field-label">Face width b</span><input class="field-input" id="gr-b" type="number" placeholder="30"><span class="field-unit">mm</span></div>
-<div class="field-row"><span class="field-label">Lewis form factor Y</span><input class="field-input" id="gr-Y" type="number" placeholder="0.322"></div>
-<div class="field-row"><span class="field-label">Allowable σ_b</span><input class="field-input" id="gr-sb" type="number" placeholder="200"><span class="field-unit">MPa</span></div>
-</div>
-<div class="btn-row"><button class="calc-btn" onclick="calcGear()">Calculate</button><button class="clr-btn" onclick="clearRes('res-gr')">Clear</button></div>
-<div class="res" id="res-gr"></div>
-<div class="eq-box" id="eq-gr"><div class="eq-title">Equations</div>
-<div class="eq-line">d = m·N  |  a = m  |  b_depth = 1.25m</div>
-<div class="eq-line">W_t = 2T/d  [tangential force]</div>
-<div class="eq-line">σ = W_t/(b·m·Y)  [Lewis bending]</div>
-<div class="eq-line">VR = N₂/N₁  |  n₂ = n₁·N₁/N₂</div>
-</div></div></div>`;}
+function tplGear(){return '<div class="cgrid"><div class="card"><div class="chead"><span class="cht">Spur Gear — Geometry & Lewis Bending</span><span class="sb">AGMA / ISO 6336</span></div><div class="cbody">'+
+row('Module m','gr-m','3','mm','')+
+row('Teeth (pinion) N₁','gr-N1','20','')+
+row('Teeth (gear) N₂','gr-N2','40','')+
+selrow('Pressure angle φ','gr-phi',[['20','20°'],['14.5','14.5°'],['25','25°']])+
+row('Input torque T₁','gr-T','100','N·m','lbf·in')+
+'<button class="ab" onclick="toggleAdv(\'adv-gr\')">▶ Lewis bending stress check</button>'+
+'<div class="as" id="adv-gr">'+
+row('Face width b','gr-b','30','mm','')+
+row('Lewis form factor Y','gr-Y','0.322','')+
+row('Allowable σ_b','gr-sb','200','MPa','')+
+'</div>'+
+btns('calcGear','res-gr')+resbox('res-gr')+
+'<div class="eq-box" id="eq-res-gr"><div class="eq-title">Equations Used</div>'+
+mf('d','m · N  [pitch diameter]')+
+mf('Addendum a','m')+
+mf('Dedendum b_d','1.25 · m')+
+mf('W_t','2T / d  [tangential force]')+
+mf('W_r','W_t · tan(φ)  [radial force]')+
+mf('σ_b (Lewis)','W_t / (b · m · Y)')+
+msub('Y from Lewis form factor table | b typically 8m–16m')+
+'</div></div></div></div>';}
 
 /* ── SPRING ── */
-function htmlSpring(){return `<div class="calc-grid">
-<div class="calc-card"><div class="calc-card-head"><span class="calc-card-title">Helical Compression Spring</span><span class="std-badge">Wahl / Shigley</span></div>
-<div class="calc-body">
-<div class="field-row"><span class="field-label">Wire diameter d</span><input class="field-input" id="sp-d" type="number" placeholder="3"><span class="field-unit">mm</span></div>
-<div class="field-row"><span class="field-label">Mean coil dia D</span><input class="field-input" id="sp-D" type="number" placeholder="25"><span class="field-unit">mm</span></div>
-<div class="field-row"><span class="field-label">Active coils Na</span><input class="field-input" id="sp-Na" type="number" placeholder="10"></div>
-<div class="field-row"><span class="field-label">Shear modulus G</span><input class="field-input" id="sp-G" type="number" placeholder="79"><span class="field-unit">GPa</span></div>
-<div class="field-row"><span class="field-label">Applied force F</span><input class="field-input" id="sp-F" type="number" placeholder="100"><span class="field-unit">N</span></div>
-<div class="field-row"><span class="field-label">Shear yield Ssy</span><input class="field-input" id="sp-Ssy" type="number" placeholder="550"><span class="field-unit">MPa</span></div>
-<div class="btn-row"><button class="calc-btn" onclick="calcSpring()">Calculate</button><button class="clr-btn" onclick="clearRes('res-sp')">Clear</button></div>
-<div class="res" id="res-sp"></div>
-<div class="eq-box" id="eq-sp"><div class="eq-title">Equations</div>
-<div class="eq-line">C = D/d  [spring index]</div>
-<div class="eq-line">Kw = (4C-1)/(4C-4) + 0.615/C  [Wahl]</div>
-<div class="eq-line">k = Gd⁴/(8D³Na)  [stiffness]</div>
-<div class="eq-line">τ = Kw·8FD/(πd³)</div>
-<div class="eq-vars"><span>Recommended C: 4–12 | C&lt;4: difficult to make</span></div>
-</div></div></div>`;}
+function tplSpring(){return '<div class="cgrid"><div class="card"><div class="chead"><span class="cht">Helical Compression Spring</span><span class="sb">Wahl / Shigley</span></div><div class="cbody">'+
+row('Wire diameter d','sp-d','3','mm','')+
+row('Mean coil diameter D','sp-D','25','mm','')+
+row('Active coils N_a','sp-Na','10','')+
+row('Shear modulus G','sp-G','79','GPa','')+
+row('Applied force F','sp-F','100','N','lbf')+
+row('Shear yield Ssy','sp-Ssy','550','MPa','ksi')+
+btns('calcSpring','res-sp')+resbox('res-sp')+
+'<div class="eq-box" id="eq-res-sp"><div class="eq-title">Equations Used</div>'+
+mf('C','D / d  [spring index]')+
+mf('K_W','(4C−1)/(4C−4) + 0.615/C  [Wahl factor]')+
+mf('k','G·d⁴ / (8·D³·N_a)  [stiffness, N/m]')+
+mf('δ','F / k  [deflection, m]')+
+mf('τ','K_W · 8·F·D / (π·d³)')+
+mf('n','Ssy / τ')+
+msub('Recommended C: 4–12 | C < 4: manufacturing difficulty')+
+'</div></div></div></div>';}
 
 /* ── PRESS FIT ── */
-function htmlPressFit(){return `<div class="calc-grid">
-<div class="calc-card"><div class="calc-card-head"><span class="calc-card-title">Interference / Press Fit (Lamé)</span><span class="std-badge">Shigley Ch.3</span></div>
-<div class="calc-body">
-<div class="field-row"><span class="field-label">Interference δ</span><input class="field-input" id="pf-d" type="number" placeholder="0.05"><span class="field-unit">mm</span></div>
-<div class="field-row"><span class="field-label">Nominal radius r</span><input class="field-input" id="pf-r" type="number" placeholder="25"><span class="field-unit">mm</span></div>
-<div class="field-row"><span class="field-label">Hub outer radius ro</span><input class="field-input" id="pf-ro" type="number" placeholder="50"><span class="field-unit">mm</span></div>
-<div class="field-row"><span class="field-label">E_hub</span><input class="field-input" id="pf-Eh" type="number" placeholder="200"><span class="field-unit">GPa</span></div>
-<div class="field-row"><span class="field-label">ν_hub</span><input class="field-input" id="pf-vh" type="number" placeholder="0.3"></div>
-<button class="adv-btn" onclick="toggleAdv('adv-pf2')">▶ Shaft material / friction</button>
-<div class="adv-sec" id="adv-pf2">
-<div class="field-row"><span class="field-label">Shaft inner ri (0=solid)</span><input class="field-input" id="pf-ri" type="number" placeholder="0"><span class="field-unit">mm</span></div>
-<div class="field-row"><span class="field-label">E_shaft (blank=same)</span><input class="field-input" id="pf-Es" type="number" placeholder=""></div>
-<div class="field-row"><span class="field-label">ν_shaft (blank=same)</span><input class="field-input" id="pf-vs" type="number" placeholder=""></div>
-<div class="field-row"><span class="field-label">Contact length L</span><input class="field-input" id="pf-Lc" type="number" placeholder="50"><span class="field-unit">mm</span></div>
-<div class="field-row"><span class="field-label">Friction coeff. μ</span><input class="field-input" id="pf-mu" type="number" placeholder="0.12"></div>
-</div>
-<div class="btn-row"><button class="calc-btn" onclick="calcPressFit()">Calculate</button><button class="clr-btn" onclick="clearRes('res-pf2')">Clear</button></div>
-<div class="res" id="res-pf2"></div>
-<div class="eq-box" id="eq-pf2"><div class="eq-title">Lamé Equations</div>
-<div class="eq-line">p = δ / [r(C_o/E_hub + C_i/E_shaft)]</div>
-<div class="eq-line">C_o = (ro²+r²)/(ro²-r²) + ν_hub</div>
-<div class="eq-line">C_i = (r²+ri²)/(r²-ri²) - ν_shaft</div>
-<div class="eq-line">T_cap = μ·p·2πr²·L</div>
-</div></div></div>`;}
+function tplPressFit(){return '<div class="cgrid"><div class="card"><div class="chead"><span class="cht">Interference / Press Fit (Lamé)</span><span class="sb">Shigley Ch.3</span></div><div class="cbody">'+
+row('Interference δ','pf-d','0.05','mm','')+
+row('Nominal radius r','pf-r','25','mm','')+
+row('Hub outer radius r_o','pf-ro','50','mm','')+
+row('E_hub','pf-Eh','200','GPa','')+
+row('ν_hub','pf-vh','0.3','')+
+'<button class="ab" onclick="toggleAdv(\'adv-pf\')">▶ Shaft material / friction / torque</button>'+
+'<div class="as" id="adv-pf">'+
+row('Shaft inner radius r_i (0=solid)','pf-ri','0','mm','')+
+row('E_shaft (0 = same as hub)','pf-Es','0','GPa','')+
+row('ν_shaft (0 = same)','pf-vs','0','')+
+row('Contact length L','pf-Lc','50','mm','')+
+row('Friction coeff. μ','pf-mu','0.12','')+
+'</div>'+
+btns('calcPressFit','res-pf')+resbox('res-pf')+
+'<div class="eq-box" id="eq-res-pf"><div class="eq-title">Lamé Thick-Wall Equations</div>'+
+mf('C_o','(r_o²+r²)/(r_o²−r²) + ν_hub')+
+mf('C_i','(r²+r_i²)/(r²−r_i²) − ν_shaft   [solid: 1−ν]')+
+mf('p','δ / [ r · (C_o/E_hub + C_i/E_shaft) ]')+
+mf('σ_θ,hub','p · (r_o²+r²) / (r_o²−r²)  [hoop at inner face]')+
+mf('T_cap','μ · p · 2π · r² · L  [torque capacity]')+
+msub('σ_r at interface = −p (compressive) | Lame valid for thick-wall (r_o/r > 1.1)')+
+'</div></div></div></div>';}
 
-/* ══════════════════════════════════════
+/* ══════════════════════════════
    CALCULATION FUNCTIONS
-══════════════════════════════════════ */
+══════════════════════════════ */
 
-/* Mohr */
-function calcMohr(){
+/* STRESS */
+function calcStress(){
   var sx=toMPa(V('ms-sx')),sy=toMPa(V('ms-sy')),txy=toMPa(V('ms-txy')),Sy=toMPa(V('ms-Sy'));
-  var avg=(sx+sy)/2, R=Math.sqrt(Math.pow((sx-sy)/2,2)+txy*txy);
+  var avg=(sx+sy)/2,R=Math.sqrt(Math.pow((sx-sy)/2,2)+txy*txy);
   var s1=avg+R,s2=avg-R;
   var svm=Math.sqrt(s1*s1-s1*s2+s2*s2);
+  var sTr=Math.abs(s1-s2);
   var tp=0.5*Math.atan2(2*txy,sx-sy)*180/Math.PI;
-  var nvm=Sy>0?Sy/svm:NaN;
+  var nvm=Sy>0?Sy/svm:NaN,nTr=Sy>0?Sy/sTr:NaN;
   showRes('res-ms',[
-    ['σ₁',fmt(fromMPa(s1),2)+' '+su()],
-    ['σ₂',fmt(fromMPa(s2),2)+' '+su()],
+    ['σ_avg',fmt(fromMPa(avg),2)+' '+su()],
+    ['σ₁ (max principal)',fmt(fromMPa(s1),2)+' '+su()],
+    ['σ₂ (min principal)',fmt(fromMPa(s2),2)+' '+su()],
     ['τ_max',fmt(fromMPa(R),2)+' '+su()],
+    ['θ_p (principal angle)',fmt(tp,1)+'°'],
     ['σ_von Mises',fmt(fromMPa(svm),2)+' '+su()],
-    ['θ_p',fmt(tp,1)+'°'],
-    ['n (von Mises)',fmt(nvm,2),nvm<1.5?'⚠ Low':'']
+    ['σ_Tresca',fmt(fromMPa(sTr),2)+' '+su()],
+    ['n (von Mises)',fmt(nvm,2),nvm<1.5&&nvm>0?'⚠ Low FoS':''],
+    ['n (Tresca)',fmt(nTr,2)]
   ]);
-  setTimeout(function(){drawMohr(avg,R,s1,s2);},50);
 }
-function drawMohr(avg,R,s1,s2){
-  var c=document.getElementById('canvas-mohr'); if(!c) return;
-  var ctx=c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height);
-  var cx=c.width/2, cy=c.height/2+10;
-  var maxR=Math.max(Math.abs(s1),Math.abs(s2),R)+10;
-  var sc=Math.min((c.width/2-30)/maxR, (c.height/2-30)/R)||1;
+function drawVis(rid){
+  if(rid==='res-ms') drawMohr();
+  if(rid==='res-bm') drawBeamDiag();
+  if(rid==='res-fg') drawFatigDiag();
+}
+function drawMohr(){
+  var sx=toMPa(V('ms-sx')),sy=toMPa(V('ms-sy')),txy=toMPa(V('ms-txy'));
+  var avg=(sx+sy)/2,R=Math.sqrt(Math.pow((sx-sy)/2,2)+txy*txy);
+  var s1=avg+R,s2=avg-R;
+  var c=document.getElementById('cv-mohr');if(!c)return;
+  var ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);
+  var cx=c.width/2+10,cy=c.height/2+15;
+  var ext=Math.max(Math.abs(avg)+R+10,R+10);
+  var sc=Math.min((c.width/2-35)/ext,(c.height/2-30)/Math.max(R,1));
+  if(sc*R<25)sc=25/Math.max(R,1);
   ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(15,cy);ctx.lineTo(c.width-5,cy);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(cx,10);ctx.lineTo(cx,c.height-5);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(20,cy);ctx.lineTo(c.width-8,cy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,10);ctx.lineTo(cx,c.height-8);ctx.stroke();
   ctx.beginPath();ctx.arc(cx+avg*sc,cy,R*sc,0,2*Math.PI);
-  ctx.strokeStyle='#2563eb';ctx.lineWidth=2;ctx.stroke();
-  ctx.fillStyle='#ef4444';
-  [[avg+R,0],[avg-R,0]].forEach(function(p){ctx.beginPath();ctx.arc(cx+p[0]*sc,cy,4,0,2*Math.PI);ctx.fill();});
-  ctx.fillStyle='#1e293b';ctx.font='10px monospace';
-  ctx.fillText('σ₁='+s1.toFixed(1),cx+s1*sc+4,cy-5);
-  ctx.fillText('σ₂='+s2.toFixed(1),cx+s2*sc-44,cy-5);
-  ctx.fillText('τ_max='+R.toFixed(1),cx+avg*sc+4,cy-R*sc-4);
-  ctx.fillText('σ',c.width-14,cy-4);ctx.fillText('τ',cx+4,14);
+  ctx.strokeStyle='#2563eb';ctx.lineWidth=2.5;ctx.stroke();
+  var pts=[[avg+R,0,s1.toFixed(1),'r'],[avg-R,0,s2.toFixed(1),'l'],[avg,R,'τ_max='+R.toFixed(1),'t']];
+  pts.forEach(function(p){
+    ctx.fillStyle='#ef4444';ctx.beginPath();ctx.arc(cx+p[0]*sc,cy-p[1]*sc,4,0,2*Math.PI);ctx.fill();
+    ctx.fillStyle='#1e293b';ctx.font='10px monospace';
+    if(p[3]==='r')ctx.fillText(p[2],cx+p[0]*sc+5,cy-5);
+    else if(p[3]==='l')ctx.fillText(p[2],cx+p[0]*sc-50,cy-5);
+    else ctx.fillText(p[2],cx+p[0]*sc+5,cy-p[1]*sc-4);
+  });
+  ctx.fillStyle='#64748b';ctx.font='11px sans-serif';
+  ctx.fillText('σ →',c.width-28,cy-4);ctx.fillText('τ ↑',cx+5,14);
 }
 
-/* Beam */
-function updateBeamType(){
-  var t=document.getElementById('bm-type').value;
-  document.getElementById('bm-a-row').style.display=t==='point'?'flex':'none';
-  var pu=document.getElementById('bm-Pu'); if(pu) pu.textContent=t==='udl'?'kN/m':'kN';
+/* BEAM */
+var _bm={sf:[],bm:[]};
+function updateBmType(){
+  var t=document.getElementById('bm-type');if(!t)return;
+  var row=document.getElementById('bm-a-row');if(row)row.style.display=t.value==='point'?'flex':'none';
 }
 function calcBeam(){
   var L=toM(V('bm-L')),P=V('bm-P')*1000,a=toM(V('bm-a'));
   var E=V('bm-E')*1e9,I=V('bm-I'),h=toM(V('bm-h'));
-  var type=document.getElementById('bm-type').value;
-  var Mmax=0,dmax=0,Ra=0,Rb=0,sfV=[],bmV=[];
-  var N=60;
-  if(type==='mid'){Ra=Rb=P/2;Mmax=P*L/4;dmax=P*L*L*L/(48*E*I);
-    for(var i=0;i<=N;i++){var x=i*L/N;sfV.push(x<L/2?Ra:-Rb);bmV.push(x<=L/2?Ra*x:Ra*x-P*(x-L/2));}
-    document.getElementById('eq-bm1').textContent='M_max = PL/4';
-    document.getElementById('eq-bm2').textContent='δ_max = PL³/(48EI)';}
-  else if(type==='point'){if(a<=0||a>=L)a=L/2;var b=L-a;Ra=P*b/L;Rb=P*a/L;Mmax=P*a*b/L;dmax=P*b*(L*L-b*b)*Math.pow(L*L-b*b,.5)/(9*Math.sqrt(3)*E*I*L);
-    for(var i=0;i<=N;i++){var x=i*L/N;sfV.push(x<a?Ra:Ra-P);bmV.push(x<=a?Ra*x:Ra*x-P*(x-a));}
-    document.getElementById('eq-bm1').textContent='M_max = Pab/L';
-    document.getElementById('eq-bm2').textContent='δ_max = Pb(L²-b²)^1.5/(9√3·EIL)';}
-  else if(type==='udl'){var w=P/1000;P=w*L;Ra=Rb=w*L/2;Mmax=w*L*L/8;dmax=5*w*L*L*L*L/(384*E*I);
-    for(var i=0;i<=N;i++){var x=i*L/N;sfV.push(Ra-w*x);bmV.push(Ra*x-w*x*x/2);}
-    document.getElementById('eq-bm1').textContent='M_max = wL²/8  [UDL]';
-    document.getElementById('eq-bm2').textContent='δ_max = 5wL⁴/(384EI)';}
-  else if(type==='cant-end'){Ra=P;Mmax=P*L;dmax=P*L*L*L/(3*E*I);
-    for(var i=0;i<=N;i++){var x=i*L/N;sfV.push(-P);bmV.push(-P*(L-x));}
-    document.getElementById('eq-bm1').textContent='M_max = PL  [cantilever]';
-    document.getElementById('eq-bm2').textContent='δ_max = PL³/(3EI)';}
-  else{var w=P/1000;P=w*L;Ra=w*L;Mmax=w*L*L/2;dmax=w*L*L*L*L/(8*E*I);
-    for(var i=0;i<=N;i++){var x=i*L/N;sfV.push(-w*(L-x));bmV.push(-w*(L-x)*(L-x)/2);}
-    document.getElementById('eq-bm1').textContent='M_max = wL²/2';
-    document.getElementById('eq-bm2').textContent='δ_max = wL⁴/(8EI)';}
-  var sig=h>0?Mmax*(h/2)/I/1e6:NaN;
-  showRes('res-bm',[['M_max',fmt(Mmax/1000,2)+' kN·m'],['δ_max',fmt(dmax*1000,3)+' mm'],['R_A',fmt(Ra/1000,2)+' kN'],['R_B',Rb?fmt(Rb/1000,2)+' kN':'—'],['σ_max',isNaN(sig)?'enter h':fmt(sig,2)+' MPa']]);
-  setTimeout(function(){drawDiag('canvas-sfd',sfV.map(function(v){return v/1000;}),'SFD (kN)','#f59e0b');drawDiag('canvas-bmd',bmV.map(function(v){return v/1000;}),'BMD (kN·m)','#2563eb');},50);
+  var type=Vs('bm-type')||'mid';
+  var Mmax=0,dmax=0,Ra=0,Rb=0;
+  var N=60;_bm.sf=[];_bm.bm=[];
+  if(type==='mid'){
+    Ra=Rb=P/2;Mmax=P*L/4;dmax=I>0&&E>0?P*L*L*L/(48*E*I):0;
+    for(var i=0;i<=N;i++){var x=i*L/N;_bm.sf.push(x<L/2?Ra:-Rb);_bm.bm.push(x<=L/2?Ra*x:Ra*x-P*(x-L/2));}
+    updEqBm('M_max = PL/4','δ_max = PL³/(48EI)');
+  }else if(type==='point'){
+    if(a<=0||a>=L)a=L/2;var b=L-a;Ra=P*b/L;Rb=P*a/L;Mmax=P*a*b/L;
+    dmax=I>0&&E>0?P*b*(L*L-b*b)*Math.pow(L*L-b*b,0.5)/(9*Math.sqrt(3)*E*I*L):0;
+    for(var i=0;i<=N;i++){var x=i*L/N;_bm.sf.push(x<a?Ra:Ra-P);_bm.bm.push(x<=a?Ra*x:Ra*x-P*(x-a));}
+    updEqBm('M_max = Pab/L','δ_max = Pb(L²−b²)^1.5 / (9√3·EIL)');
+  }else if(type==='udl'){
+    var w=P/L;Ra=Rb=w*L/2;Mmax=w*L*L/8;dmax=I>0&&E>0?5*w*L*L*L*L/(384*E*I):0;
+    for(var i=0;i<=N;i++){var x=i*L/N;_bm.sf.push(Ra-w*x);_bm.bm.push(Ra*x-w*x*x/2);}
+    updEqBm('M_max = wL²/8','δ_max = 5wL⁴/(384EI)');
+  }else if(type==='cant-end'){
+    Ra=P;Mmax=P*L;dmax=I>0&&E>0?P*L*L*L/(3*E*I):0;
+    for(var i=0;i<=N;i++){var x=i*L/N;_bm.sf.push(-P);_bm.bm.push(-P*(L-x));}
+    updEqBm('M_max = PL  [cantilever]','δ_max = PL³/(3EI)');
+  }else{
+    var w=P/L;Ra=w*L;Mmax=w*L*L/2;dmax=I>0&&E>0?w*L*L*L*L/(8*E*I):0;
+    for(var i=0;i<=N;i++){var x=i*L/N;_bm.sf.push(-w*(L-x));_bm.bm.push(-w*(L-x)*(L-x)/2);}
+    updEqBm('M_max = wL²/2','δ_max = wL⁴/(8EI)');
+  }
+  var sig=h>0&&I>0?Mmax*(h/2)/I/1e6:NaN;
+  showRes('res-bm',[
+    ['M_max',fmt(Mmax/1000,3)+' kN·m'],
+    ['δ_max',fmt(dmax*1000,3)+' mm'],
+    ['R_A',fmt(Ra/1000,3)+' kN'],
+    ['R_B',Rb>0?fmt(Rb/1000,3)+' kN':'fixed end'],
+    ['σ_max (bending)',isNaN(sig)?'enter h':fmt(sig,2)+' MPa']
+  ]);
+}
+function updEqBm(l1,l2){
+  var el1=document.getElementById('eq-bm-lines');
+  if(el1)el1.innerHTML=mf('M_max',l1.split('= ')[1]||l1)+mf('δ_max',l2.split('= ')[1]||l2);
+}
+function drawBeamDiag(){
+  drawDiag('cv-sfd',_bm.sf.map(function(v){return v/1000;}),'SFD (kN)','#f59e0b');
+  drawDiag('cv-bmd',_bm.bm.map(function(v){return v/1000;}),'BMD (kN·m)','#2563eb');
 }
 function drawDiag(cid,vals,label,color){
-  var c=document.getElementById(cid); if(!c) return;
-  var ctx=c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height);
+  var c=document.getElementById(cid);if(!c||!vals.length)return;
+  var ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);
   var ox=34,oy=c.height/2,W=c.width-44,H=c.height-24;
   var mx=Math.max.apply(null,vals.map(Math.abs))||1;
-  ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
+  ctx.strokeStyle='#f1f5f9';ctx.lineWidth=1;
   ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(ox+W,oy);ctx.stroke();
   ctx.beginPath();ctx.moveTo(ox,6);ctx.lineTo(ox,c.height-6);ctx.stroke();
-  ctx.fillStyle=color+'33';ctx.beginPath();ctx.moveTo(ox,oy);
+  ctx.fillStyle=color+'28';ctx.beginPath();ctx.moveTo(ox,oy);
   vals.forEach(function(v,i){ctx.lineTo(ox+i*W/(vals.length-1),oy-v/mx*(H/2-4));});
   ctx.lineTo(ox+W,oy);ctx.closePath();ctx.fill();
   ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(ox,oy);
   vals.forEach(function(v,i){ctx.lineTo(ox+i*W/(vals.length-1),oy-v/mx*(H/2-4));});
   ctx.stroke();
-  ctx.fillStyle='#475569';ctx.font='10px sans-serif';ctx.fillText(label,2,12);
-  ctx.fillText(fmt(Math.max.apply(null,vals),1),ox+W-30,12);
-  ctx.fillText(fmt(Math.min.apply(null,vals),1),ox+W-30,c.height-2);
+  ctx.fillStyle='#475569';ctx.font='10px sans-serif';ctx.fillText(label,2,11);
+  ctx.fillStyle='#374151';ctx.font='10px monospace';
+  var vmax=Math.max.apply(null,vals),vmin=Math.min.apply(null,vals);
+  ctx.fillText(fmt(vmax,2),ox+W-34,11);
+  if(Math.abs(vmin)>0.001)ctx.fillText(fmt(vmin,2),ox+W-34,c.height-3);
 }
 
-/* Torsion */
+/* TORSION */
 function calcTorsion(){
   var T=toNm(V('tor-T')),do_=toM(V('tor-do')),di=toM(V('tor-di'));
-  var Ssy=toMPa(V('tor-Ssy')),G=V('tor-G')*1e9,L=toM(V('tor-L')),M=V('tor-M');
-  if(UM==='IMP') M*=0.112985;
-  if(do_<=0) return;
+  var Ssy=toMPa(V('tor-Ssy')),G=V('tor-G')*1e9,L=toM(V('tor-L')),M=toNm(V('tor-M'));
+  if(do_<=0){alert('Enter outer diameter');return;}
   var J=Math.PI*(Math.pow(do_,4)-Math.pow(di,4))/32;
-  var II=Math.PI*(Math.pow(do_,4)-Math.pow(di,4))/64;
+  var Ib=Math.PI*(Math.pow(do_,4)-Math.pow(di,4))/64;
   var tau=T*(do_/2)/J/1e6;
-  var sb=M>0&&II>0?M*(do_/2)/II/1e6:0;
+  var sb=M>0&&Ib>0?M*(do_/2)/Ib/1e6:0;
   var svm=Math.sqrt(sb*sb+3*tau*tau);
   var n=Ssy>0?Ssy/svm:NaN;
   var phi=G>0&&L>0?T*L/(G*J)*180/Math.PI:NaN;
-  showRes('res-tor',[['J',fmt(J,8)+' m⁴'],['τ_max',fmt(fromMPa(tau),2)+' '+su()],['σ_bend',sb>0?fmt(fromMPa(sb),2)+' '+su():'not entered'],['σ_vm (combined)',fmt(fromMPa(svm),2)+' '+su()],['n',fmt(n,2),n<1.5?'⚠':''],['φ (twist)',isNaN(phi)?'enter G,L':fmt(phi,4)+'°']]);
+  showRes('res-tor',[
+    ['J (polar moment)',J.toExponential(3)+' m⁴'],
+    ['τ_max',fmt(fromMPa(tau),2)+' '+su(),tau>Ssy&&Ssy>0?'⚠ YIELD':''],
+    ['σ_bending',sb>0?fmt(fromMPa(sb),2)+' '+su():'0 (no moment)'],
+    ['σ_von Mises',fmt(fromMPa(svm),2)+' '+su()],
+    ['Safety factor n',fmt(n,2),n<1.5&&n>0?'⚠ Low':''],
+    ['Angle of twist φ',isNaN(phi)?'enter G, L':fmt(phi,4)+'°']
+  ]);
 }
 
-/* Fatigue */
+/* FATIGUE */
+var _fg={sm:0,sa:0,Su:0,Sy:0,Se:0};
 function calcFatigue(){
   var sm=toMPa(V('fg-sm')),sa=toMPa(V('fg-sa')),Su=toMPa(V('fg-Su')),Sy=toMPa(V('fg-Sy'));
-  var SeIn=toMPa(V('fg-Se')),ka=V('fg-ka')||1,kb=V('fg-kb')||1,kc=V('fg-kc')||1,ke=V('fg-ke')||1,Kf=V('fg-Kf')||1;
-  var Se=SeIn>0?SeIn:ka*kb*kc*ke*0.5*Su;
-  sa=sa*Kf;
-  var nG=1/(sa/Se+sm/Su);
-  var gA=Math.pow(sm/Su,2),gB=sa/Se;
-  var nGerb=(1/(2*gA))*(-gB+Math.sqrt(gB*gB+4*gA));
-  if(!isFinite(nGerb)||sm<=0) nGerb=1/(sa/Se);
-  var nS=1/(sa/Se+sm/Sy);
-  var nL=Sy>0?Sy/(sa+sm):NaN;
-  showRes('res-fg',[['Se (corrected)',fmt(fromMPa(Se),1)+' '+su()],['n_Goodman',fmt(nG,2),nG<1.5?'⚠':''],['n_Gerber',fmt(nGerb,2)],['n_Soderberg',fmt(nS,2)],['n_Langer',fmt(nL,2)]]);
-  setTimeout(function(){drawFatigDiag(sm,sa,Su,Sy,Se);},50);
+  var SeIn=toMPa(V('fg-Se'));
+  var ka=V('fg-ka')||0.72,kb=V('fg-kb')||0.85,kc=V('fg-kc')||1.0,ke=V('fg-ke')||0.897,Kf=V('fg-Kf')||1.0;
+  var Sep=0.5*Su;
+  var Se=SeIn>0?SeIn:ka*kb*kc*ke*Sep;
+  var sa_eff=sa*Kf;
+  var nG=Se>0&&Su>0?1/(sa_eff/Se+sm/Su):NaN;
+  var nS=Se>0&&Sy>0?1/(sa_eff/Se+sm/Sy):NaN;
+  var nL=Sy>0?Sy/(sa_eff+sm):NaN;
+  var gA=Su>0?Math.pow(sm/Su,2):0,gB=Se>0?sa_eff/Se:0;
+  var nGerb=gA>0?(1/(2*gA))*(-gB+Math.sqrt(gB*gB+4*gA)):1/(sa_eff/Se);
+  _fg={sm:sm,sa:sa_eff,Su:Su,Sy:Sy,Se:Se};
+  showRes('res-fg',[
+    ['Se (corrected)',fmt(fromMPa(Se),1)+' '+su()],
+    ['n_Goodman',fmt(nG,2),nG<1.5&&nG>0?'⚠':''],
+    ['n_Gerber',fmt(nGerb,2)],
+    ['n_Soderberg',fmt(nS,2)],
+    ['n_Langer (yield)',fmt(nL,2)]
+  ]);
 }
-function drawFatigDiag(sm,sa,Su,Sy,Se){
-  var c=document.getElementById('canvas-fg'); if(!c) return;
-  var ctx=c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height);
-  var ox=40,oy=c.height-35,W=c.width-50,H=c.height-50;
-  var xsc=W/Su,ysc=H/Se,sc=Math.min(xsc,ysc)*0.88;
-  function px(s){return ox+s*sc;} function py(s){return oy-s*sc;}
+function drawFatigDiag(){
+  var sm=_fg.sm,sa=_fg.sa,Su=_fg.Su,Sy=_fg.Sy,Se=_fg.Se;
+  if(Su<=0||Se<=0)return;
+  var c=document.getElementById('cv-fg');if(!c)return;
+  var ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height);
+  var ox=42,oy=c.height-36,W=c.width-52,H=c.height-50;
+  var sc=Math.min(W/Su,H/Se)*0.9;
+  function px(s){return ox+s*sc;}function py(s){return oy-s*sc;}
   ctx.strokeStyle='#f1f5f9';ctx.lineWidth=1;
-  for(var v=0;v<=Su;v+=50){if(px(v)<=ox+W){ctx.beginPath();ctx.moveTo(px(v),oy);ctx.lineTo(px(v),10);ctx.stroke();}}
-  for(var v=0;v<=Se+50;v+=50){if(py(v)>=10){ctx.beginPath();ctx.moveTo(ox,py(v));ctx.lineTo(c.width-5,py(v));ctx.stroke();}}
+  for(var v=0;v<=Su;v+=Math.ceil(Su/5/50)*50){ctx.beginPath();ctx.moveTo(px(v),oy);ctx.lineTo(px(v),10);ctx.stroke();}
+  for(var v=0;v<=Se*1.2;v+=Math.ceil(Se/4/50)*50){if(py(v)>=10){ctx.beginPath();ctx.moveTo(ox,py(v));ctx.lineTo(c.width-5,py(v));ctx.stroke();}}
   ctx.strokeStyle='#94a3b8';ctx.lineWidth=1;
   ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(c.width-5,oy);ctx.stroke();
   ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(ox,10);ctx.stroke();
+  // Goodman
   ctx.strokeStyle='#2563eb';ctx.lineWidth=2;
   ctx.beginPath();ctx.moveTo(px(0),py(Se));ctx.lineTo(px(Su),py(0));ctx.stroke();
+  // Gerber
   ctx.strokeStyle='#16a34a';ctx.lineWidth=2;ctx.beginPath();
-  for(var i=0;i<=50;i++){var sv=i*Su/50;ctx.lineTo(px(sv),py(Se*(1-Math.pow(sv/Su,2))));}
-  ctx.stroke();
-  ctx.strokeStyle='#f59e0b';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
-  ctx.beginPath();ctx.moveTo(px(0),py(Se));ctx.lineTo(px(Sy>0?Sy:Su*0.7),py(0));ctx.stroke();
+  for(var i=0;i<=60;i++){var sv=i*Su/60;ctx.lineTo(px(sv),py(Se*(1-Math.pow(sv/Su,2))));}ctx.stroke();
+  // Soderberg
+  ctx.strokeStyle='#f59e0b';ctx.lineWidth=1.5;ctx.setLineDash([5,3]);
+  if(Sy>0){ctx.beginPath();ctx.moveTo(px(0),py(Se));ctx.lineTo(px(Sy),py(0));ctx.stroke();}
   ctx.setLineDash([]);
-  ctx.fillStyle='#dc2626';ctx.beginPath();ctx.arc(px(sm),py(sa),5,0,2*Math.PI);ctx.fill();
-  ctx.fillStyle='#1e293b';ctx.font='10px sans-serif';
-  ctx.fillText('σ_m →',c.width-42,oy+12);ctx.fillText('σ_a ↑',ox-30,14);
-  ctx.fillStyle='#2563eb';ctx.fillText('Goodman',px(Su/2)-24,py(Se/2)+12);
-  ctx.fillStyle='#16a34a';ctx.fillText('Gerber',px(Su*0.65),py(Se*0.35));
+  // Langer
+  ctx.strokeStyle='#ef4444';ctx.lineWidth=1.5;ctx.setLineDash([3,3]);
+  if(Sy>0){ctx.beginPath();ctx.moveTo(px(0),py(Sy));ctx.lineTo(px(Sy),py(0));ctx.stroke();}
+  ctx.setLineDash([]);
+  // Operating point
+  if(px(sm)>=ox&&py(sa)<=oy){
+    ctx.fillStyle='#dc2626';ctx.beginPath();ctx.arc(px(sm),py(sa),5,0,2*Math.PI);ctx.fill();
+    ctx.fillStyle='#1e293b';ctx.font='9px monospace';ctx.fillText('('+sm.toFixed(0)+','+sa.toFixed(0)+')',px(sm)+6,py(sa)-4);
+  }
+  ctx.fillStyle='#2563eb';ctx.font='9.5px sans-serif';ctx.fillText('Goodman',px(Su*0.3),py(Se*0.5)-4);
+  ctx.fillStyle='#16a34a';ctx.fillText('Gerber',px(Su*0.55),py(Se*0.35));
   ctx.fillStyle='#1e293b';ctx.font='9px monospace';
   ctx.fillText('Se='+Se.toFixed(0),ox+2,py(Se)-3);
-  ctx.fillText('Su='+Su.toFixed(0),px(Su)+2,oy-4);
-  ctx.fillText('('+sm.toFixed(0)+','+sa.toFixed(0)+')',px(sm)+5,py(sa)-4);
+  ctx.fillText('Su='+Su.toFixed(0),px(Su)-8,oy+12);
+  ctx.fillStyle='#475569';ctx.font='10px sans-serif';
+  ctx.fillText('σ_m →',c.width-40,oy+12);ctx.fillText('σ_a ↑',ox-30,14);
 }
 
-/* Buckling */
+/* BUCKLING */
 function calcBuckling(){
   var E=V('bk-E')*1e9,L=toM(V('bk-L')),I=V('bk-I'),A=V('bk-A');
   var Sy=toMPa(V('bk-Sy'))*1e6,Papp=V('bk-P')*1000;
   var K=parseFloat(document.getElementById('bk-end').value);
-  if(L<=0||I<=0) return;
+  if(L<=0||I<=0){alert('Enter L and I');return;}
   var Pcr=Math.PI*Math.PI*E*I/Math.pow(K*L,2);
   var r=A>0?Math.sqrt(I/A):NaN;
-  var lam=!isNaN(r)?K*L/r:NaN;
+  var lam=!isNaN(r)&&r>0?K*L/r:NaN;
   var lc=Sy>0?Math.PI*Math.sqrt(2*E/Sy):NaN;
-  var regime=(!isNaN(lam)&&!isNaN(lc))?(lam>lc?'Euler (long)':'Johnson (short)'):'—';
+  var regime=(!isNaN(lam)&&!isNaN(lc))?(lam>lc?'Euler (long column)':'Johnson (short/intermediate)'):'enter A and Sy';
   var PcrJ=NaN;
-  if(!isNaN(lam)&&!isNaN(lc)&&lam<lc&&A>0) PcrJ=(Sy-Sy*Sy*lam*lam/(4*Math.PI*Math.PI*E))*A;
-  var n=Papp>0?Pcr/Papp:NaN;
-  showRes('res-bk',[['P_cr (Euler)',fmt(Pcr/1000,2)+' kN'],['P_cr (Johnson)',isNaN(PcrJ)?'N/A (Euler governs)':fmt(PcrJ/1000,2)+' kN'],['KL/r (slenderness)',isNaN(lam)?'enter A':fmt(lam,1)],['λ_c',isNaN(lc)?'enter Sy':fmt(lc,1)],['Regime',regime],['n',isNaN(n)?'enter P':fmt(n,2),n<2?'⚠':'']]);
+  if(!isNaN(lam)&&!isNaN(lc)&&lam<lc&&A>0&&lam>0)
+    PcrJ=(Sy-Sy*Sy*lam*lam/(4*Math.PI*Math.PI*E))*A;
+  var Pgov=isNaN(PcrJ)?Pcr:Math.min(Pcr,PcrJ);
+  var n=Papp>0?Pgov/Papp:NaN;
+  showRes('res-bk',[
+    ['P_cr (Euler)',fmt(Pcr/1000,2)+' kN'],
+    ['P_cr (Johnson)',isNaN(PcrJ)?'N/A (Euler governs)':fmt(PcrJ/1000,2)+' kN'],
+    ['Governing P_cr',fmt(Pgov/1000,2)+' kN'],
+    ['KL/r (slenderness)',isNaN(lam)?'enter A':fmt(lam,1)],
+    ['λ_c (transition)',isNaN(lc)?'enter Sy':fmt(lc,1)],
+    ['Column regime',regime],
+    ['Safety factor n',isNaN(n)?'enter P':fmt(n,2),n<2&&n>0?'⚠ Check':'']
+  ]);
 }
 
-/* Hertz */
+/* HERTZ */
 function calcHertz(){
   var F=toN(V('hz-F')),R1=toM(V('hz-R1')),R2=toM(V('hz-R2'));
   var E1=V('hz-E1')*1e9,v1=V('hz-v1')||0.3;
-  var E2=V('hz-E2')>0?V('hz-E2')*1e9:E1,v2=V('hz-v2')>0?V('hz-v2'):v1;
+  var E2raw=V('hz-E2'),v2raw=V('hz-v2');
+  var E2=E2raw>0?E2raw*1e9:E1,v2=v2raw>0?v2raw:v1;
   var LL=toM(V('hz-L'))||0.05;
-  var type=document.getElementById('hz-type').value;
+  var type=Vs('hz-type')||'sph-flat';
   var Estar=1/((1-v1*v1)/E1+(1-v2*v2)/E2);
   var Rstar=R2>0?1/(1/R1+1/R2):R1;
-  var rows=[];
+  var rows=[['E*',fmt(Estar/1e9,2)+' GPa'],['R*',fmt(Rstar*1000,3)+' mm']];
   if(type.indexOf('sph')>=0){
     var a=Math.pow(3*F*Rstar/(4*Estar),1/3);
     var p0=3*F/(2*Math.PI*a*a);
-    rows=[['a (contact radius)',fmt(a*1e6,2)+' μm'],['p₀ (max pressure)',fmt(p0/1e6,1)+' MPa'],['τ_max ≈ 0.31p₀',fmt(0.31*p0/1e6,1)+' MPa']];
-  } else {
+    rows.push(['Contact radius a',fmt(a*1e6,2)+' μm'],['Max pressure p₀',fmt(p0/1e6,1)+' MPa'],['τ_max ≈ 0.31p₀',fmt(0.31*p0/1e6,1)+' MPa'],['Depth of τ_max','z ≈ '+fmt(0.48*a*1e6,2)+' μm']);
+  }else{
+    if(LL<=0)LL=0.05;
     var b=Math.sqrt(4*F*Rstar/(Math.PI*LL*Estar));
     var p0=2*F/(Math.PI*b*LL);
-    rows=[['b (half-width)',fmt(b*1e6,2)+' μm'],['p₀ (max pressure)',fmt(p0/1e6,1)+' MPa'],['τ_max ≈ 0.30p₀',fmt(0.30*p0/1e6,1)+' MPa']];
+    rows.push(['Half-width b',fmt(b*1e6,2)+' μm'],['Max pressure p₀',fmt(p0/1e6,1)+' MPa'],['τ_max ≈ 0.30p₀',fmt(0.30*p0/1e6,1)+' MPa']);
   }
-  rows.unshift(['E*',fmt(Estar/1e9,2)+' GPa'],['R*',fmt(Rstar*1000,3)+' mm']);
   showRes('res-hz',rows);
 }
 
-/* Shaft Design (DE-Goodman) */
-function calcShaftDesign(){
+/* SHAFT DESIGN */
+function calcShaft(){
   var Tm=toNm(V('sd-Tm')),Ta=toNm(V('sd-Ta')),Mm=toNm(V('sd-Mm')),Ma=toNm(V('sd-Ma'));
   var Se=toMPa(V('sd-Se'))*1e6,Su=toMPa(V('sd-Su'))*1e6,Sy=toMPa(V('sd-Sy'))*1e6;
   var Kf=V('sd-Kf')||1,Kfs=V('sd-Kfs')||1;
+  if(Se<=0||Su<=0){alert('Enter Se and Su');return;}
   var A=Math.sqrt(4*Math.pow(Kf*Ma,2)+3*Math.pow(Kfs*Ta,2));
   var B=Math.sqrt(4*Math.pow(Kf*Mm,2)+3*Math.pow(Kfs*Tm,2));
   var d3=(16/Math.PI)*(A/Se+B/Su);
   var d=Math.pow(d3,1/3);
-  var d3y=(16/Math.PI)*(A+B)/Sy;
-  var dy=Math.pow(d3y,1/3);
-  showRes('res-sd',[['A factor',fmt(A,2)+' N·m'],['B factor',fmt(B,2)+' N·m'],['d_min (fatigue)',fmt(d*1000,2)+' mm'],['d_min (yield)',fmt(dy*1000,2)+' mm'],['Governs',d>dy?'Fatigue':'Yield']]);
+  var d3y=Sy>0?(16/Math.PI)*(A+B)/Sy:NaN;
+  var dy=!isNaN(d3y)?Math.pow(d3y,1/3):NaN;
+  var dmin=(!isNaN(dy)&&dy>d)?dy:d;
+  showRes('res-sd',[
+    ['A (alternating factor)',fmt(A,2)+' N·m'],
+    ['B (mean factor)',fmt(B,2)+' N·m'],
+    ['d_min (fatigue / DE-Goodman)',fmt(d*1000,2)+' mm'],
+    ['d_min (yield check)',isNaN(dy)?'—':fmt(dy*1000,2)+' mm'],
+    ['d_min (governing)',fmt(dmin*1000,2)+' mm'],
+    ['Governs',(!isNaN(dy)&&dy>d)?'Yield':'Fatigue']
+  ]);
 }
 
-/* Bearing */
+/* BEARING */
 function calcBearing(){
-  var C=V('br-C'),P=V('br-P'),n_=V('br-n');
+  var C=V('br-C'),n_=V('br-n');
   var Fr=V('br-Fr'),Fa=V('br-Fa'),X=V('br-X')||0.56,Y=V('br-Y')||1.5;
-  var p=parseFloat(document.getElementById('br-type').value);
-  if(Fr>0&&Fa>0) P=X*Fr+Y*Fa;
-  if(P<=0||C<=0) return;
+  var p=parseFloat(document.getElementById('br-type').value)||3;
+  var P=Fr>0&&Fa>0?X*Fr+Y*Fa:V('br-P');
+  if(P<=0||C<=0){alert('Enter C and P (or Fr/Fa)');return;}
   var L10=Math.pow(C/P,p);
   var L10h=n_>0?L10*1e6/(60*n_):NaN;
-  showRes('res-br',[['Equiv. load P',fmt(P,0)+' N'],['L10 (rev)',fmt(L10,2)+' × 10⁶ rev'],['L10h (hours)',isNaN(L10h)?'enter n':fmt(L10h,0)+' hr'],['L10h (years)',isNaN(L10h)?'—':fmt(L10h/8760,2)+' yr']]);
+  showRes('res-br',[
+    ['Equivalent load P',fmt(P,0)+' N'],
+    ['L₁₀ (millions rev)',fmt(L10,3)+' × 10⁶'],
+    ['L₁₀ₕ (hours)',isNaN(L10h)?'enter n':fmt(L10h,0)+' hr'],
+    ['L₁₀ₕ (years)',isNaN(L10h)?'—':fmt(L10h/8760,2)+' yr (24h/day)']
+  ]);
 }
 
-/* Belt */
+/* BELT */
 function calcBelt(){
   var d1=toM(V('bt-d1')),d2=toM(V('bt-d2')),n1=V('bt-n1');
   var C=toM(V('bt-C')),mu=V('bt-mu')||0.35,F1=V('bt-F1');
-  var type=document.getElementById('bt-type').value;
+  var type=Vs('bt-type')||'flat';
+  if(d1<=0||n1<=0){alert('Enter d₁ and n₁');return;}
   var v_=Math.PI*d1*n1/60;
-  var theta=Math.PI-2*Math.asin((d2-d1)/(2*C));
+  var sinval=(d2-d1)/(2*C);sinval=Math.max(-1,Math.min(1,sinval));
+  var theta=Math.PI-2*Math.asin(sinval);
   var effMu=type==='v'?mu/Math.sin(17*Math.PI/180):mu;
   var ratio=Math.exp(effMu*theta);
   var F2=F1/ratio;
   var Pd=(F1-F2)*v_/1000;
   var L=2*C+Math.PI*(d1+d2)/2+Math.pow(d2-d1,2)/(4*C);
   var n2=n1*d1/d2;
-  showRes('res-bt',[['Belt speed v',fmt(v_,2)+' m/s'],['Wrap angle θ',fmt(theta*180/Math.PI,1)+'°'],['F₂ (slack side)',fmt(F2,1)+' N'],['Net force ΔF',fmt(F1-F2,1)+' N'],['Power P',fmt(Pd,3)+' kW'],['Belt length L',fmt(L,3)+' m'],['Output speed n₂',fmt(n2,1)+' rpm']]);
+  showRes('res-bt',[
+    ['Belt speed v',fmt(v_,2)+' m/s'],
+    ['Wrap angle θ',fmt(theta*180/Math.PI,1)+'°'],
+    ['Friction exp. e^(μθ)',fmt(ratio,3)],
+    ['Slack side F₂',fmt(F2,1)+' N'],
+    ['Net force F₁−F₂',fmt(F1-F2,1)+' N'],
+    ['Power P',fmt(Pd,3)+' kW'],
+    ['Belt length L',fmt(L,4)+' m'],
+    ['Output speed n₂',fmt(n2,1)+' rpm']
+  ]);
 }
 
-/* Pulley */
+/* PULLEY */
 function calcPulley(){
   var d1=V('pl-d1'),d2=V('pl-d2'),n1=V('pl-n1'),P=V('pl-P')*1000,eta=V('pl-eta')||0.95;
+  var C=V('pl-C');
+  if(d1<=0||d2<=0||n1<=0){alert('Enter d₁, d₂, n₁');return;}
   var n2=n1*d1/d2;
-  var T1=P/(2*Math.PI*n1/60);
-  var T2=P*eta/(2*Math.PI*n2/60);
+  var T1=P>0?P/(2*Math.PI*n1/60):NaN;
+  var T2=P>0?P*eta/(2*Math.PI*n2/60):NaN;
   var VR=d2/d1;
-  var C=V('bt-C')||1; // reuse
-  var L=2*100+Math.PI*(d1+d2)/2+Math.pow(d2-d1,2)/(4*100); // approx
-  var rows=[['Speed ratio VR',fmt(VR,3)],['Output speed n₂',fmt(n2,1)+' rpm'],['Input torque T₁',fmt(T1,2)+' N·m'],['Output torque T₂',fmt(T2,2)+' N·m'],['Output power',fmt(P*eta/1000,2)+' kW']];
+  var L=C>0?2*C+Math.PI*(d1+d2)/2+Math.pow(d2-d1,2)/(4*C):NaN;
+  var rows=[['Speed ratio VR',fmt(VR,3)],['Output speed n₂',fmt(n2,1)+' rpm'],['Input torque T₁',isNaN(T1)?'enter P':fmt(T1,2)+' N·m'],['Output torque T₂',isNaN(T2)?'enter P':fmt(T2,2)+' N·m'],['Belt length L',isNaN(L)?'enter C':fmt(L,1)+' mm']];
   var d3=V('pl-d3'),d4=V('pl-d4');
   if(d3>0&&d4>0){
-    var n3=n2*(d2/d3)||0;var n4=n3*(d3/d4)||0;
-    rows.push(['Final speed n₄',fmt(n4,1)+' rpm']);
-    rows.push(['Overall VR',fmt(d2/d1*d4/d3,3)]);
+    var n3=n2*(d2/d3);var n4=n3*(d3/d4);
+    rows.push(['Final speed n₄',fmt(n4,1)+' rpm'],['Overall VR',fmt((d2/d1)*(d4/d3),3)]);
   }
   showRes('res-pl',rows);
 }
 
-/* Gear */
+/* GEAR */
 function calcGear(){
   var m=V('gr-m'),N1=V('gr-N1'),N2=V('gr-N2');
   var phi=parseFloat(document.getElementById('gr-phi').value)*Math.PI/180;
   var T=toNm(V('gr-T'));
+  if(m<=0||N1<=0||N2<=0){alert('Enter m, N₁, N₂');return;}
   var d1=m*N1,d2=m*N2;
   var Wt=T>0?2*T/(d1/1000):NaN;
-  var Wr=Wt*Math.tan(phi);
-  var W=Wt/Math.cos(phi);
+  var Wr=!isNaN(Wt)?Wt*Math.tan(phi):NaN;
   var b=V('gr-b'),Y=V('gr-Y'),sb_allow=V('gr-sb');
-  var sig=b>0&&Y>0&&Wt>0?Wt/(b/1000*(m/1000)*Y)/1e6:NaN;
-  var rows=[['d₁ (pinion)',fmt(d1,1)+' mm'],['d₂ (gear)',fmt(d2,1)+' mm'],['Center distance',fmt((d1+d2)/2,1)+' mm'],['Speed ratio VR',fmt(N2/N1,3)],['W_t (tangential)',isNaN(Wt)?'enter T':fmt(Wt,1)+' N'],['W_r (radial)',isNaN(Wr)?'—':fmt(Wr,1)+' N'],['σ_b (Lewis)',isNaN(sig)?'enter b,Y':fmt(sig,2)+' MPa',!isNaN(sig)&&sb_allow>0&&sig>sb_allow?'⚠ OVER':'']];
-  showRes('res-gr',rows);
+  var sig=b>0&&Y>0&&!isNaN(Wt)?Wt/(b/1000*(m/1000)*Y)/1e6:NaN;
+  showRes('res-gr',[
+    ['d₁ (pinion)',fmt(d1,1)+' mm'],
+    ['d₂ (gear)',fmt(d2,1)+' mm'],
+    ['Center distance',fmt((d1+d2)/2,1)+' mm'],
+    ['Speed ratio VR',fmt(N2/N1,3)],
+    ['W_t (tangential)',isNaN(Wt)?'enter T':fmt(Wt,1)+' N'],
+    ['W_r (radial)',isNaN(Wr)?'—':fmt(Wr,1)+' N'],
+    ['σ_b Lewis',isNaN(sig)?'enter b, Y':fmt(sig,2)+' MPa',(!isNaN(sig)&&sb_allow>0&&sig>sb_allow)?'⚠ OVER':'']
+  ]);
 }
 
-/* Spring */
+/* SPRING */
 function calcSpring(){
   var d=V('sp-d')/1000,D=V('sp-D')/1000,Na=V('sp-Na'),G=V('sp-G')*1e9,F=V('sp-F'),Ssy=V('sp-Ssy');
+  if(d<=0||D<=0||Na<=0){alert('Enter d, D, Na');return;}
   var C=D/d;
   var Kw=(4*C-1)/(4*C-4)+0.615/C;
   var k=G*Math.pow(d,4)/(8*Math.pow(D,3)*Na);
   var tau=Kw*8*F*D/(Math.PI*Math.pow(d,3))/1e6;
-  var delta=F/k*1000;
+  var delta=k>0?F/k*1000:NaN;
   var n=Ssy>0?Ssy/tau:NaN;
-  showRes('res-sp',[['Spring index C',fmt(C,2),C<4?'⚠ C<4':''],['Wahl factor Kw',fmt(Kw,3)],['Stiffness k',fmt(k,2)+' N/m'],['Deflection δ',fmt(delta,3)+' mm'],['Shear stress τ',fmt(tau,2)+' MPa'],['Safety factor n',fmt(n,2),n<1.2?'⚠':'']]);
+  showRes('res-sp',[
+    ['Spring index C',fmt(C,2),C<4?'⚠ C<4 (hard to make)':C>12?'⚠ C>12 (buckling risk)':''],
+    ['Wahl factor K_W',fmt(Kw,4)],
+    ['Stiffness k',fmt(k,2)+' N/m'],
+    ['Deflection δ',isNaN(delta)?'—':fmt(delta,3)+' mm'],
+    ['Shear stress τ',fmt(tau,2)+' MPa'],
+    ['Safety factor n',fmt(n,2),n<1.2&&n>0?'⚠ Low':'']
+  ]);
 }
 
-/* Press Fit */
+/* PRESS FIT */
 function calcPressFit(){
-  var delta=V('pf-d')/1000, r=V('pf-r')/1000, ro=V('pf-ro')/1000, ri=V('pf-ri')/1000;
+  var delta=V('pf-d')/1000,r=V('pf-r')/1000,ro=V('pf-ro')/1000,ri=V('pf-ri')/1000;
   var Eh=V('pf-Eh')*1e9,vh=V('pf-vh')||0.3;
-  var Es=V('pf-Es')>0?V('pf-Es')*1e9:Eh,vs=V('pf-vs')>0?V('pf-vs'):vh;
+  var Esraw=V('pf-Es'),vsraw=V('pf-vs');
+  var Es=Esraw>0?Esraw*1e9:Eh,vs=vsraw>0?vsraw:vh;
   var Lc=V('pf-Lc')/1000||0.05,mu=V('pf-mu')||0.12;
-  if(r<=0||ro<=r) return;
+  if(r<=0||ro<=r){alert('Need r > 0 and r_o > r');return;}
   var Co=(ro*ro+r*r)/(ro*ro-r*r)+vh;
   var Ci=ri>0?(r*r+ri*ri)/(r*r-ri*ri)-vs:(1-vs);
   var p=delta/(r*(Co/Eh+Ci/Es));
   var sig_hub=p*(ro*ro+r*r)/(ro*ro-r*r)/1e6;
+  var sig_shaft=ri>0?p*(r*r+ri*ri)/(r*r-ri*ri)/1e6:p/1e6;
   var T_cap=mu*p*2*Math.PI*r*r*Lc;
-  showRes('res-pf2',[['Interface pressure p',fmt(p/1e6,2)+' MPa'],['σ_θ hub (inner)',fmt(sig_hub,2)+' MPa'],['Torque capacity',fmt(T_cap,2)+' N·m'],['Axial force capacity',fmt(mu*p*2*Math.PI*r*Lc/1000,2)+' kN']]);
+  var F_ax=mu*p*2*Math.PI*r*Lc;
+  showRes('res-pf',[
+    ['Interface pressure p',fmt(p/1e6,3)+' MPa'],
+    ['σ_θ hub (inner face)',fmt(sig_hub,2)+' MPa'],
+    ['σ_r shaft (outer)',fmt(-sig_shaft,2)+' MPa (compressive)'],
+    ['Torque capacity T',fmt(T_cap,2)+' N·m'],
+    ['Axial force capacity',fmt(F_ax/1000,3)+' kN']
+  ]);
 }
 </script>
 </body>
