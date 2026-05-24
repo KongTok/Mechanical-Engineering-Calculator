@@ -1,0 +1,529 @@
+
+<h2 class="sr-only">ME Engineering Reference Hub — สูตร, standards, และเครื่องมือคำนวณสำหรับวิศวกรเครื่องกล</h2>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.hub { padding: 1rem 0; }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.tab { padding: 6px 14px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 13px; cursor: pointer; background: var(--color-background-primary); color: var(--color-text-secondary); transition: all .15s; }
+.tab.active { background: var(--color-text-primary); color: var(--color-background-primary); border-color: var(--color-text-primary); }
+.tab:hover:not(.active) { background: var(--color-background-secondary); }
+.panel { display: none; }
+.panel.active { display: block; }
+.section-title { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; color: var(--color-text-tertiary); margin: 1.25rem 0 .6rem; }
+.formula-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+.formula-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; }
+.formula-card:hover { border-color: var(--color-border-secondary); }
+.formula-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.formula-eq { font-family: var(--font-mono); font-size: 13px; color: #1D9E75; background: var(--color-background-secondary); border-radius: 6px; padding: 6px 10px; margin: 6px 0; }
+.formula-vars { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
+.std-list { display: flex; flex-direction: column; gap: 8px; }
+.std-item { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px; }
+.std-badge { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; }
+.std-desc { font-size: 13px; color: var(--color-text-secondary); margin-top: 2px; line-height: 1.5; }
+.std-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.std-link { font-size: 12px; color: var(--color-text-info); cursor: pointer; text-decoration: none; }
+.calc-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.calc-box { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 16px; }
+.calc-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.field-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.field-label { font-size: 12px; color: var(--color-text-secondary); min-width: 90px; }
+.field-unit { font-size: 12px; color: var(--color-text-tertiary); min-width: 36px; }
+.field-input { flex: 1; padding: 5px 8px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 13px; background: var(--color-background-secondary); color: var(--color-text-primary); font-family: var(--font-mono); }
+.calc-btn { width: 100%; margin-top: 8px; padding: 7px; font-size: 13px; cursor: pointer; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-primary); font-family: var(--font-sans); transition: all .15s; }
+.calc-btn:hover { background: var(--color-text-primary); color: var(--color-background-primary); }
+.result-box { margin-top: 10px; padding: 8px 12px; border-radius: var(--border-radius-md); background: var(--color-background-secondary); border-left: 2px solid #1D9E75; font-family: var(--font-mono); font-size: 13px; color: var(--color-text-primary); display: none; }
+.table-wrap { overflow-x: auto; }
+table.ref { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.ref th { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); text-align: left; padding: 6px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); white-space: nowrap; }
+table.ref td { padding: 7px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); color: var(--color-text-secondary); vertical-align: top; }
+table.ref tr:last-child td { border-bottom: none; }
+table.ref td:first-child { color: var(--color-text-primary); font-weight: 500; }
+.ref-tag { display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 4px; vertical-align: middle; }
+</style>
+
+<div class="hub">
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('formulas')"><i class="ti ti-math-function" aria-hidden="true"></i> สูตร & Equations</div>
+  <div class="tab" onclick="switchTab('calc')"><i class="ti ti-calculator" aria-hidden="true"></i> Calculator</div>
+  <div class="tab" onclick="switchTab('standards')"><i class="ti ti-certificate" aria-hidden="true"></i> Standards</div>
+  <div class="tab" onclick="switchTab('tables')"><i class="ti ti-table" aria-hidden="true"></i> ตาราง Properties</div>
+  <div class="tab" onclick="switchTab('links')"><i class="ti ti-link" aria-hidden="true"></i> แหล่งข้อมูล</div>
+</div>
+
+<!-- FORMULAS -->
+<div id="panel-formulas" class="panel active">
+  <div class="section-title">Mechanics of Materials</div>
+  <div class="formula-grid">
+    <div class="formula-card">
+      <div class="formula-name">Normal Stress</div>
+      <div class="formula-eq">σ = F / A</div>
+      <div class="formula-vars">σ = stress (Pa), F = force (N), A = area (m²)</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Shear Stress</div>
+      <div class="formula-eq">τ = V·Q / (I·t)</div>
+      <div class="formula-vars">V = shear force, Q = first moment, I = moment of inertia, t = width</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Bending Stress</div>
+      <div class="formula-eq">σ = M·c / I</div>
+      <div class="formula-vars">M = bending moment, c = distance from NA, I = second moment of area</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Hooke's Law</div>
+      <div class="formula-eq">σ = E·ε</div>
+      <div class="formula-vars">E = Young's modulus, ε = strain (dimensionless)</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">von Mises Criterion</div>
+      <div class="formula-eq">σ_vm = √(σ₁²-σ₁σ₂+σ₂²)</div>
+      <div class="formula-vars">σ₁, σ₂ = principal stresses; fail if σ_vm ≥ Sy</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Factor of Safety</div>
+      <div class="formula-eq">n = Sy / σ_allow</div>
+      <div class="formula-vars">Sy = yield strength, σ_allow = allowable stress</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Euler Column Buckling</div>
+      <div class="formula-eq">P_cr = π²EI / (KL)²</div>
+      <div class="formula-vars">K = end condition factor, L = length, I = min. moment of inertia</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Torsional Shear</div>
+      <div class="formula-eq">τ = T·r / J</div>
+      <div class="formula-vars">T = torque, r = radius, J = polar moment of inertia</div>
+    </div>
+  </div>
+
+  <div class="section-title">Thermodynamics & Heat Transfer</div>
+  <div class="formula-grid">
+    <div class="formula-card">
+      <div class="formula-name">First Law (Closed)</div>
+      <div class="formula-eq">ΔU = Q - W</div>
+      <div class="formula-vars">U = internal energy, Q = heat in, W = work out</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Ideal Gas Law</div>
+      <div class="formula-eq">PV = nRT = mR_s·T</div>
+      <div class="formula-vars">R = 8.314 J/mol·K, R_s = specific gas constant</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Fourier's Law (Conduction)</div>
+      <div class="formula-eq">Q̇ = -kA·(dT/dx)</div>
+      <div class="formula-vars">k = thermal conductivity (W/m·K), A = area, dT/dx = gradient</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Newton's Law (Convection)</div>
+      <div class="formula-eq">Q̇ = h·A·(T_s - T_∞)</div>
+      <div class="formula-vars">h = convection coefficient (W/m²·K)</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Thermal Resistance</div>
+      <div class="formula-eq">R_cond = L/(kA), R_conv = 1/(hA)</div>
+      <div class="formula-vars">Series: R_tot = ΣR; Q̇ = ΔT/R_tot</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">LMTD (Heat Exchanger)</div>
+      <div class="formula-eq">Q̇ = U·A·LMTD</div>
+      <div class="formula-vars">LMTD = (ΔT₁-ΔT₂)/ln(ΔT₁/ΔT₂)</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Carnot Efficiency</div>
+      <div class="formula-eq">η_max = 1 - T_L/T_H</div>
+      <div class="formula-vars">T_L, T_H = absolute temperatures (K)</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Boiler Efficiency</div>
+      <div class="formula-eq">η = Q_useful / Q_input = ṁ_s·h_fg / Q_fuel</div>
+      <div class="formula-vars">h_fg = latent heat of vaporization</div>
+    </div>
+  </div>
+
+  <div class="section-title">Fluid Mechanics</div>
+  <div class="formula-grid">
+    <div class="formula-card">
+      <div class="formula-name">Bernoulli Equation</div>
+      <div class="formula-eq">P + ½ρv² + ρgh = const</div>
+      <div class="formula-vars">ρ = density, v = velocity, g = 9.81 m/s², h = elevation</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Reynolds Number</div>
+      <div class="formula-eq">Re = ρvD/μ = vD/ν</div>
+      <div class="formula-vars">Re &lt; 2300: laminar, &gt;4000: turbulent, μ = dynamic viscosity</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Darcy-Weisbach (Pipe Loss)</div>
+      <div class="formula-eq">h_f = f·(L/D)·(v²/2g)</div>
+      <div class="formula-vars">f = Darcy friction factor (from Moody chart)</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Continuity Equation</div>
+      <div class="formula-eq">ρ₁A₁v₁ = ρ₂A₂v₂</div>
+      <div class="formula-vars">For incompressible: A₁v₁ = A₂v₂</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Nusselt Number</div>
+      <div class="formula-eq">Nu = hL/k = f(Re, Pr)</div>
+      <div class="formula-vars">Dittus-Boelter: Nu = 0.023·Re⁰·⁸·Prⁿ (turbulent pipe)</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Pump Power</div>
+      <div class="formula-eq">P = ρgQH / η_pump</div>
+      <div class="formula-vars">Q = flow rate (m³/s), H = head (m), η = efficiency</div>
+    </div>
+  </div>
+
+  <div class="section-title">Pressure Vessel (ASME Thin-wall)</div>
+  <div class="formula-grid">
+    <div class="formula-card">
+      <div class="formula-name">Hoop Stress (Cylinder)</div>
+      <div class="formula-eq">σ_h = P·r / t</div>
+      <div class="formula-vars">P = internal pressure, r = inner radius, t = wall thickness</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Longitudinal Stress</div>
+      <div class="formula-eq">σ_l = P·r / (2t)</div>
+      <div class="formula-vars">Hoop always governs: σ_h = 2·σ_l</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Min. Wall Thickness (ASME VIII)</div>
+      <div class="formula-eq">t = P·R / (S·E - 0.6P)</div>
+      <div class="formula-vars">S = allowable stress, E = joint efficiency (0.6–1.0)</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-name">Spherical Shell Stress</div>
+      <div class="formula-eq">σ = P·r / (2t)</div>
+      <div class="formula-vars">Uniform in all directions; more efficient than cylinder</div>
+    </div>
+  </div>
+</div>
+
+<!-- CALCULATOR -->
+<div id="panel-calc" class="panel">
+  <div class="section-title">เลือกคำนวณ</div>
+  <div class="calc-section">
+
+    <div class="calc-box">
+      <div class="calc-title"><i class="ti ti-arrows-maximize" aria-hidden="true"></i> Stress & Safety Factor</div>
+      <div class="field-row"><span class="field-label">Force F</span><input class="field-input" id="c-F" type="number" placeholder="1000"><span class="field-unit">N</span></div>
+      <div class="field-row"><span class="field-label">Area A</span><input class="field-input" id="c-A" type="number" placeholder="0.001"><span class="field-unit">m²</span></div>
+      <div class="field-row"><span class="field-label">Yield Sy</span><input class="field-input" id="c-Sy" type="number" placeholder="250"><span class="field-unit">MPa</span></div>
+      <button class="calc-btn" onclick="calcStress()">คำนวณ</button>
+      <div class="result-box" id="res-stress"></div>
+    </div>
+
+    <div class="calc-box">
+      <div class="calc-title"><i class="ti ti-temperature" aria-hidden="true"></i> Conduction (Flat Wall)</div>
+      <div class="field-row"><span class="field-label">k</span><input class="field-input" id="c-k" type="number" placeholder="50"><span class="field-unit">W/m·K</span></div>
+      <div class="field-row"><span class="field-label">Area A</span><input class="field-input" id="c-kA" type="number" placeholder="1"><span class="field-unit">m²</span></div>
+      <div class="field-row"><span class="field-label">Thickness L</span><input class="field-input" id="c-L" type="number" placeholder="0.05"><span class="field-unit">m</span></div>
+      <div class="field-row"><span class="field-label">ΔT</span><input class="field-input" id="c-dT" type="number" placeholder="100"><span class="field-unit">K</span></div>
+      <button class="calc-btn" onclick="calcConduction()">คำนวณ</button>
+      <div class="result-box" id="res-cond"></div>
+    </div>
+
+    <div class="calc-box">
+      <div class="calc-title"><i class="ti ti-wave-sine" aria-hidden="true"></i> Reynolds Number</div>
+      <div class="field-row"><span class="field-label">Density ρ</span><input class="field-input" id="c-rho" type="number" placeholder="1000"><span class="field-unit">kg/m³</span></div>
+      <div class="field-row"><span class="field-label">Velocity v</span><input class="field-input" id="c-v" type="number" placeholder="2"><span class="field-unit">m/s</span></div>
+      <div class="field-row"><span class="field-label">Diameter D</span><input class="field-input" id="c-D" type="number" placeholder="0.05"><span class="field-unit">m</span></div>
+      <div class="field-row"><span class="field-label">Viscosity μ</span><input class="field-input" id="c-mu" type="number" placeholder="0.001"><span class="field-unit">Pa·s</span></div>
+      <button class="calc-btn" onclick="calcRe()">คำนวณ</button>
+      <div class="result-box" id="res-re"></div>
+    </div>
+
+    <div class="calc-box">
+      <div class="calc-title"><i class="ti ti-cylinder" aria-hidden="true"></i> Pressure Vessel Wall (ASME)</div>
+      <div class="field-row"><span class="field-label">Pressure P</span><input class="field-input" id="c-P" type="number" placeholder="1.5"><span class="field-unit">MPa</span></div>
+      <div class="field-row"><span class="field-label">Inner radius R</span><input class="field-input" id="c-R" type="number" placeholder="0.5"><span class="field-unit">m</span></div>
+      <div class="field-row"><span class="field-label">Allow. stress S</span><input class="field-input" id="c-S" type="number" placeholder="130"><span class="field-unit">MPa</span></div>
+      <div class="field-row"><span class="field-label">Joint eff. E</span><input class="field-input" id="c-E" type="number" placeholder="1.0"><span class="field-unit">—</span></div>
+      <button class="calc-btn" onclick="calcPV()">คำนวณ</button>
+      <div class="result-box" id="res-pv"></div>
+    </div>
+
+    <div class="calc-box">
+      <div class="calc-title"><i class="ti ti-rotate-clockwise" aria-hidden="true"></i> Shaft Torsion</div>
+      <div class="field-row"><span class="field-label">Torque T</span><input class="field-input" id="c-T" type="number" placeholder="500"><span class="field-unit">N·m</span></div>
+      <div class="field-row"><span class="field-label">Diameter d</span><input class="field-input" id="c-d" type="number" placeholder="0.05"><span class="field-unit">m</span></div>
+      <div class="field-row"><span class="field-label">Shear allow. τ</span><input class="field-input" id="c-tau" type="number" placeholder="120"><span class="field-unit">MPa</span></div>
+      <button class="calc-btn" onclick="calcTorsion()">คำนวณ</button>
+      <div class="result-box" id="res-tor"></div>
+    </div>
+
+    <div class="calc-box">
+      <div class="calc-title"><i class="ti ti-droplet" aria-hidden="true"></i> Pipe Flow (Darcy-Weisbach)</div>
+      <div class="field-row"><span class="field-label">f (friction)</span><input class="field-input" id="c-f" type="number" placeholder="0.02"><span class="field-unit">—</span></div>
+      <div class="field-row"><span class="field-label">Length L</span><input class="field-input" id="c-pL" type="number" placeholder="100"><span class="field-unit">m</span></div>
+      <div class="field-row"><span class="field-label">Diameter D</span><input class="field-input" id="c-pD" type="number" placeholder="0.1"><span class="field-unit">m</span></div>
+      <div class="field-row"><span class="field-label">Velocity v</span><input class="field-input" id="c-pv" type="number" placeholder="3"><span class="field-unit">m/s</span></div>
+      <button class="calc-btn" onclick="calcPipe()">คำนวณ</button>
+      <div class="result-box" id="res-pipe"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- STANDARDS -->
+<div id="panel-standards" class="panel">
+  <div class="section-title">Mechanical Design</div>
+  <div class="std-list">
+    <div class="std-item">
+      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">ISO 286</span>
+      <div><div class="std-name">Limits and Fits (Tolerances)</div><div class="std-desc">ระบบ tolerance สำหรับ shaft/hole — ใช้กับ H7/f6, H8/e8 ฯลฯ</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">ISO 1101</span>
+      <div><div class="std-name">GD&T — Geometric Dimensioning & Tolerancing</div><div class="std-desc">สัญลักษณ์ form, orientation, location, runout บนแบบ</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#E6F1FB;color:#185FA5;">ASME Y14.5</span>
+      <div><div class="std-name">GD&T (American Standard)</div><div class="std-desc">เทียบเท่า ISO 1101 ฝั่ง US — ใช้กันแพร่หลายในอุตสาหกรรม</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">ISO 6336</span>
+      <div><div class="std-name">Gear Strength Calculation</div><div class="std-desc">คำนวณ bending stress และ contact stress ของเฟือง spur/helical</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#FAEEDA;color:#854F0B;">DIN 743</span>
+      <div><div class="std-name">Shaft Fatigue Calculation</div><div class="std-desc">คำนวณความล้าของ shaft รวม stress concentration, surface factor</div></div>
+    </div>
+  </div>
+
+  <div class="section-title">Pressure Vessel & Boiler</div>
+  <div class="std-list">
+    <div class="std-item">
+      <span class="std-badge" style="background:#E6F1FB;color:#185FA5;">ASME VIII Div.1</span>
+      <div><div class="std-name">Pressure Vessels (General)</div><div class="std-desc">มาตรฐานออกแบบ pressure vessel ทั่วไป — ใช้มากสุดในอุตสาหกรรม</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#E6F1FB;color:#185FA5;">ASME I</span>
+      <div><div class="std-name">Power Boilers</div><div class="std-desc">ออกแบบ power boiler — drum, tube, fitting; ใช้ที่โรงงาน boiler โดยตรง</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#FCEBEB;color:#A32D2D;">ASME B31.1</span>
+      <div><div class="std-name">Power Piping</div><div class="std-desc">ระบบท่อสำหรับ power plant — wall thickness, stress, support</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#FAEEDA;color:#854F0B;">EN 13445</span>
+      <div><div class="std-name">Unfired Pressure Vessels (EU)</div><div class="std-desc">เทียบเท่า ASME VIII ฝั่งยุโรป — ใช้ถ้า export EU</div></div>
+    </div>
+  </div>
+
+  <div class="section-title">Fluid & Material</div>
+  <div class="std-list">
+    <div class="std-item">
+      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">ISO 4006</span>
+      <div><div class="std-name">Measurement of Fluid Flow</div><div class="std-desc">คำนิยามและเงื่อนไขการวัด flow rate</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#E6F1FB;color:#185FA5;">ASTM A36 / A516</span>
+      <div><div class="std-name">Structural & Pressure Vessel Steel</div><div class="std-desc">A36 = structural steel; A516 Gr.70 = pressure vessel plate material</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TABLES -->
+<div id="panel-tables" class="panel">
+  <div class="section-title">Young's Modulus & Yield Strength ของวัสดุทั่วไป</div>
+  <div class="table-wrap">
+    <table class="ref">
+      <tr><th>Material</th><th>E (GPa)</th><th>Sy (MPa)</th><th>Su (MPa)</th><th>ρ (kg/m³)</th></tr>
+      <tr><td>Mild Steel (A36)</td><td>200</td><td>250</td><td>400</td><td>7850</td></tr>
+      <tr><td>Stainless 304</td><td>193</td><td>215</td><td>505</td><td>8000</td></tr>
+      <tr><td>Aluminum 6061-T6</td><td>69</td><td>276</td><td>310</td><td>2700</td></tr>
+      <tr><td>Titanium Ti-6Al-4V</td><td>114</td><td>880</td><td>950</td><td>4430</td></tr>
+      <tr><td>Cast Iron (Gray)</td><td>100–170</td><td>—</td><td>180</td><td>7200</td></tr>
+      <tr><td>Carbon Fiber (CFRP)</td><td>70–200</td><td>—</td><td>600–1200</td><td>1600</td></tr>
+      <tr><td>Copper</td><td>117</td><td>70</td><td>220</td><td>8960</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title" style="margin-top:1.5rem;">Thermal Conductivity k ที่ 25°C</div>
+  <div class="table-wrap">
+    <table class="ref">
+      <tr><th>Material</th><th>k (W/m·K)</th><th>หมายเหตุ</th></tr>
+      <tr><td>Carbon Steel</td><td>50</td><td>ลดลงเมื่อ T สูง</td></tr>
+      <tr><td>Stainless Steel 304</td><td>16</td><td>insulator กว่า CS มาก</td></tr>
+      <tr><td>Aluminum 6061</td><td>167</td><td>ดีมากสำหรับ heat sink</td></tr>
+      <tr><td>Copper</td><td>401</td><td>สูงสุดในโลหะทั่วไป</td></tr>
+      <tr><td>Air (25°C)</td><td>0.026</td><td>ใช้เป็น baseline</td></tr>
+      <tr><td>Water (25°C)</td><td>0.61</td><td>เปลี่ยนตาม T</td></tr>
+      <tr><td>Glass wool</td><td>0.04</td><td>insulation ทั่วไป</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title" style="margin-top:1.5rem;">Water Properties (Saturation) — สำหรับ Boiler</div>
+  <div class="table-wrap">
+    <table class="ref">
+      <tr><th>T (°C)</th><th>P_sat (MPa)</th><th>h_f (kJ/kg)</th><th>h_fg (kJ/kg)</th><th>h_g (kJ/kg)</th></tr>
+      <tr><td>100</td><td>0.1013</td><td>419.1</td><td>2257</td><td>2676</td></tr>
+      <tr><td>150</td><td>0.4758</td><td>632.2</td><td>2114</td><td>2746</td></tr>
+      <tr><td>200</td><td>1.5538</td><td>852.4</td><td>1941</td><td>2793</td></tr>
+      <tr><td>250</td><td>3.9762</td><td>1085</td><td>1716</td><td>2801</td></tr>
+      <tr><td>300</td><td>8.5879</td><td>1345</td><td>1404</td><td>2749</td></tr>
+      <tr><td>374.1 (critical)</td><td>22.09</td><td>2099</td><td>0</td><td>2099</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title" style="margin-top:1.5rem;">Moody Chart — f โดยประมาณ (ε/D → 0, smooth pipe)</div>
+  <div class="table-wrap">
+    <table class="ref">
+      <tr><th>Re</th><th>f (Blasius)</th><th>Flow regime</th></tr>
+      <tr><td>1000</td><td>0.064</td><td>Laminar: f = 64/Re</td></tr>
+      <tr><td>2300</td><td>0.028</td><td>Transition zone</td></tr>
+      <tr><td>10,000</td><td>0.031</td><td>Turbulent (smooth)</td></tr>
+      <tr><td>100,000</td><td>0.018</td><td>Turbulent (smooth)</td></tr>
+      <tr><td>1,000,000</td><td>0.012</td><td>Turbulent (smooth)</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- LINKS -->
+<div id="panel-links" class="panel">
+  <div class="section-title">เครื่องมือคำนวณออนไลน์</div>
+  <div class="std-list">
+    <div class="std-item">
+      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">FREE</span>
+      <div><div class="std-name"><a class="std-link" href="https://www.engineeringtoolbox.com" target="_blank">engineeringtoolbox.com</a></div><div class="std-desc">รวม calculator, properties ของ fluid, steam table, Moody chart แบบ interactive</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">FREE</span>
+      <div><div class="std-name"><a class="std-link" href="https://www.omnicalculator.com/physics" target="_blank">omnicalculator.com/physics</a></div><div class="std-desc">Calculator หลากหลาย เช่น stress, beam deflection, fluid หลายร้อยตัว</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">FREE</span>
+      <div><div class="std-name"><a class="std-link" href="https://www.efunda.com" target="_blank">efunda.com</a></div><div class="std-desc">Formulas, material data, beam/column calculators, process engineering</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">FREE</span>
+      <div><div class="std-name"><a class="std-link" href="https://www.thermexcel.com/english/tables/vap_eau.htm" target="_blank">thermexcel.com</a></div><div class="std-desc">Steam tables แบบ detailed — ใช้งานง่าย cover ได้ทุก phase</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#FAEEDA;color:#854F0B;">FREE*</span>
+      <div><div class="std-name"><a class="std-link" href="https://www.mdcalc.com" target="_blank">NIST WebBook</a> → <a class="std-link" href="https://webbook.nist.gov/chemistry/fluid/" target="_blank">webbook.nist.gov</a></div><div class="std-desc">ข้อมูล thermodynamic properties ของ fluid จาก NIST — source ระดับ reference</div></div>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top:1rem;">Standards — Free Access</div>
+  <div class="std-list">
+    <div class="std-item">
+      <span class="std-badge" style="background:#E6F1FB;color:#185FA5;">ASME</span>
+      <div><div class="std-name"><a class="std-link" href="https://www.asme.org/codes-standards" target="_blank">asme.org/codes-standards</a></div><div class="std-desc">ซื้อหรือ access ผ่านห้องสมุดมหาวิทยาลัย — ขอ KMUTT library ได้</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">ISO</span>
+      <div><div class="std-name"><a class="std-link" href="https://www.iso.org/standards.html" target="_blank">iso.org</a></div><div class="std-desc">บาง ISO standard preview ได้ฟรี / ขอผ่านสถาบัน</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#E1F5EE;color:#0F6E56;">FREE</span>
+      <div><div class="std-name"><a class="std-link" href="https://www.osha.gov/boiler" target="_blank">OSHA Boiler Safety</a></div><div class="std-desc">ข้อกำหนด safety boiler จาก OSHA — ฟรี อ่านเพิ่มเติมสำหรับงานโรงงาน</div></div>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top:1rem;">ตำรา & Textbook (แนะนำ)</div>
+  <div class="std-list">
+    <div class="std-item">
+      <span class="std-badge" style="background:#F1EFE8;color:#5F5E5A;">Mechanics</span>
+      <div><div class="std-name">Shigley's Mechanical Engineering Design</div><div class="std-desc">ตำราหลักระดับ industry — ครอบคลุม fatigue, gear, shaft, fastener</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#FCEBEB;color:#A32D2D;">Thermal</span>
+      <div><div class="std-name">Incropera's Fundamentals of Heat and Mass Transfer</div><div class="std-desc">ครอบคลุม conduction, convection, radiation, HX design</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#E6F1FB;color:#185FA5;">Fluid</span>
+      <div><div class="std-name">Munson's Fundamentals of Fluid Mechanics</div><div class="std-desc">พื้นฐาน fluid + pipe flow + turbomachinery เข้าใจง่าย</div></div>
+    </div>
+    <div class="std-item">
+      <span class="std-badge" style="background:#FAEEDA;color:#854F0B;">Thermo</span>
+      <div><div class="std-name">Cengel & Boles — Thermodynamics: An Engineering Approach</div><div class="std-desc">ครอบ Rankine cycle, steam properties, boiler analysis</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  const tabs = ['formulas','calc','standards','tables','links'];
+  document.querySelectorAll('.tab')[tabs.indexOf(name)].classList.add('active');
+  document.getElementById('panel-'+name).classList.add('active');
+}
+
+function show(id, html) {
+  const el = document.getElementById(id);
+  el.style.display = 'block';
+  el.innerHTML = html;
+}
+
+function calcStress() {
+  const F = parseFloat(document.getElementById('c-F').value);
+  const A = parseFloat(document.getElementById('c-A').value);
+  const Sy = parseFloat(document.getElementById('c-Sy').value);
+  if (isNaN(F)||isNaN(A)||A<=0) return show('res-stress','⚠ ใส่ค่าให้ครบ');
+  const sig = F/A/1e6;
+  const n = isNaN(Sy)||Sy<=0 ? '—' : (Sy/sig).toFixed(2);
+  show('res-stress', `σ = ${sig.toFixed(3)} MPa | n = ${n}`);
+}
+
+function calcConduction() {
+  const k = parseFloat(document.getElementById('c-k').value);
+  const A = parseFloat(document.getElementById('c-kA').value);
+  const L = parseFloat(document.getElementById('c-L').value);
+  const dT = parseFloat(document.getElementById('c-dT').value);
+  if ([k,A,L,dT].some(isNaN)||L<=0) return show('res-cond','⚠ ใส่ค่าให้ครบ');
+  const Q = k*A*dT/L;
+  const R = L/(k*A);
+  show('res-cond', `Q̇ = ${Q.toFixed(2)} W | R = ${R.toFixed(5)} K/W`);
+}
+
+function calcRe() {
+  const rho = parseFloat(document.getElementById('c-rho').value);
+  const v = parseFloat(document.getElementById('c-v').value);
+  const D = parseFloat(document.getElementById('c-D').value);
+  const mu = parseFloat(document.getElementById('c-mu').value);
+  if ([rho,v,D,mu].some(isNaN)||mu<=0) return show('res-re','⚠ ใส่ค่าให้ครบ');
+  const Re = rho*v*D/mu;
+  const regime = Re<2300?'Laminar':Re<4000?'Transition':'Turbulent';
+  show('res-re', `Re = ${Math.round(Re).toLocaleString()} → ${regime}`);
+}
+
+function calcPV() {
+  const P = parseFloat(document.getElementById('c-P').value);
+  const R = parseFloat(document.getElementById('c-R').value);
+  const S = parseFloat(document.getElementById('c-S').value);
+  const E = parseFloat(document.getElementById('c-E').value);
+  if ([P,R,S,E].some(isNaN)||S<=0||E<=0) return show('res-pv','⚠ ใส่ค่าให้ครบ');
+  const t = (P*R)/(S*E - 0.6*P);
+  const sig_h = P*R/t;
+  show('res-pv', `t_min = ${(t*1000).toFixed(2)} mm | σ_h = ${sig_h.toFixed(1)} MPa`);
+}
+
+function calcTorsion() {
+  const T = parseFloat(document.getElementById('c-T').value);
+  const d = parseFloat(document.getElementById('c-d').value);
+  const tau_allow = parseFloat(document.getElementById('c-tau').value);
+  if ([T,d].some(isNaN)||d<=0) return show('res-tor','⚠ ใส่ค่าให้ครบ');
+  const J = Math.PI*Math.pow(d,4)/32;
+  const r = d/2;
+  const tau = T*r/J/1e6;
+  const n = isNaN(tau_allow)||tau_allow<=0 ? '—' : (tau_allow/tau).toFixed(2);
+  show('res-tor', `τ_max = ${tau.toFixed(3)} MPa | n = ${n}`);
+}
+
+function calcPipe() {
+  const f = parseFloat(document.getElementById('c-f').value);
+  const L = parseFloat(document.getElementById('c-pL').value);
+  const D = parseFloat(document.getElementById('c-pD').value);
+  const v = parseFloat(document.getElementById('c-pv').value);
+  if ([f,L,D,v].some(isNaN)||D<=0) return show('res-pipe','⚠ ใส่ค่าให้ครบ');
+  const hf = f*(L/D)*(v*v)/(2*9.81);
+  const dP = 1000*9.81*hf;
+  show('res-pipe', `h_f = ${hf.toFixed(3)} m | ΔP = ${(dP/1000).toFixed(2)} kPa`);
+}
+</script>
